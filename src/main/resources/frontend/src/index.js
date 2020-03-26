@@ -11,10 +11,3 @@ ReactDOM.render(<App />, document.getElementById('root'));
 // Learn more about service workers: https://bit.ly/CRA-PWA
 serviceWorker.unregister();
 
-const getTests = async () => {
-    let res = await fetch('/rest/tests');
-    res = await res.json()
-    console.log(res)
-}
-
-getTests()
