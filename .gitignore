@@ -28,3 +28,6 @@ yarn-error.log*
 ### VS Code ###
 /src/main/resources/frontend/.vscode
 
+# Dependency directories
+node_modules/
+
