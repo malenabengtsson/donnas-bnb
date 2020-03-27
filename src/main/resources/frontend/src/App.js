@@ -3,6 +3,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './sass/style.scss'
 import Navbar from './components/Navbar'
 import Footer from './components/Footer'
+
 import {
   BrowserRouter as Router,
   Route,
