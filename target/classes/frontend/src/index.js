@@ -14,7 +14,7 @@ serviceWorker.unregister();
 const test = async () => {
     let res = await fetch('/rest/users')
     res = await res.json()
-    console.log()
+    console.log(res)
 }
 
 test()
