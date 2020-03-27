@@ -29,6 +29,15 @@ const TopNavbar = () => {
             <NavItem>
               <Link to="/" className="nav-link">Home</Link>
             </NavItem>
+            <NavItem>
+              <Link to="/perform-login" className="nav-link">Login</Link>
+            </NavItem>
+            <NavItem>
+              <Link to="/perform-register" className="nav-link">Register</Link>
+            </NavItem>
+            <NavItem>
+              <Link to="/help" className="nav-link">Help</Link>
+            </NavItem>
             <UncontrolledDropdown nav inNavbar>
               <DropdownToggle nav caret>
                 Options
