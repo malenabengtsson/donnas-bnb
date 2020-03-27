@@ -13,6 +13,10 @@ export default function SearchResidence(){
     console.log('Checkout ' + checkOut)
     }
 
+    const doSearch = () =>{
+        
+    }
+
     return(
         <div>
         <Container>

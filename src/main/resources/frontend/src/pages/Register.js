@@ -5,7 +5,7 @@ const Register = () =>{
     return(
         <div>
             <h3>
-                Register
+                Registrera dig
             </h3>
         </div>
     )
