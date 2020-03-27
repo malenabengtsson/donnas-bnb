@@ -24,9 +24,6 @@ public class Residence implements Serializable {
 
     private int beds;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private int image_id;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -70,14 +67,6 @@ public class Residence implements Serializable {
 
     public void setBeds(int beds) {
         this.beds = beds;
-    }
-
-    public int getImage_id() {
-        return image_id;
-    }
-
-    public void setImage_id(int image_id) {
-        this.image_id = image_id;
     }
 
     public int getUser_id() {

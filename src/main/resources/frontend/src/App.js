@@ -10,10 +10,12 @@ import {
   Link,
   Switch
 } from 'react-router-dom'
+import ResidenceContextProvider, { ResidenceContext } from './contexts/ResidenceContextProvider';
 
 function App() {
   return (
     <div className="App">
+      <ResidenceContextProvider>
       <Router>
         <Navbar />
           
@@ -22,6 +24,7 @@ function App() {
           <Route exact path="/" component={this}/>
         </main>
       </Router>
+      </ResidenceContextProvider>
     </div>
   );
 }
