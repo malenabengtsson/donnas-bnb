@@ -1,26 +1,25 @@
 import React, { useState, useEffect } from 'react'
 
-const NumberOfGuests = (props) => {
-    
-    const [nrOfGuests, setNrOfGuests] = useState([])
+const DescriptionOfHouse = (props) => {
+
+    const [description, setDescription] = useState([])
 
     const getData = async () => {
-      //  var id = parseInt(props.residenceId)
         let res = await fetch('/rest/residences/' + props.residenceId)
         res = await res.json()
-        console.log(res)
+        //setDescription(res.description)
     }
 
     useEffect(() => {
       //  getData()
-        setNrOfGuests(4)
+        setDescription("YOLO")
     }, [])
 
     return (
         <>
-            <p>{nrOfGuests} Gäster</p>
+            <p>{ description }</p>
         </>
     )
 }
 
-export default NumberOfGuests
+export default DescriptionOfHouse

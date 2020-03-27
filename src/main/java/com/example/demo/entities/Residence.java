@@ -26,11 +26,17 @@ public class Residence implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int image_id;
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     private int user_id;
+
+    private String description;
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
 
     public int getId() {
         return id;
@@ -70,14 +76,6 @@ public class Residence implements Serializable {
 
     public void setBeds(int beds) {
         this.beds = beds;
-    }
-
-    public int getImage_id() {
-        return image_id;
-    }
-
-    public void setImage_id(int image_id) {
-        this.image_id = image_id;
     }
 
     public int getUser_id() {
