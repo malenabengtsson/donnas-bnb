@@ -6,7 +6,6 @@ import {
   FormGroup,
   Label,
   Input,
-  FormText
 } from "reactstrap";
 import Calendar from "react-calendar";
 import 'react-calendar/dist/Calendar.css';
@@ -21,7 +20,7 @@ const HouseRental = () => {
   return (
     <Form>
       <h1 className="text-center">Lägg till bostad</h1>
-      <FormGroup row>
+      <FormGroup row className="text-center">
         <Label for="select-image" sm={2}>
           Ladda upp bilder
         </Label>
@@ -29,15 +28,15 @@ const HouseRental = () => {
           <Input type="file" name="image" id="select-image" />
         </Col>
       </FormGroup>
-      <FormGroup row >
+      <FormGroup row className="text-center">
         <Label for="title-input" sm={2}>
           Rubrik
         </Label>
         <Col sm={6}>
-          <Input type="textarea" name="text" id="title-input" />
+          <Input type="textarea" name="text" id="title-input" className="w-75 p-2"/>
         </Col>
       </FormGroup>
-      <FormGroup row>
+      <FormGroup row className="text-center">
         <Label for="description-input" sm={2}>
           Beskrivning
         </Label>
@@ -46,7 +45,7 @@ const HouseRental = () => {
         </Col>
       </FormGroup>
 
-      <FormGroup row>
+      <FormGroup row className="text-center">
         <Label for="checkbox2" sm={2}>
           Bekvämligheter
         </Label>
@@ -111,8 +110,8 @@ const HouseRental = () => {
             value={date}>
           </Calendar>
       </FormGroup>
-      <FormGroup check row className="text-center">
-        <Col sm={{ size: 10, offset: 2 }}>
+      <FormGroup check row>
+        <Col className="text-center">
           <Button className="btn btn-success" >Lägg till för uthyrning</Button>
         </Col>
       </FormGroup>
