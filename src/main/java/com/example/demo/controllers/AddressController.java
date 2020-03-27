@@ -27,8 +27,10 @@ public class AddressController {
         return addressService.getAllAddresses();
     }
 
-    @GetMapping("/rest/addresses/{id]")
+    @GetMapping("/rest/addresses/{id}")
     public Address getAddress(@PathVariable int id){
         return addressService.getOneAddress(id);
     }
+
+ 
 }

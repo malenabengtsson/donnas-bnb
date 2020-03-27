@@ -13,8 +13,20 @@ export default function SearchResidence(){
     console.log('Checkout ' + checkOut)
     }
 
-    const doSearch = () =>{
-        
+    const doSearch = async (city) =>{
+        let res;
+        if(!city.trim()){
+            console.log('If ' + res)
+            //Visa alla om man ej angett en stad 
+            res = await fetch('/rest/residences')
+        }
+        else{
+            console.log('Else ' + res)
+            //Visa alla i staden som angetts
+            //Hämtas ur addresses 
+            //eventuellt lägga till /rest/residences/ + city
+        }
+
     }
 
     return(
@@ -47,7 +59,10 @@ export default function SearchResidence(){
                     onChange={e => setCheckOut(e.target.value)}
                     />
                 </FormGroup>
-                    <Button color="success" className="col-5 mx-auto">Sök</Button>
+                    <Button 
+                    onClick={doSearch}
+                    color="success" 
+                    className="col-5 mx-auto">Sök</Button>
                  
             </Form>
             </Container>
