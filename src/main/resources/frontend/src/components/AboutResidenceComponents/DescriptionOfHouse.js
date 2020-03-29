@@ -12,11 +12,12 @@ const DescriptionOfHouse = (props) => {
 
     useEffect(() => {
       //  getData()
-        setDescription("YOLO")
+        setDescription("A very big house for up to 10 people and a dog or two.")
     }, [])
 
     return (
         <>
+            <h5>Beskrivning:</h5>
             <p>{ description }</p>
         </>
     )

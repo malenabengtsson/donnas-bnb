@@ -5,7 +5,7 @@ import NumberOfGuests from '../components/AboutResidenceComponents/NumberOfGuest
 import DescriptionOfHouse from '../components/AboutResidenceComponents/DescriptionOfHouse'
 import ResidenceAmenity from '../components/AboutResidenceComponents/ResidenceAmenity'
 import CalendarForBooking from '../components/AboutResidenceComponents/CalendarForBooking'
-import ResidencePrice from '../components/AboutResidenceComponents/ResidencePrice'
+import BookingSummary from '../components/AboutResidenceComponents/BookingSummary'
 
 const AboutResidence = () => {
     return (
@@ -15,7 +15,7 @@ const AboutResidence = () => {
             <DescriptionOfHouse residenceId={1} />
             <ResidenceAmenity residenceId={1} />
             <CalendarForBooking />
-            <ResidencePrice startDate={'01/03'} endDate={'03/06'} pricePerNight={799}/>
+            <BookingSummary startDate={'01/03'} endDate={'03/06'} pricePerNight={799}/>
         </>
     )
 }

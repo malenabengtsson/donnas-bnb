@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
+import { Button } from 'reactstrap'
 
-const ResidencePrice = (props) => {
+const BookingSummary = (props) => {
 
     const calculatePrice = () => {
         let start = props.startDate.split('/') // array with start date start[0] = day : start[1] = month
@@ -29,8 +30,9 @@ const ResidencePrice = (props) => {
         <>
             <p>{date}</p>
             <p>Pris per natt: {price} kr</p>
+            <Button className="btn btn-success">Reservera</Button>
         </>
     )
 }
 
-export default ResidencePrice
+export default BookingSummary
