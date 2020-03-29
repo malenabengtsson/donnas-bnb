@@ -1,32 +1,36 @@
 import React, { useState } from 'react'
-import Calendar from "react-calendar";
-import 'react-calendar/dist/Calendar.css';
-import { FormGroup } from 'reactstrap'
+import DatePicker from 'react-date-picker'
 
 const CalendarForBooking = () => {
 
-    const [date, setDate] = useState(new Date())
-    const [day, setDay] = useState('')
-    const [month, setMonth] = useState('') 
-    const [year, setYear] = useState(2020)
+    const [fromDate, setFromDate] = useState(new Date())
+    const [untilDate, setUntilDate] = useState(new Date())
 
-    //onchange = date => setDate({ date })
+    const onFromDateChange = from => {
+      setFromDate(from)
+    }
+
+    const onUntilDateChange = until => {
+      setUntilDate(until)
+    }
 
     return(
       <>
         <h5>Välj datum:</h5>
-        <FormGroup>
-          <Calendar
-            activeStartDate={date}
-            calendarType="ISO 8601"
-            maxDate={new Date(2020, 6, 25)}
-            minDate={new Date(2020, 2, 29)}
-            onChange={(value) => alert('New date is: ', value)}
-            value={date} >
-          </Calendar>
-        </FormGroup>
+        <h6>Från: </h6>
+        <DatePicker
+          onChange={onFromDateChange}
+          value={fromDate}
+        />
+        <h6>Till: </h6>
+        <DatePicker
+          onChange={onUntilDateChange}
+          value={untilDate}
+        />
       </>
     )
 }
 
 export default CalendarForBooking
+
+// DatePicker doc = https://github.com/wojtekmaj/react-date-picker
