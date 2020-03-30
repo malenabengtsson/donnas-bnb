@@ -14,20 +14,26 @@ import {
   Link,
   Switch
 } from 'react-router-dom'
-import ResidenceContextProvider, { ResidenceContext } from './components/contexts/ResidenceContextProvider';
+import ResidenceContextProvider, { ResidenceContext } from './contexts/ResidenceContextProvider';
+import BookingContextProvider, { BookingContext } from './contexts/BookingContextProvider';
+import ResidenceList from './components/ResidenceList';
+import BookingList from './components/BookingList';
+
 
 function App() {
   return (
     <div className="App">
       <ResidenceContextProvider>
+      <BookingContextProvider>
       <Router>
         <Navbar />
-          <AboutResidence />
+          <BookingList />
         <Footer />
         <main>
           <Route exact path="/" component={this}/>
         </main>
       </Router>
+      </BookingContextProvider>
       </ResidenceContextProvider>
     </div>
   );
