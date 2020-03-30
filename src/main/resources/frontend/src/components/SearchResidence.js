@@ -1,10 +1,12 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import { Button, Form, FormGroup, Label, Input, FormText, Col, Row, Container } from 'reactstrap';
+import { ResidenceContext } from '../contexts/ResidenceContextProvider'
 
 export default function SearchResidence(){
     const [city, setCity] = useState('')
     const [checkIn, setCheckIn] = useState('')
     const [checkOut, setCheckOut] = useState('')
+    const {  } = useContext(ResidenceContext)
 
     const search = (e) =>{
     e.preventDefault()
@@ -13,15 +15,14 @@ export default function SearchResidence(){
     console.log('Checkout ' + checkOut)
     }
 
-    const doSearch = async () =>{
+    const doSearch = async (city) =>{
         let res;
         console.log('test' + city)
-        if(city === ''){
+        if(!city.trim()){
             //Visa alla om man ej angett en stad 
             res = await fetch('/rest/residences')
-            res = await res.json()
             console.log('If ' + res)
-
+            
         }
         else{
             console.log('Else ' + res)
@@ -29,7 +30,8 @@ export default function SearchResidence(){
             //Hämtas ur addresses 
             //eventuellt lägga till /rest/residences/ + city
         }
-
+        res = await res.json()
+        console.log('Res = ' + res)
     }
 
     return(
