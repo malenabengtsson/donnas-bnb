@@ -7,6 +7,7 @@ import Help from './pages/Help'
 import Home from './pages/Home'
 import Login from './pages/Login'
 import Register from './pages/Register'
+import AboutResidence from './pages/AboutResidence'
 import {
   BrowserRouter as Router,
   Route,
@@ -26,7 +27,10 @@ function App() {
       <BookingContextProvider>
       <Router>
         <Navbar />
-         
+          <ResidenceList />
+          <BookingList />
+          <AboutResidence />
+        <Footer />
         <main>
           <Route exact path="/" component={Home}/>
           <Route exact path="/perform-login" component={Login}/>

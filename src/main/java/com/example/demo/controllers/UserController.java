@@ -32,3 +32,11 @@ public class UserController {
         return userService.getOneUser(id);
     }
 }
+
+/*
+    const test = async () => {
+    let res = await fetch('/rest/users')
+    res = await res.json()
+    console.log(res)
+}
+ */

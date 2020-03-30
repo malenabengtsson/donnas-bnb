@@ -12,9 +12,9 @@ ReactDOM.render(<App />, document.getElementById('root'));
 serviceWorker.unregister();
 
 const test = async () => {
-    let res = await fetch('/rest/users')
+    let res = await fetch('/rest/users/1')
     res = await res.json()
     console.log(res)
 }
 
-test()
+ // test()

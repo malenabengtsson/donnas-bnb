@@ -5,9 +5,8 @@ import java.io.Serializable;
 
 @Entity
 @Table(name = "bookings")
-@IdClass(Booking.class)
-public class Booking implements Serializable {
-    private static final long serialVersionUID = 1L;
+public class Booking  {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
@@ -16,12 +15,17 @@ public class Booking implements Serializable {
     private String end_date;
     private int total_price;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    public int getTotal_price() {
+        return total_price;
+    }
+
+    public void setTotal_price(int total_price) {
+        this.total_price = total_price;
+    }
+
     private int residence_id;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+
     private int user_id;
 
     public int getId() {
