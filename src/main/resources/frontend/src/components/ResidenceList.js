@@ -7,13 +7,13 @@ export default function ResidenceList() {
 
     const list = () => {
         return residences.map((residence, i) => {
-            return (
-                <div>
-                <h1>Max Guests: </h1>
-            <p key={residence.max_guests + i}>{residence.max_guests}</p>
-                </div>
+            // return (
+            //     <div>
+            //     <p key={residence.id + i}>Recidence id: {residence.id}</p>
+            // <p key={residence.max_guests + i}>Max Guests: {residence.max_guests}</p>
+            //     </div>
 
-            )
+            // )
         })
     }
   
