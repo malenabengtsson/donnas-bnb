@@ -1,5 +1,5 @@
 import React from 'react'
-import { Row, Col, Container } from 'reactstrap'
+import { Row, Col } from 'reactstrap'
 
 import Slideshow from '../components/AboutResidenceComponents/Carousel'
 import NumberOfGuests from '../components/AboutResidenceComponents/NumberOfGuests'
@@ -46,27 +46,3 @@ const AboutResidence = () => {
 }
 
 export default AboutResidence
-
-/*
-    <Row>
-                <Col>
-                <Slideshow imageId={1} />
-                </Col>
-                <Col>
-                <NumberOfGuests residenceId={1} />
-                </Col>
-                <Col>
-                <DescriptionOfHouse residenceId={1} />
-                </Col>
-                <Col>
-                <ResidenceAmenity residenceId={1} />
-                </Col>
-                <Col>
-                <CalendarForBooking />
-                </Col>
-                <Col>
-                <BookingSummary startDate={'01/03'} endDate={'03/06'} pricePerNight={799}/>
-                </Col>
-            </Row>
-
-*/
