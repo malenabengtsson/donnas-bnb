@@ -5,27 +5,21 @@ import java.io.Serializable;
 
 @Entity
 @Table(name = "residences")
-@IdClass(Residence.class)
-public class Residence implements Serializable {
-    private static final long serialVersionUID = 1L;
+public class Residence {
+
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     private int max_guests;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     private int amenity_profile_id;
 
-    @Id
-    @GeneratedValue(strategy =  GenerationType.AUTO)
     private int address_id;
 
     private int beds;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     private int user_id;
 
     private String description;

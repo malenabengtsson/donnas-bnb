@@ -1,13 +1,11 @@
 package com.example.demo.entities;
 
 import javax.persistence.*;
-import java.io.Serializable;
 
 @Entity
-@Table(name = "availablePeriod")
-@IdClass(AvailablePeriod.class)
-public class AvailablePeriod implements Serializable {
-    private static final long serialVersionUID = 1L;
+@Table(name = "availablePeriods")
+public class AvailablePeriod  {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
@@ -15,8 +13,6 @@ public class AvailablePeriod implements Serializable {
     private String start_date;
     private String end_date;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     private int residence_id;
 
     public int getId() {
