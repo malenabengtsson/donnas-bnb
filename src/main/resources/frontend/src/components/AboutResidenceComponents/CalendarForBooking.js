@@ -1,7 +1,7 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import DatePicker from 'react-date-picker'
 
-const CalendarForBooking = () => {
+const CalendarForBooking = (props) => {
 
     const [fromDate, setFromDate] = useState(new Date())
     const [untilDate, setUntilDate] = useState(new Date())
@@ -13,6 +13,16 @@ const CalendarForBooking = () => {
     const onUntilDateChange = until => {
       setUntilDate(until)
     }
+
+    const getStartAndEndDate = async () => {
+      let res = await fetch('/rest/availablePeriods')
+      res = await res.json()
+      console.log(res)
+    }
+
+    useEffect(() => {
+      getStartAndEndDate()
+    }, [])
 
     return(
       <>

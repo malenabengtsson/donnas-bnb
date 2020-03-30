@@ -13,7 +13,7 @@ const AboutResidence = () => {
         <>
             <Row>
                 <Col>
-                    <Slideshow imageId={1} />
+                    <Slideshow residenceId={1}/>
                 </Col>
             </Row>
             <Row>
