@@ -6,7 +6,7 @@ export default function ResidenceList() {
   const {residences} = useContext(ResidenceContext)
 
     const list = () => {
-        return residences.map((residence, i) => {
+       // return residences.map((residence, i) => {
             // return (
             //     <div>
             //     <p key={residence.id + i}>Recidence id: {residence.id}</p>
@@ -14,7 +14,7 @@ export default function ResidenceList() {
             //     </div>
 
             // )
-        })
+     //   })
     }
   
     return (
