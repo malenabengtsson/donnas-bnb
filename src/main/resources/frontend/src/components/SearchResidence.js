@@ -2,11 +2,13 @@ import React, { useState, useContext } from 'react'
 import { Button, Form, FormGroup, Label, Input, FormText, Col, Row, Container } from 'reactstrap';
 import { ResidenceContext } from '../contexts/ResidenceContextProvider'
 
+let throttleSearch;
+
 export default function SearchResidence(){
     const [city, setCity] = useState('')
     const [checkIn, setCheckIn] = useState('')
     const [checkOut, setCheckOut] = useState('')
-    const {  } = useContext(ResidenceContext)
+    const { setResidences } = useContext(ResidenceContext)
 
     const search = (e) =>{
     e.preventDefault()
@@ -15,23 +17,34 @@ export default function SearchResidence(){
     console.log('Checkout ' + checkOut)
     }
 
-    const doSearch = async (city) =>{
+    const doSearch = async (input) =>{
+        console.log('Input ' + input)
         let res;
-        console.log('test' + city)
-        if(!city.trim()){
+        console.log('test ' + city)
+        
+        if(input === ''){
             //Visa alla om man ej angett en stad 
             res = await fetch('/rest/residences')
-            console.log('If ' + res)
             
         }
         else{
-            console.log('Else ' + res)
+            console.log('In else ' + input)
+            res = await fetch('/rest/addresses/search/' + input)
             //Visa alla i staden som angetts
             //Hämtas ur addresses 
             //eventuellt lägga till /rest/residences/ + city
         }
         res = await res.json()
+        setResidences(res)
         console.log('Res = ' + res)
+        
+    }
+
+    const autoSearch = (input) =>{
+        clearTimeout(throttleSearch)
+        throttleSearch = setTimeout(async () =>{
+            await doSearch(input)
+        }, 200);
     }
 
     return(
@@ -45,7 +58,7 @@ export default function SearchResidence(){
                 type="text" 
                 id="city" 
                 placeholder="Skriv en stad..."
-                onChange={e => setCity(e.target.value)}
+                onChange={e => autoSearch(e.target.value)}
                 />
                 </FormGroup>
                 <FormGroup className="col-4 mx-auto">

@@ -1,6 +1,7 @@
 package com.example.demo.services;
 
 import com.example.demo.entities.Address;
+import com.example.demo.entities.Residence;
 import com.example.demo.repositories.AddressRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,5 +20,8 @@ public class AddressService {
 
     public List<Address> getAllAddresses(){
         return (List<Address>) addressRepo.findAll();
+    }
+    public List<Address> getByCity(String city){
+        return addressRepo.findAllByCityContainingIgnoreCase(city);
     }
 }

@@ -14,14 +14,19 @@ import {
   Switch
 } from 'react-router-dom'
 import ResidenceContextProvider, { ResidenceContext } from './contexts/ResidenceContextProvider';
+import BookingContextProvider, { BookingContext } from './contexts/BookingContextProvider';
+import ResidenceList from './components/ResidenceList';
+import BookingList from './components/BookingList';
+
 
 function App() {
   return (
     <div className="App">
       <ResidenceContextProvider>
+      <BookingContextProvider>
       <Router>
         <Navbar />
-          
+         
         <main>
           <Route exact path="/" component={Home}/>
           <Route exact path="/perform-login" component={Login}/>
@@ -30,6 +35,7 @@ function App() {
         </main>
         <Footer />
       </Router>
+      </BookingContextProvider>
       </ResidenceContextProvider>
     </div>
   );

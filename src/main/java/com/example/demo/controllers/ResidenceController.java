@@ -32,4 +32,6 @@ public class ResidenceController {
         return residenceService.findOneResidence(id);
     }
 
+
+
 }
