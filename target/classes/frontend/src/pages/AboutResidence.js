@@ -1,5 +1,6 @@
 import React from 'react'
 
+<<<<<<< HEAD
 import Slideshow from '../components/AboutResidenceComponents/Carousel'
 import NumberOfGuests from '../components/AboutResidenceComponents/NumberOfGuests'
 import DescriptionOfHouse from '../components/AboutResidenceComponents/DescriptionOfHouse'
@@ -17,3 +18,10 @@ const AboutResidence = () => {
 }
 
 export default AboutResidence
+=======
+const AboutResidence = () => {
+    
+}
+
+export default AboutMovie
+>>>>>>> residenceList_component
