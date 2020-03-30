@@ -13,12 +13,14 @@ export default function SearchResidence(){
     console.log('Checkout ' + checkOut)
     }
 
-    const doSearch = async (city) =>{
+    const doSearch = async () =>{
         let res;
-        if(city.value == null){
-            console.log('If ' + res)
+        console.log('test' + city)
+        if(city === ''){
             //Visa alla om man ej angett en stad 
             res = await fetch('/rest/residences')
+            res = await res.json()
+            console.log('If ' + res)
 
         }
         else{
