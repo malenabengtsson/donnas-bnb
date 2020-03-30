@@ -33,7 +33,7 @@ const AboutResidence = () => {
             </Row>
             <Row>
                 <Col>
-                    <CalendarForBooking />
+                    <CalendarForBooking residenceId={1} />
                 </Col>
             </Row>
             <Row>

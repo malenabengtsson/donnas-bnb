@@ -58,7 +58,7 @@ const Slideshow  = (props) => {
         onExited={() => setAnimating(false)}
         key={image.img_path + i}
       >
-        <img src={image.img_path} alt={'item.altText'}  />
+        <img src={image.img_path} alt={'item.altText'} />
       </CarouselItem>
     );
   });
@@ -68,7 +68,6 @@ const Slideshow  = (props) => {
       activeIndex={activeIndex}
       next={next}
       previous={previous}
-      style={{maxHeight: '50%'}}
     >
       <CarouselIndicators items={images} activeIndex={activeIndex} onClickHandler={goToIndex} />
       {slides}
