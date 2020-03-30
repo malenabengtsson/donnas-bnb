@@ -38,7 +38,7 @@ export default function ResidenceContextProvider(props){
       }
 
     return(
-        <ResidenceContext.Provider value={{residences}}>
+        <ResidenceContext.Provider value={values}>
             {props.children}
         </ResidenceContext.Provider>
     )
