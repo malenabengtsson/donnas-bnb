@@ -24,10 +24,6 @@ public class Residence implements Serializable {
 
     private int beds;
 
-<<<<<<< HEAD
-=======
-
->>>>>>> residenceList_component
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int user_id;
