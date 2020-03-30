@@ -3,7 +3,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './sass/style.scss'
 import Navbar from './components/Navbar'
 import Footer from './components/Footer'
-
+import AboutResidence from './pages/AboutResidence'
 import {
   BrowserRouter as Router,
   Route,
@@ -23,8 +23,9 @@ function App() {
       <BookingContextProvider>
       <Router>
         <Navbar />
-          <BookingList />
           <ResidenceList />
+          <BookingList />
+          <AboutResidence />
         <Footer />
         <main>
           <Route exact path="/" component={this}/>
