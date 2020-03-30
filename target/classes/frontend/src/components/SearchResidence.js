@@ -1,7 +1,6 @@
 import React, { useState, useContext } from 'react'
 import { Button, Form, FormGroup, Label, Input, FormText, Col, Row, Container } from 'reactstrap';
 import { ResidenceContext } from '../contexts/ResidenceContextProvider'
-import ResidenceList from '../components/ResidenceList'
 
 let throttleSearch;
 
@@ -19,15 +18,17 @@ export default function SearchResidence(){
     }
 
     const doSearch = async (input) =>{
+        console.log('Input ' + input)
         let res;
         console.log('test ' + city)
         
-        if(!input.trim()){
+        if(input === ''){
             //Visa alla om man ej angett en stad 
             res = await fetch('/rest/residences')
             
         }
         else{
+            console.log('In else ' + input)
             res = await fetch('/rest/addresses/search/' + input)
             //Visa alla i staden som angetts
             //Hämtas ur addresses 
