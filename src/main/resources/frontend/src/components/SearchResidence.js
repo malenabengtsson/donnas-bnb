@@ -17,26 +17,26 @@ export default function SearchResidence(){
     console.log('Checkout ' + checkOut)
     }
 
-    const doSearch = async (input) =>{
-        console.log('Input ' + input)
+    const doSearch = async () =>{
+        console.log(city)
         let res;
         console.log('test ' + city)
         
-        if(input === ''){
+        if(city === ''){
             //Visa alla om man ej angett en stad 
             res = await fetch('/rest/residences')
             
         }
         else{
-            console.log('In else ' + input)
-            res = await fetch('/rest/addresses/search/' + input)
+            console.log('In else ' + city)
+            res = await fetch('/rest/addresses/search/' + city)
             //Visa alla i staden som angetts
             //Hämtas ur addresses 
             //eventuellt lägga till /rest/residences/ + city
         }
         res = await res.json()
         setResidences(res)
-        console.log('Res = ' + res)
+        console.log('City = ' + city)
         
     }
 
@@ -58,7 +58,7 @@ export default function SearchResidence(){
                 type="text" 
                 id="city" 
                 placeholder="Skriv en stad..."
-                onChange={e => autoSearch(e.target.value)}
+                onChange={e => setCity(e.target.value)}
                 />
                 </FormGroup>
                 <FormGroup className="col-4 mx-auto">
