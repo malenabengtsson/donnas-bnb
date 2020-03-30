@@ -36,6 +36,7 @@ export default function SearchResidence(){
         }
         res = await res.json()
         setResidences(res)
+        search()
         console.log('Res = ' + res)
         
     }

@@ -14,7 +14,6 @@ public class Booking  {
     private String start_date;
     private String end_date;
     private int total_price;
-
     private int residence_id;
 
 

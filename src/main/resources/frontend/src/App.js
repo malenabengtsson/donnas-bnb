@@ -26,11 +26,7 @@ function App() {
       <ResidenceContextProvider>
       <BookingContextProvider>
       <Router>
-        <Navbar />
-          <ResidenceList />
-          <BookingList />
-          <AboutResidence />
-        <Footer />
+        <Navbar />     
         <main>
           <Route exact path="/" component={Home}/>
           <Route exact path="/perform-login" component={Login}/>

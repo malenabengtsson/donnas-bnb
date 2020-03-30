@@ -10,6 +10,7 @@ const Home = () =>{
        <div>
        <SearchResidence/>
        <ResidenceList/>
+
        </div>
     )
 }
