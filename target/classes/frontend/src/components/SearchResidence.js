@@ -15,11 +15,10 @@ export default function SearchResidence(){
 
     const doSearch = async (city) =>{
         let res;
-        if(city.value == null){
+        if(!city.trim()){
             console.log('If ' + res)
             //Visa alla om man ej angett en stad 
             res = await fetch('/rest/residences')
-
         }
         else{
             console.log('Else ' + res)
