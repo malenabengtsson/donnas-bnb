@@ -6,15 +6,12 @@ export default function BookingContextProvider(props){
     const [bookings, setBookings] = useState([])
 
     const appendBooking = (booking) => {
-        // three dots (...) is called a 
-        // spread syntax, and this will
-        // copy the content of the array
+        
         setBookings([...bookings, booking])
       }
     
       const removeBooking = id => {
-        // updates the array with a filtered array
-        // where we filter out our recipe
+       
         setBookings(bookings.filter(r => r.id !== id))
       
     
@@ -28,12 +25,7 @@ export default function BookingContextProvider(props){
         res = await res.json()
         setBookings(res)
       }
-    
-      /**
-       * Run the fetch once
-       * (good practice to fetch init data in
-       * a useEffect hook once Context gets loaded)
-       */
+ 
       useEffect(() => {
         fetchBookings()
       }, [])

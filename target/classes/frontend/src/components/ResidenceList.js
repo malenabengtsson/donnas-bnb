@@ -1,12 +1,49 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { ResidenceContext } from '../contexts/ResidenceContextProvider'
+import {
+  Card, CardImg, CardText, CardBody,
+  CardTitle, CardSubtitle, Button
+} from 'reactstrap';
 
 
 export default function ResidenceList() {
   const {residences} = useContext(ResidenceContext)
+  const [images, setImage] = useState([])
+
+  const getImages = async () => {
+    let res = await fetch('/rest/images')
+    res = await res.json()
+    let arrayOfImages = []
+    // console.log(res)
+    res.forEach(image => {
+      if (image.residence_id === 1) {
+        arrayOfImages.push(image.img_path)
+      }
+    })
+    setImage(arrayOfImages)
+  }
+
+  useEffect(() => {
+    getImages()
+  }, [])
 
     const list = () => {
-       // return residences.map((residence, i) => {
+        return residences.map((residence, i) => {
+
+          return(
+          <div>
+          <Card>
+            <CardImg top width="50%" src={images[i]} alt="Card image cap" />
+            <CardBody>
+              <CardTitle>A nice house</CardTitle>
+              <CardSubtitle>Card subtitle</CardSubtitle>
+              <CardText key={residence.description}>{residence.description}</CardText>
+              <Button>Button</Button>
+            </CardBody>
+          </Card>
+        </div>
+          )
+        })
             // return (
             //     <div>
             //     <p key={residence.id + i}>Recidence id: {residence.id}</p>
@@ -15,7 +52,9 @@ export default function ResidenceList() {
 
             // )
      //   })
+          
     }
+  
   
     return (
       <>

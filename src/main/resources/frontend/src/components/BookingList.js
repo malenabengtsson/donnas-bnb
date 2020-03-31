@@ -7,20 +7,21 @@ export default function BookingList() {
 
     const list = () => {
         return bookings.map((booking, i) => {
-            // return (
+            return (
             //     <div>
             //     <p key={booking.id + i}>Booking id: {booking.id}</p>
             // <p key={booking.start_date + i}>Start date: {booking.start_date}</p>
             // <p key={booking.end_date + i}>End date: {booking.end_date}</p>
             //     </div>
+            <></>
 
-            // )
+            )
         })
     }
   
     return (
       <>
-        {list()}
+        {/* {list()} */}
       </>
     )
   }
