@@ -6,19 +6,24 @@ import DatePicker from 'react-date-picker'
 let throttleSearch;
 
 export default function SearchResidence() {
+
   const [city, setCity] = useState('')
   const [checkIn, setCheckIn] = useState('')
   const [checkOut, setCheckOut] = useState('')
-  const { setResidences } = useContext(ResidenceContext)
+  const [residence, updateResidence] = useContext(ResidenceContext);
 
-  const search = (e) => {
+  const initSearch = (e) => {
     e.preventDefault()
-    console.log('City ' + city)
-    console.log('Checkin ' + checkIn)
-    console.log('Checkout ' + checkOut)
+    // update the context
+    // (residenceList will get this)
+    updateResidence({ searchFor: { city, checkIn, checkOut } })
   }
 
+  /*
   const doSearch = async () => {
+
+    // NOT USING RIGHT NOW, USING initSearch INSTEAD
+
     console.log(city)
     let res;
     console.log('test ' + city)
@@ -36,7 +41,7 @@ export default function SearchResidence() {
       //eventuellt lägga till /rest/residences/ + city
     }
     res = await res.json()
-    setResidences(res)
+    //setResidences(res)
 
   }
 
@@ -46,12 +51,13 @@ export default function SearchResidence() {
       await doSearch(input)
     }, 200);
   }
+  */
 
   return (
     <div>
       <Container>
         <Form className="row"
-          onSubmit={search}>
+          onSubmit={initSearch}>
           <FormGroup className="col-10 mx-auto">
             <Label for="city">Var</Label>
             <Input
@@ -78,14 +84,12 @@ export default function SearchResidence() {
             />
           </FormGroup>
           <Button
-            onClick={doSearch}
+            onClick={initSearch}
             color="success"
             className="col-5 mx-auto">Sök</Button>
 
         </Form>
       </Container>
-      <h4>{checkIn}</h4>
-      <h4>{checkOut}</h4>
     </div>
 
   )
