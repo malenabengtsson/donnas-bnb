@@ -1,6 +1,7 @@
 import React, { useState, useContext } from 'react'
 import { Button, Form, FormGroup, Label, Input, FormText, Col, Row, Container } from 'reactstrap';
 import { ResidenceContext } from '../contexts/ResidenceContextProvider'
+import DatePicker from 'react-date-picker'
 
 let throttleSearch;
 
@@ -22,13 +23,13 @@ export default function SearchResidence(){
         let res;
         console.log('test ' + city)
         
-        if(city === ''){
+        if(city === null){
             //Visa alla om man ej angett en stad 
             res = await fetch('/rest/residences')
             
         }
         else{
-            console.log('In else ' + city)
+            
             res = await fetch('/rest/addresses/search/' + city)
             //Visa alla i staden som angetts
             //Hämtas ur addresses 
@@ -36,7 +37,6 @@ export default function SearchResidence(){
         }
         res = await res.json()
         setResidences(res)
-        console.log('City = ' + city)
         
     }
 
@@ -81,9 +81,11 @@ export default function SearchResidence(){
                     onClick={doSearch}
                     color="success" 
                     className="col-5 mx-auto">Sök</Button>
-                 
+
             </Form>
             </Container>
+            <h4>{checkIn}</h4>
+            <h4>{checkOut}</h4>
         </div>
 
     )

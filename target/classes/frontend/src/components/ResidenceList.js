@@ -1,5 +1,7 @@
 import React, { useContext } from 'react'
 import { ResidenceContext } from '../contexts/ResidenceContextProvider'
+import {SearchResidence} from '../components/SearchResidence'
+
 
 
 export default function ResidenceList() {
