@@ -16,6 +16,7 @@ export default function SearchResidence() {
     console.log('City ' + city)
     console.log('Checkin ' + checkIn)
     console.log('Checkout ' + checkOut)
+    setResidences()
   }
 
   const doSearch = async () => {
