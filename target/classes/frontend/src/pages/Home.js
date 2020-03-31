@@ -1,18 +1,14 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Button, Form, FormGroup, Label, Input, FormText, Col, Row, Container } from 'reactstrap';
 import SearchResidence from '../components/SearchResidence'
-import ResidenceList from '../components/ResidenceList'
 
-const Home = () =>{
+const Home = () => {
 
-    return(
-        
-       <div>
-       <SearchResidence/>
-       <ResidenceList/>
-
-       </div>
-    )
+  return (
+    <div>
+      <SearchResidence />
+    </div>
+  )
 }
 
 export default Home

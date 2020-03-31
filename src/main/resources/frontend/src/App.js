@@ -38,10 +38,10 @@ function App() {
           <Router>
             <Navbar />
             <main>
-              <Route exact path="/" component={Home} />
-              <Route exact path="/perform-login" component={Login} />
-              <Route exact path="/perform-register" component={Register} />
-              <Route exact path="/help" component={Help} />
+              <Route exact path="/"><Home/></Route>
+              <Route exact path="/perform-login"> <Login/></Route>
+              <Route exact path="/perform-register"><Register/></Route>
+              <Route exact path="/help"> <Help/></Route> 
               <Route exact path="/search-result"> <ResidenceList /></Route>
             </main>
             <Footer />
