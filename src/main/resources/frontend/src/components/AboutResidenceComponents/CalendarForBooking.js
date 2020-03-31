@@ -1,31 +1,35 @@
-import React, { useState, useEffect, useContext } from 'react'
+import React, { useState, useEffect } from 'react'
 import DatePicker from 'react-date-picker'
 import { ButtonDropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
-import { SelectedPeriodContext } from '../../contexts/SelectedPeriodContextProvider'
+import BookingSummary from './BookingSummary'
 
 const CalendarForBooking = (props) => {
-    const { addFromDate } = useContext(SelectedPeriodContext)
-    const { addUntilDate } = useContext(SelectedPeriodContext)
-
-    const [fromDate, setFromDate] = useState(new Date())
-    const [untilDate, setUntilDate] = useState(new Date())
+    
 
     const [periods, setPeriods] = useState([])
 
-    const [startDate, setStartDate] = useState([]) // stores periods start dates as year/month/day
-    const [endDate, setEndDate] = useState([]) // stores periods end dates as year/month/day
+    const [startDates, setStartDates] = useState([]) // stores periods start dates as year/month/day
+    const [endDates, setEndDates] = useState([]) // stores periods end dates as year/month/day
 
     const [selectedStartDate, setSelectedStartDate] = useState(new Date())
     const [selectedEndDate, setSelectedEndDate] = useState(new Date())
 
     const onFromDateChange = from => {
-      setFromDate(from)
-      addFromDate(from)
+    //  setFromDate(from)
+      sendStartDateToParent(from)
     }
 
     const onUntilDateChange = until => {
-      setUntilDate(until)
-      addUntilDate(until)
+     // setUntilDate(until)
+      sendEndDateToParent(until)
+    }
+
+    const sendStartDateToParent = (data) => {
+      props.startingDate(data)
+    }
+
+    const sendEndDateToParent = (data) => {
+      props.endingDate(data)
     }
 
     const [dropdownOpen, setOpen] = useState(false);
@@ -39,55 +43,72 @@ const CalendarForBooking = (props) => {
     const getStartAndEndDate = async () => {
       let res = await fetch('/rest/availablePeriods')
       res = await res.json()
-      let arryOfStartDate = []
-      let arryOfEndDate = []
+      let arryOfStartDates = []
+      let arryOfEndDates = []
       res.forEach(el => {
         if(el.residence_id === props.residenceId){
-          arryOfStartDate.push(el.start_date)
-          arryOfEndDate.push(el.end_date)
+          arryOfStartDates.push(el.start_date)
+          arryOfEndDates.push(el.end_date)
         }
       })
-      for (let i=0; i < arryOfStartDate.length; i++){
-        arryOfStartDate[i] = arryOfStartDate[i].split("/")
-        arryOfEndDate[i] = arryOfEndDate[i].split("/")
-      }
-      for (let i=0; i < arryOfStartDate.length; i++){
-        arryOfStartDate[i] = arryOfStartDate[i][1] + '/' + arryOfStartDate[i][0]
-        arryOfEndDate[i] = arryOfEndDate[i][1] + '/' + arryOfEndDate[i][0]
-      }
-      let arryOfPeriods = []
-      for (let i=0; i < arryOfStartDate.length; i++){
-        let p = arryOfStartDate[i] + ' - ' + arryOfEndDate[i]
-        arryOfPeriods.push(p)
-      }
-      let startDates = []
-      let endDates = []
-      for (let i=0; i < arryOfStartDate.length; i++){
-        let startMonth = arryOfStartDate[i].split("/")[0]
-        let startDay = arryOfStartDate[i].split("/")[1]
-        
-        let endMonth = arryOfEndDate[i].split("/")[0]
-        let endDay = arryOfEndDate[i].split("/")[1]
 
-        if (startMonth.charAt(0) === '0') startMonth = startMonth.slice(1)
-        if (endMonth.charAt(0) === '0') endMonth = endMonth.slice(1)
+      arryOfStartDates = splitArray(arryOfStartDates, "/")
+      arryOfEndDates = splitArray(arryOfEndDates, "/")
 
-        let start = new Date(2020, startMonth-1, startDay)
-        let end = new Date(2020, endMonth-1, endDay)
-
-        startDates.push(start)
-        endDates.push(end)
-      }
-      setStartDate(startDates)
-      setEndDate(endDates)
+      let arryOfPeriods = getCalculatedPeriods(arryOfStartDates, arryOfEndDates)
       setPeriods(arryOfPeriods)
+      
+
+      arryOfStartDates = getAsDates(arryOfStartDates)
+      arryOfEndDates = getAsDates(arryOfEndDates)
+      
+      setStartDates(arryOfStartDates)
+      setEndDates(arryOfEndDates)
     }
+
+    // Loop through an array and split on charackter
+    // arry = array you want to split
+    // character you want to split on
+    const splitArray = (arry, character) => {
+      let splitedArray = []
+      for (let i=0; i < arry.length; i++){
+        let splited = arry[i].split(character)
+        splitedArray.push(splited)
+      }
+      return splitedArray
+    }
+
+    // Takes in two arrays and add them to one string example: 26/03 - 24/04
+    const getCalculatedPeriods = (arryOne, arrayTwo) => {
+      let calculatedDates = []
+      for (let i=0; i < arryOne.length; i++){
+        let p = arryOne[i][0] + '/' + arryOne[i][1] + ' - ' + arrayTwo[i][0] + '/' + arrayTwo[i][1]
+        calculatedDates.push(p)
+      }
+      return calculatedDates
+    }
+    // this functions convert arry of string months and days to js Date()
+    const getAsDates = (arry) => {
+      let dates = []
+      for (let i=0; i < arry.length; i++){
+        let month = arry[i][1]
+        let day = arry[i][0]
+
+        if (month.charAt(0) === '0') month = month.slice(1)
+
+        let date = new Date(2020, month-1, day)
+        dates.push(date)
+      }
+      return dates
+    }
+
+    
 
     const periodsList = periods.map((period, i) => {
       return (
         <DropdownItem key={period + i} onClick={e => {
-          setSelectedStartDate(startDate[i])
-          setSelectedEndDate(endDate[i])
+          setSelectedStartDate(startDates[i])
+          setSelectedEndDate(endDates[i])
         }}>
           {period}
         </DropdownItem>
@@ -97,6 +118,10 @@ const CalendarForBooking = (props) => {
     useEffect(() => {
       getStartAndEndDate()
     }, [])
+
+    useEffect(() => {
+      
+    })
 
     return(
       <>
@@ -113,14 +138,15 @@ const CalendarForBooking = (props) => {
         <DatePicker
           minDate={selectedStartDate}
           onChange={onFromDateChange}
-          value={fromDate}
+          value={selectedStartDate}
         />
         <h6>Till: </h6>
         <DatePicker
           maxDate={selectedEndDate}
           onChange={onUntilDateChange}
-          value={untilDate}
+          value={selectedEndDate}
         />
+        <BookingSummary startDate={selectedStartDate} endDate={selectedEndDate} residenceId={props.residenceId}/>
       </>
     )
 }

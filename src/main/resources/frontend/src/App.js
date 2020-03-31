@@ -12,7 +12,7 @@ import {
 } from 'react-router-dom'
 import ResidenceContextProvider, { ResidenceContext } from './contexts/ResidenceContextProvider';
 import BookingContextProvider, { BookingContext } from './contexts/BookingContextProvider';
-import SelectedPeriodContextProvider, { SelectedPeriodContext } from './contexts/SelectedPeriodContextProvider'
+
 import ResidenceList from './components/ResidenceList';
 import BookingList from './components/BookingList';
 
@@ -22,7 +22,6 @@ function App() {
     <div className="App">
       <ResidenceContextProvider>
       <BookingContextProvider>
-      <SelectedPeriodContextProvider>
       <Router>
         <Navbar />
           <ResidenceList />
@@ -33,7 +32,6 @@ function App() {
           <Route exact path="/" component={this}/>
         </main>
       </Router>
-      </SelectedPeriodContextProvider>
       </BookingContextProvider>
       </ResidenceContextProvider>
     </div>

@@ -30,7 +30,7 @@ const ResidenceAmenity = (props) => {
 
     const list = Amenitys.map((amenity, i) => {
         return (
-            <li key={i + 'Test'}>
+            <li key={i + 'Test'} >
                 {amenity}
             </li>
         )
@@ -39,7 +39,7 @@ const ResidenceAmenity = (props) => {
     return (
         <>
             <h5>Bekvämligheter:</h5>
-            <ul>
+            <ul >
                 {list}
             </ul>
         </>

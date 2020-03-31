@@ -1,18 +1,27 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Button } from 'reactstrap'
 
 const BookingSummary = (props) => {
+    const [startShortDate, setStartShortDate] = useState('')
+    const [endShortDate, setEndShortDate] = useState('')
 
     const calculatePrice = () => {
-        let start = props.startDate.split('/') // array with start date start[0] = day : start[1] = month
-        let end = props.endDate.split('/') // array with end date end[0] = day : end[1] = month
+        let startMonth = ('0' + (props.startDate.getMonth() + 1)).slice(-2)
+        let startDate = ('0' + props.startDate.getDate()).slice(-2);
+        let startYear = props.startDate.getFullYear()
+        let startShortDate = new Date(startYear, startMonth, startDate)
 
+        let endMonth = ('0' + (props.endDate.getMonth() + 1)).slice(-2)
+        let endDate = ('0' + props.endDate.getDate()).slice(-2);
+        let endYear = props.startDate.getFullYear()
+        let endShortDate = new Date(endYear, endMonth, endDate)
 
-        let startDate = new Date(start[1] + '/' + start[0])
-        let endDate = new Date(end[1] + '/' + end[0])
+        
 
-        let diffrenceInTime = endDate.getTime() - startDate.getTime()
+        let diffrenceInTime = endShortDate.getTime() - startShortDate.getTime()
         let diffrenceInDays = diffrenceInTime / (1000 * 3600 * 24)
+
+        console.log(diffrenceInDays)
 
         diffrenceInDays = Math.round(diffrenceInDays)
 
@@ -20,11 +29,30 @@ const BookingSummary = (props) => {
     }
 
     const getDate = () => {
-        return props.startDate + ' - ' + props.endDate
+        // Start date
+        let startMonth = ('0' + (props.startDate.getMonth() + 1)).slice(-2)
+        let startDate = ('0' + props.startDate.getDate()).slice(-2);
+        let startYear = props.startDate.getFullYear()
+        let startShortDate = startDate + '/' + startMonth + '/' + startYear
+
+        // End date
+        let endMonth = ('0' + (props.endDate.getMonth() + 1)).slice(-2)
+        let endDate = ('0' + props.endDate.getDate()).slice(-2);
+        let endYear = props.startDate.getFullYear()
+        let endShortDate = endDate + '/' + endMonth + '/' + endYear
+        return startShortDate + ' - ' + endShortDate
     }
 
     const [date, setDate] = useState(getDate)
-    const [price, setPrice] = useState(calculatePrice)
+    const [price, setPrice] = useState(props.pricePerNight)
+
+    const update = () => {
+        setDate(getDate())
+    }
+
+    useEffect(() => {
+        update()
+    })
 
     return (
         <>

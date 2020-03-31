@@ -78,3 +78,5 @@ const Slideshow  = (props) => {
 }
 
 export default Slideshow ;
+
+// src={images[0]}
