@@ -2,6 +2,7 @@ import React, { useState, useContext } from 'react'
 import { Button, Form, FormGroup, Label, Input, FormText, Col, Row, Container } from 'reactstrap';
 import { ResidenceContext } from '../contexts/ResidenceContextProvider'
 import DatePicker from 'react-date-picker'
+import { Redirect } from 'react-router-dom'
 
 let throttleSearch;
 
@@ -11,12 +12,14 @@ export default function SearchResidence() {
   const [checkIn, setCheckIn] = useState('')
   const [checkOut, setCheckOut] = useState('')
   const [residence, updateResidence] = useContext(ResidenceContext);
+  const [gotoSearch, setGotoSearch] = useState(false);
 
   const initSearch = (e) => {
     e.preventDefault()
     // update the context
     // (residenceList will get this)
     updateResidence({ searchFor: { city, checkIn, checkOut } })
+    setGotoSearch(true);
   }
 
   /*
@@ -55,6 +58,7 @@ export default function SearchResidence() {
 
   return (
     <div>
+      {gotoSearch && <Redirect to="/search-result" />}
       <Container>
         <Form className="row"
           onSubmit={initSearch}>

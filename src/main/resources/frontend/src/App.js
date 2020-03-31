@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './sass/style.scss'
 import Navbar from './components/Navbar'
@@ -21,22 +21,33 @@ import BookingList from './components/BookingList';
 
 
 function App() {
+
+  // creating a useState variable for the context
+  // (using an empty object - if you wanted some values
+  // set from start you could set them in that object)
+  const [val, setter] = useState({});
+  // the setter from useState replaces everything
+  // but we want a setter that updates to object instead
+  const updater = x => setter({ ...val, ...x })
+
+
   return (
     <div className="App">
-      <ResidenceContextProvider>
-      <BookingContextProvider>
-      <Router>
-        <Navbar />     
-        <main>
-          <Route exact path="/" component={Home}/>
-          <Route exact path="/perform-login" component={Login}/>
-          <Route exact path="/perform-register" component={Register}/>
-          <Route exact path="/help" component={Help}/>
-        </main>
-        <Footer />
-      </Router>
-      </BookingContextProvider>
-      </ResidenceContextProvider>
+      <ResidenceContext.Provider value={[val, updater]}>
+        <BookingContextProvider>
+          <Router>
+            <Navbar />
+            <main>
+              <Route exact path="/" component={Home} />
+              <Route exact path="/perform-login" component={Login} />
+              <Route exact path="/perform-register" component={Register} />
+              <Route exact path="/help" component={Help} />
+              <Route exact path="/search-result"> <ResidenceList /></Route>
+            </main>
+            <Footer />
+          </Router>
+        </BookingContextProvider>
+      </ResidenceContext.Provider>
     </div>
   );
 }
