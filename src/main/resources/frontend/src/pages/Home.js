@@ -5,12 +5,12 @@ import ResidenceList from '../components/ResidenceList'
 
 const Home = () => {
 
-    return (
-        <div>
-            <SearchResidence />
-            <ResidenceList />
-        </div>
-    )
+  return (
+    <div>
+      <SearchResidence />
+      <ResidenceList />
+    </div>
+  )
 }
 
 export default Home
