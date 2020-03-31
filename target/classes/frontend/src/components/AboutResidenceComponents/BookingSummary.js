@@ -1,7 +1,9 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import { Button } from 'reactstrap'
 
+
 const BookingSummary = (props) => {
+    const [residence, setResidence] = useState('')
     const [startShortDate, setStartShortDate] = useState('')
     const [endShortDate, setEndShortDate] = useState('')
 
@@ -21,12 +23,22 @@ const BookingSummary = (props) => {
         let diffrenceInTime = endShortDate.getTime() - startShortDate.getTime()
         let diffrenceInDays = diffrenceInTime / (1000 * 3600 * 24)
 
-        console.log(diffrenceInDays)
+        
 
         diffrenceInDays = Math.round(diffrenceInDays)
-
-        return diffrenceInDays * props.pricePerNight
+        return diffrenceInDays * residence.price
     }
+
+    const getPriceFromDb = async () => {
+        let res = await fetch('/rest/residences/' + props.residenceId)
+        res = await res.json()
+        setResidence(res)
+      //  return res
+    }
+
+    useEffect(() => {
+        getPriceFromDb()
+    })
 
     const getDate = () => {
         // Start date
@@ -43,11 +55,14 @@ const BookingSummary = (props) => {
         return startShortDate + ' - ' + endShortDate
     }
 
+    
+
     const [date, setDate] = useState(getDate)
-    const [price, setPrice] = useState(props.pricePerNight)
+    const [price, setPrice] = useState(899)// useState(props.pricePerNight)
 
     const update = () => {
         setDate(getDate())
+        setPrice(calculatePrice)
     }
 
     useEffect(() => {

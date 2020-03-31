@@ -23,7 +23,7 @@ export default function ResidenceContextProvider(props){
     const fetchResidences = async () => {
         let res = await fetch('/rest/residences')
         res = await res.json()
-       // console.log('Residence: ', res)
+        // console.log('Residence: ', res)
         setResidences(res)
       }
     
@@ -39,7 +39,7 @@ export default function ResidenceContextProvider(props){
       }
 
     return(
-        <ResidenceContext.Provider value={{residences}}>
+        <ResidenceContext.Provider value={{values}}>
             {props.children}
         </ResidenceContext.Provider>
     )

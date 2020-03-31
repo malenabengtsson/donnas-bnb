@@ -102,6 +102,8 @@ const CalendarForBooking = (props) => {
       return dates
     }
 
+    
+
     const periodsList = periods.map((period, i) => {
       return (
         <DropdownItem key={period + i} onClick={e => {
@@ -144,7 +146,7 @@ const CalendarForBooking = (props) => {
           onChange={onUntilDateChange}
           value={selectedEndDate}
         />
-        <BookingSummary startDate={selectedStartDate} endDate={selectedEndDate} pricePerNight={799} />
+        <BookingSummary startDate={selectedStartDate} endDate={selectedEndDate} residenceId={props.residenceId}/>
       </>
     )
 }
