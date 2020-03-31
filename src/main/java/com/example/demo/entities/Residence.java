@@ -22,16 +22,6 @@ public class Residence {
 
     private int user_id;
 
-    private int price;
-
-    public int getPrice() {
-        return price;
-    }
-
-    public void setPrice(int price) {
-        this.price = price;
-    }
-
     private String description;
 
     public String getDescription() {

@@ -12,7 +12,6 @@ import {
 } from 'react-router-dom'
 import ResidenceContextProvider, { ResidenceContext } from './contexts/ResidenceContextProvider';
 import BookingContextProvider, { BookingContext } from './contexts/BookingContextProvider';
-
 import ResidenceList from './components/ResidenceList';
 import BookingList from './components/BookingList';
 
