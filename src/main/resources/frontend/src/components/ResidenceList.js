@@ -36,9 +36,11 @@ export default function ResidenceList() {
             textAlign: "center",
             marginTop: "15px", 
             marginBottom: "15px", 
+            backgroundColor: "lightgray",
           }
           const imgStyle = {
-            marginTop: "10px"
+            marginTop: "10px",
+            border: "1px solid gray"
           }
 
           return(
