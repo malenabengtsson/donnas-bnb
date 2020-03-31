@@ -4,6 +4,8 @@ import {
   Card, CardImg, CardText, CardBody,
   CardTitle, CardSubtitle, Button
 } from 'reactstrap';
+import '../sass/style.scss';
+import { Link } from 'react-router-dom';
 
 
 export default function ResidenceList() {
@@ -30,16 +32,36 @@ export default function ResidenceList() {
     const list = () => {
         return residences.map((residence, i) => {
 
+          const cardStyle = {
+            textAlign: "center",
+            marginTop: "15px", 
+            marginBottom: "15px", 
+          }
+          const imgStyle = {
+            marginTop: "10px"
+          }
+
           return(
-          <div>
-          <Card>
-            <CardImg top width="50%" src={images[i]} alt="Card image cap" />
+          <div key={i}>
+          <Card 
+          style={cardStyle} 
+          className="col-10 mx-auto" 
+          sm="12" 
+          md={{ size: 6, offset: 3 }}>
+             <Link to="">
+            <CardImg 
+            style={imgStyle} 
+            top width="100%" 
+            src={images[i]} 
+            alt="Card image cap" 
+            />
+            </Link>
             <CardBody>
-              <CardTitle>A nice house</CardTitle>
-              <CardSubtitle>Card subtitle</CardSubtitle>
-              <CardText key={residence.description}>{residence.description}</CardText>
-              <Button>Button</Button>
+              <CardTitle style={{fontWeight: "bold"}} key={residence.title}>{residence.title}</CardTitle>
+              <CardSubtitle key={residence.description}>{residence.description}</CardSubtitle>
+              <CardText key={residence.price_per_night}>Kostnad per natt: {residence.price_per_night}kr </CardText>
             </CardBody>
+
           </Card>
         </div>
           )
