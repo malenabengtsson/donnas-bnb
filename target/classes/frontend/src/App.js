@@ -34,7 +34,7 @@
               {/* <Route exact path="/" component={this}/> */}
               <Route exact path="/"><Home /></Route>
               <Route exact path="/residences"><ResidenceList /></Route>
-              <Route exact path="/about-residence" component={AboutResidence}/>
+              <Route exact path="/about-residence"><AboutResidence /></Route>
             </main>
             <Footer />
           </Router>
