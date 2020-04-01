@@ -3,6 +3,7 @@ import { Row, Col } from 'reactstrap'
 
 import Slideshow from '../components/AboutResidenceComponents/Carousel'
 import NumberOfGuests from '../components/AboutResidenceComponents/NumberOfGuests'
+import NumberOfBeds from '../components/AboutResidenceComponents/NumberOfBeds'
 import DescriptionOfHouse from '../components/AboutResidenceComponents/DescriptionOfHouse'
 import ResidenceAmenity from '../components/AboutResidenceComponents/ResidenceAmenity'
 import CalendarForBooking from '../components/AboutResidenceComponents/CalendarForBooking'
@@ -21,6 +22,7 @@ const AboutResidence = () => {
             </Row>
             <Row>
                 <Col className="text-center">
+                    <NumberOfBeds residenceId={1} /> 
                     <NumberOfGuests residenceId={1} />
                 </Col>
             </Row>
