@@ -35,6 +35,7 @@ export default function ResidenceList() {
   }, [])
 
     const list = () => {
+      console.log(residences)
         return residences.map((residence, i) => {
 
           const cardStyle = {

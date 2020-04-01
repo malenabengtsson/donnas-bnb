@@ -5,12 +5,13 @@ import {
   CardTitle, CardSubtitle, Button
 } from 'reactstrap';
 import '../sass/style.scss';
-import { Link } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 
 
 export default function ResidenceList() {
   const {residences} = useContext(ResidenceContext)
   const [images, setImage] = useState([])
+  const [gotoChoice, setGotoChoice] = useState(false);
 
   const getImages = async () => {
     let res = await fetch('/rest/images')
@@ -25,11 +26,16 @@ export default function ResidenceList() {
     setImage(arrayOfImages)
   }
 
+  const gotoResidence = e => {
+    setGotoChoice(true);
+  };
+
   useEffect(() => {
     getImages()
   }, [])
 
     const list = () => {
+      console.log(residences)
         return residences.map((residence, i) => {
 
           const cardStyle = {
@@ -40,33 +46,44 @@ export default function ResidenceList() {
           }
           const imgStyle = {
             marginTop: "10px",
-            border: "1px solid gray"
+            border: "1px solid gray",
+            cursor: "pointer"
           }
 
-          return(
-          <div key={i}>
-          <Card 
-          style={cardStyle} 
-          className="col-10 mx-auto" 
-          sm="12" 
-          md={{ size: 6, offset: 3 }}>
-             <Link to="/about-residence">
-            <CardImg 
-            style={imgStyle} 
-            top width="100%" 
-            src={images[i]} 
-            alt="Card image cap" 
-            />
-            </Link>
-            <CardBody>
-              <CardTitle style={{fontWeight: "bold"}} key={residence.title}>{residence.title}</CardTitle>
-              <CardSubtitle key={residence.description}>{residence.description}</CardSubtitle>
-              <CardText key={residence.price_per_night}>Kostnad per natt: {residence.price_per_night}kr </CardText>
-            </CardBody>
+          return (
+            <div key={i}>
+              <Card
+                style={cardStyle}
+                className="col-10 mx-auto"
+                sm="12"
+                md={{ size: 6, offset: 3 }}
+              >
+                <CardImg
+                  style={imgStyle}
+                  top
+                  width="100%"
+                  src={images[i]}
+                  alt="Card image cap"
+                  onClick={gotoResidence}
+                />
 
-          </Card>
-        </div>
-          )
+                <CardBody>
+                  <CardTitle
+                    style={{ fontWeight: "bold" }}
+                    key={residence.title}
+                  >
+                    {residence.title}
+                  </CardTitle>
+                  <CardSubtitle key={residence.description}>
+                    {residence.description}
+                  </CardSubtitle>
+                  <CardText key={residence.price_per_night}>
+                    Kostnad per natt: {residence.price_per_night}kr{" "}
+                  </CardText>
+                </CardBody>
+              </Card>
+            </div>
+          );
         })
             // return (
             //     <div>
@@ -82,7 +99,8 @@ export default function ResidenceList() {
   
     return (
       <>
+        {gotoChoice && <Redirect to="/about-residence" />}
         {list()}
       </>
-    )
+    );
   }

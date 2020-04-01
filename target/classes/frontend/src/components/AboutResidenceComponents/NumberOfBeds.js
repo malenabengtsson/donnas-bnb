@@ -1,26 +1,26 @@
 import React, { useState, useEffect } from 'react'
 
-const NumberOfGuests = (props) => {
-    const [nrOfGuests, setNrOfGuests] = useState([])
+const NumberOfBeds = (props) => {
+    
+    const [nrOfBeds, setNrOfBeds] = useState([''])
 
     const getData = async () => {
-        
-       // var id = parseInt(props.residenceId)
+
         let res = await fetch('/rest/residences/' + props.residenceId)
         res = await res.json()
-        setNrOfGuests(res.max_guests)
+        setNrOfBeds(res.beds)   
     }
 
     useEffect(() => {
         getData()
-       // setNrOfGuests(4)
+        //setNrOfBeds(2)
     }, [])
 
     return (
         <>
-            <p>{nrOfGuests} Gäster</p>
+            <p>{nrOfBeds} Sängar</p>
         </>
     )
 }
 
-export default NumberOfGuests
+export default NumberOfBeds
