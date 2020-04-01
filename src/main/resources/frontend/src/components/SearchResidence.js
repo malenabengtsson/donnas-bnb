@@ -26,9 +26,8 @@ export default function SearchResidence() {
     <div>
       {gotoSearch && <Redirect to="/residences" />}
       <Container>
-        <Form className="row"
-          onSubmit={initSearch}>
-          <FormGroup className="col-10 mx-auto">
+        <Form className="row" onSubmit={initSearch}>
+          <FormGroup className="col-lg-10 col-sm-10 mx-auto">
             <Label for="city">Var</Label>
             <Input
               type="text"
@@ -56,11 +55,12 @@ export default function SearchResidence() {
           <Button
             onClick={initSearch}
             color="success"
-            className="col-5 mx-auto">Sök</Button>
-
+            className="col-5 mx-auto"
+          >
+            Sök
+          </Button>
         </Form>
       </Container>
     </div>
-
-  )
+  );
 }
