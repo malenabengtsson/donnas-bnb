@@ -4,7 +4,8 @@ import {
   CarouselItem,
   CarouselControl,
   CarouselIndicators,
-  CarouselCaption
+  CarouselCaption,
+  CardImg,
 } from 'reactstrap';
 
 import { ResidenceContext } from '../../contexts/ResidenceContextProvider'
@@ -51,6 +52,12 @@ const Slideshow  = (props) => {
     setActiveIndex(newIndex);
   }
 
+  const imgStyle = {
+    margin: "10px",
+    border: "1px solid gray",
+    cursor: "pointer"
+  }
+
   const slides = images.map((image, i) => {
     return (
       <CarouselItem
@@ -58,7 +65,13 @@ const Slideshow  = (props) => {
         onExited={() => setAnimating(false)}
         key={image.img_path + i}
       >
-        <img src={image.img_path} alt={'item.altText'} />
+          <CardImg
+                  top
+                  width="100%"
+                  src={image.img_path}
+                  alt="Card image cap"
+                />
+        {/* <img src={image.img_path} alt={'item.altText'} /> */}
       </CarouselItem>
     );
   });

@@ -26,7 +26,7 @@ const BookingSummary = (props) => {
         
 
         diffrenceInDays = Math.round(diffrenceInDays)
-        return diffrenceInDays * residence.price
+        return diffrenceInDays * residence.price_per_night
     }
 
     const getPriceFromDb = async () => {

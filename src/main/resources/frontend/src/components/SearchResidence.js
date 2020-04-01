@@ -37,7 +37,7 @@ export default function SearchResidence() {
               onChange={e => setCity(e.target.value)}
             />
           </FormGroup>
-          <FormGroup className="col-4 mx-auto">
+          <FormGroup className="col-lg-4 col-sm-10 mx-auto">
             <Label for="check-in">Incheckning</Label>
             <Input
               id="check-in"
@@ -45,7 +45,7 @@ export default function SearchResidence() {
               onChange={e => setCheckIn(e.target.value)}
             />
           </FormGroup>
-          <FormGroup className="col-4 mx-auto">
+          <FormGroup className="col-lg-4 col-sm-10 mx-auto">
             <Label for="check-out">Utcheckning</Label>
             <Input
               id="check-out"
