@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from 'react'
 import { ResidenceContext } from '../contexts/ResidenceContextProvider'
 import {
   Card, CardImg, CardText, CardBody,
-  CardTitle, CardSubtitle, Button
+  CardTitle, CardSubtitle
 } from 'reactstrap';
 import '../sass/style.scss';
 import { Redirect } from 'react-router-dom';
@@ -17,7 +17,7 @@ export default function ResidenceList() {
     let res = await fetch('/rest/images')
     res = await res.json()
     let arrayOfImages = []
-    // console.log(res)
+  
     res.forEach(image => {
       if (image.residence_id === 1) {
         arrayOfImages.push(image.img_path)
@@ -35,7 +35,6 @@ export default function ResidenceList() {
   }, [])
 
     const list = () => {
-      console.log(residences)
         return residences.map((residence, i) => {
 
           const cardStyle = {
@@ -84,16 +83,7 @@ export default function ResidenceList() {
               </Card>
             </div>
           );
-        })
-            // return (
-            //     <div>
-            //     <p key={residence.id + i}>Recidence id: {residence.id}</p>
-            // <p key={residence.max_guests + i}>Max Guests: {residence.max_guests}</p>
-            //     </div>
-
-            // )
-     //   })
-          
+        })  
     }
   
   

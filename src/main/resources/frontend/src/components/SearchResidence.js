@@ -1,24 +1,17 @@
-import React, { useState, useContext } from 'react'
-import { Button, Form, FormGroup, Label, Input, FormText, Col, Row, Container } from 'reactstrap';
-import { ResidenceContext } from '../contexts/ResidenceContextProvider'
-import DatePicker from 'react-date-picker'
-import { Redirect } from 'react-router-dom'
+import React, { useState } from 'react'
+import { Button, Form, FormGroup, Label, Input, Container } from 'reactstrap';
 
-let throttleSearch;
+import { Redirect } from 'react-router-dom'
 
 export default function SearchResidence() {
 
   const [city, setCity] = useState('')
   const [checkIn, setCheckIn] = useState('')
   const [checkOut, setCheckOut] = useState('')
-  //const [residence, updateResidence] = useContext(ResidenceContext);
   const [gotoSearch, setGotoSearch] = useState(false);
-
   const initSearch = (e) => {
     e.preventDefault()
-    // update the context
-    // (residenceList will get this)
-   // updateResidence({ searchFor: { city, checkIn, checkOut } })
+ 
     setGotoSearch(true);
   }
 
