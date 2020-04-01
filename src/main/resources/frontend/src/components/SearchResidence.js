@@ -58,7 +58,7 @@ export default function SearchResidence() {
 
   return (
     <div>
-      {gotoSearch && <Redirect to="/search-result" />}
+      {gotoSearch && <Redirect to="/residences" />}
       <Container>
         <Form className="row"
           onSubmit={initSearch}>

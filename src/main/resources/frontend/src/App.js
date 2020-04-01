@@ -43,7 +43,7 @@ function App() {
               <Route exact path="/perform-login"> <Login/></Route>
               <Route exact path="/perform-register"><Register/></Route>
               <Route exact path="/help"> <Help/></Route> 
-              <Route exact path="/search-result"> <ResidenceList /></Route>
+              <Route exact path="/residences"> <ResidenceList /></Route>
             </main>
             <Footer />
           </Router>
