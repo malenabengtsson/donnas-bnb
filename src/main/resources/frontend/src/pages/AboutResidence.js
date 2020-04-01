@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Row, Col } from 'reactstrap'
+import { Row, Col, Card } from 'reactstrap'
 
 import Slideshow from '../components/AboutResidenceComponents/Carousel'
 import NumberOfGuests from '../components/AboutResidenceComponents/NumberOfGuests'
@@ -13,8 +13,20 @@ const AboutResidence = () => {
     const [startDate, setStartDate] = useState(new Date())
     const [endDate, setEndDate] = useState(new Date()) 
 
+    const cardStyle = {
+        textAlign: "center",
+        margin: "15px",  
+        backgroundColor: "#F5F5DC"
+      }
+      const divStyle = {
+        textAlign: "center",
+        margin: "15px",  
+      }
+
+
     return (
-        <div >
+        <Card style={cardStyle}>
+            <div style={divStyle}>
             <Row>
                 <Col>
                     <Slideshow residenceId={1}/>
@@ -22,8 +34,8 @@ const AboutResidence = () => {
             </Row>
             <Row>
                 <Col className="text-center">
-                    <NumberOfBeds residenceId={1} /> 
-                    <NumberOfGuests residenceId={1} />
+                    <NumberOfBeds className="col-5" residenceId={1} /> 
+                    <NumberOfGuests className="col-5" residenceId={1} />
                 </Col>
             </Row>
             <Row>
@@ -46,7 +58,8 @@ const AboutResidence = () => {
                     
                 </Col>
             </Row>
-        </div>
+            </div>
+        </Card>
     )
 }
 

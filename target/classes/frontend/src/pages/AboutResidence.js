@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Row, Col } from 'reactstrap'
+import { Row, Col, Card } from 'reactstrap'
 
 import Slideshow from '../components/AboutResidenceComponents/Carousel'
 import NumberOfGuests from '../components/AboutResidenceComponents/NumberOfGuests'
