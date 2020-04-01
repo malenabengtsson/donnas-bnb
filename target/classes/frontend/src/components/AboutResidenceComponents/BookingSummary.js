@@ -38,7 +38,7 @@ const BookingSummary = (props) => {
 
     useEffect(() => {
         getPriceFromDb()
-    })
+    }, [])
 
     const getDate = () => {
         // Start date
