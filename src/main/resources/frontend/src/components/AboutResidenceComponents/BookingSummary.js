@@ -66,7 +66,6 @@ const BookingSummary = (props) => {
     }
 
     useEffect(() => {
-        console.log(price)
         update()
     })
 
