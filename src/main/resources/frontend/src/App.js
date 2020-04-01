@@ -1,4 +1,4 @@
-    import React from 'react';
+    import React, {useState} from 'react';
     import 'bootstrap/dist/css/bootstrap.min.css';
     import './sass/style.scss'
     import Navbar from './components/Navbar'
@@ -14,23 +14,29 @@
     import BookingContextProvider, { BookingContext } from './contexts/BookingContextProvider';
     import ResidenceList from './components/ResidenceList';
     import BookingList from './components/BookingList';
+    import Home from './pages/Home'
 
 
     function App() {
+
+      const [val, setter] = useState({});
+      const updater = x => setter({...val, ...x})
+
       return (
         <div className="App">
           <ResidenceContextProvider>
           <BookingContextProvider>
           <Router>
               <Navbar />
-              <ResidenceList />
               <BookingList />
-              <AboutResidence />
-            <Footer />
+           
             <main>
-              <Route exact path="/" component={this}/>
-              <Route exact path="/about-residence" component={AboutResidence}/>
+              {/* <Route exact path="/" component={this}/> */}
+              <Route exact path="/"><Home /></Route>
+              <Route exact path="/residences"><ResidenceList /></Route>
+              <Route exact path="/about-residence"><AboutResidence /></Route>
             </main>
+            <Footer />
           </Router>
           </BookingContextProvider>
           </ResidenceContextProvider>

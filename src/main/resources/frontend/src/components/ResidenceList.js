@@ -36,6 +36,7 @@ export default function ResidenceList() {
             textAlign: "center",
             marginTop: "15px", 
             marginBottom: "15px", 
+            backgroundColor: "#F5F5DC"
           }
           const imgStyle = {
             marginTop: "10px",
@@ -49,7 +50,7 @@ export default function ResidenceList() {
           className="col-10 mx-auto" 
           sm="12" 
           md={{ size: 6, offset: 3 }}>
-             <Link to="">
+             <Link to="/about-residence">
             <CardImg 
             style={imgStyle} 
             top width="100%" 
