@@ -16,6 +16,7 @@ import {
 } from 'react-router-dom'
 import ResidenceContextProvider, { ResidenceContext } from './contexts/ResidenceContextProvider';
 import BookingContextProvider, { BookingContext } from './contexts/BookingContextProvider';
+
 import ResidenceList from './components/ResidenceList';
 import BookingList from './components/BookingList';
 
@@ -38,9 +39,9 @@ function App() {
           <Router>
             <Navbar />
             <main>
-              <Route exact path="/" component={Home} />
-              <Route exact path="/perform-login" component={Login} />
-              <Route exact path="/perform-register" component={Register} />
+              <Route exact path="/"><Home/></Route>
+              <Route exact path="/perform-login"> <Login/></Route>
+              <Route exact path="/perform-register"><Register/></Route>
               <Route exact path="/help"> <Help/></Route> 
               <Route exact path="/search-result"> <ResidenceList /></Route>
             </main>
