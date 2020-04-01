@@ -5,10 +5,10 @@ const NumberOfBeds = (props) => {
     const [nrOfBeds, setNrOfBeds] = useState([''])
 
     const getData = async () => {
-        
+
         let res = await fetch('/rest/residences/' + props.residenceId)
         res = await res.json()
-        //setNrOfBeds(res.nrOfBeds)   
+        setNrOfBeds(res.beds)   
     }
 
     useEffect(() => {
