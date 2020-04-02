@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { ResidenceContext } from '../contexts/ResidenceContextProvider'
+import { SearchResidence } from '../components/SearchResidence'
 import {
   Card, CardImg, CardText, CardBody,
   CardTitle, CardSubtitle
@@ -8,11 +9,27 @@ import '../sass/style.scss';
 import { Redirect } from 'react-router-dom';
 
 
+
 export default function ResidenceList() {
+  const [residence, updateResidence] = useContext(ResidenceContext)
+  const [searchResult, setSearchResult] = useState([])
+  const residences = [];
   const {residences} = useContext(ResidenceContext)
   const [images, setImage] = useState([])
   const [gotoChoice, setGotoChoice] = useState(false);
 
+  // Listen for updates to residence
+  // (right now made by SearchResidence...)
+  useEffect(() => {
+    let { searchFor } = residence;
+    if (!searchFor) { return; }
+    // thomas' comment: I would do my actual search here
+    // but for now I will just fake it to show you
+    // I picked up the search criterias via context
+    setSearchResult([
+      { id: 1, max_guests: JSON.stringify(searchFor, '', '  ') }
+    ]);
+  }, [residence])
   const getImages = async () => {
     let res = await fetch('/rest/images')
     res = await res.json()

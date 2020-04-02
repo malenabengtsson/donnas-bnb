@@ -20,4 +20,5 @@ public class ResidenceService {
     public List<Residence> getAllResidences(){
         return (List<Residence>) residenceRepo.findAll();
     }
+
 }

@@ -14,15 +14,6 @@ public class Booking  {
     private String start_date;
     private String end_date;
     private int total_price;
-
-    public int getTotal_price() {
-        return total_price;
-    }
-
-    public void setTotal_price(int total_price) {
-        this.total_price = total_price;
-    }
-
     private int residence_id;
 
 
@@ -67,4 +58,12 @@ public class Booking  {
     public void setUser_id(int user_id) {
         this.user_id = user_id;
     }
+    public int getTotal_price() {
+        return total_price;
+    }
+
+    public void setTotal_price(int total_price) {
+        this.total_price = total_price;
+    }
+
 }

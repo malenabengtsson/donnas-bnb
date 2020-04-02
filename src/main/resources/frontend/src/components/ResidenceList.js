@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { ResidenceContext } from '../contexts/ResidenceContextProvider'
+import { SearchResidence } from '../components/SearchResidence'
 import {
   Card, CardImg, CardText, CardBody,
   CardTitle, CardSubtitle
@@ -8,11 +9,52 @@ import '../sass/style.scss';
 import { Redirect } from 'react-router-dom';
 
 
+let throttleWait;
 export default function ResidenceList() {
-  const {residences} = useContext(ResidenceContext)
+  const [residence, updateResidence] = useContext(ResidenceContext)
+  const [searchResult, setSearchResult] = useState([])
+  // const residencesArray = [];
+  const [residenceArray, setResidenceArray] = useState([])
+  const {residences, fetchResidences} = useContext(ResidenceContext)
   const [images, setImage] = useState([])
   const [gotoChoice, setGotoChoice] = useState(false);
+  
+  // Listen for updates to residence
+  // (right now made by SearchResidence...)
+  useEffect(() => {
+    getResidences()
+  }, [])
 
+  useEffect(() => {
+    let { searchFor } = residence;
+    if (!searchFor) { return; }
+    // thomas' comment: I would do my actual search here
+    // but for now I will just fake it to show you
+    // I picked up the search criterias via context
+    clearTimeout(throttleWait)
+    throttleWait = setTimeout( () => {
+      
+    }, 1000)
+    console.log(residenceArray)
+  
+   
+    setSearchResult([
+      { id: 1, max_guests: JSON.stringify(searchFor, '', '  ') }
+    ]);
+  }, [residence])
+
+
+  const getResidences = async () => {
+    let res = await fetch('/rest/residences')
+    res = await res.json()
+    let result = []
+    res.forEach(el => {
+      result.push(el)
+    })
+    setResidenceArray(result)
+    console.log(result)
+    console.log(residenceArray)
+   }
   const getImages = async () => {
     let res = await fetch('/rest/images')
     res = await res.json()
@@ -35,7 +77,7 @@ export default function ResidenceList() {
   }, [])
 
     const list = () => {
-        return residences.map((residence, i) => {
+        return searchResult.map((residence, i) => {
 
           const cardStyle = {
             textAlign: "center",

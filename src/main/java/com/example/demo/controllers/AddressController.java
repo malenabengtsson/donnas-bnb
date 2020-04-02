@@ -1,6 +1,7 @@
 package com.example.demo.controllers;
 
 import com.example.demo.entities.Address;
+import com.example.demo.entities.Residence;
 import com.example.demo.services.AddressService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,8 +28,15 @@ public class AddressController {
         return addressService.getAllAddresses();
     }
 
-    @GetMapping("/rest/addresses/{id]")
+    @GetMapping("/rest/addresses/{id}")
     public Address getAddress(@PathVariable int id){
         return addressService.getOneAddress(id);
     }
+
+    @GetMapping("/rest/addresses/search/{city}")
+    public List<Address> getByCity(@PathVariable String city){
+        return addressService.getByCity(city);
+    }
+
+ 
 }

@@ -31,4 +31,7 @@ public class ResidenceController {
     public Residence getOneResidence(@PathVariable int id){
         return residenceService.findOneResidence(id);
     }
+
+
+
 }
