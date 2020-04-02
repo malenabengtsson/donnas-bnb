@@ -26,7 +26,7 @@ const BookingSummary = (props) => {
         
 
         diffrenceInDays = Math.round(diffrenceInDays)
-        return diffrenceInDays * residence.price
+        return diffrenceInDays * residence.price_per_night
     }
 
     const getPriceFromDb = async () => {
@@ -72,7 +72,7 @@ const BookingSummary = (props) => {
     return (
         <>
             <p>{date}</p>
-            <p>Pris per natt: {price} kr</p>
+            <p>Totalt pris: {price} kr</p>
             <Button className="btn btn-success">Reservera</Button>
         </>
     )

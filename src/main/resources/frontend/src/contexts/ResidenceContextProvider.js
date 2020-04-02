@@ -9,9 +9,13 @@ export default function ResidenceContextProvider(props) {
 
     setResidences([...residences, residence])
   }
+   
+  useEffect(() => {
+    fetchResidences()
+  }, [])
+      
 
   const removeResidence = id => {
-
     setResidences(residences.filter(r => r.id !== id))
 
 
@@ -43,6 +47,4 @@ export default function ResidenceContextProvider(props) {
       {props.children}
     </ResidenceContext.Provider>
   )
-
-
 }

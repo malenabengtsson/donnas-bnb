@@ -8,6 +8,7 @@ import Home from './pages/Home'
 import Login from './pages/Login'
 import Register from './pages/Register'
 import AboutResidence from './pages/AboutResidence'
+import ResidenceList from './components/ResidenceList'
 import {
   BrowserRouter as Router,
   Route,
@@ -16,10 +17,6 @@ import {
 } from 'react-router-dom'
 import ResidenceContextProvider, { ResidenceContext } from './contexts/ResidenceContextProvider';
 import BookingContextProvider, { BookingContext } from './contexts/BookingContextProvider';
-
-import ResidenceList from './components/ResidenceList';
-import BookingList from './components/BookingList';
-
 
 function App() {
 
@@ -44,6 +41,7 @@ function App() {
               <Route exact path="/perform-register"><Register/></Route>
               <Route exact path="/help"> <Help/></Route> 
               <Route exact path="/residences"> <ResidenceList /></Route>
+              <Route exact path="/about-residence"> <AboutResidence /></Route>
             </main>
             <Footer />
           </Router>
@@ -52,5 +50,4 @@ function App() {
     </div>
   );
 }
-
 export default App;

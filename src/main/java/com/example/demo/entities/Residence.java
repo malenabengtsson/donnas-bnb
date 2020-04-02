@@ -22,17 +22,11 @@ public class Residence {
 
     private int user_id;
 
-    private int price;
-
-    public int getPrice() {
-        return price;
-    }
-
-    public void setPrice(int price) {
-        this.price = price;
-    }
-
     private String description;
+
+    private String title;
+
+    private int price_per_night;
 
     public String getDescription() {
         return description;
@@ -89,4 +83,21 @@ public class Residence {
     public void setUser_id(int user_id) {
         this.user_id = user_id;
     }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public int getPrice_per_night() {
+        return price_per_night;
+    }
+    public void setPrice_per_night(int price_per_night) {
+        this.price_per_night = price_per_night;
+    }
+
+
 }

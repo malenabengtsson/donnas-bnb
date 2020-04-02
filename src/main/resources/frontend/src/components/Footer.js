@@ -5,8 +5,9 @@ const Footer = () => {
     return (
         <footer className="container-fluid mt-4">
             <Row>
-                <Col cs="12" className="bg-success text-ligh p-3 text-center">
-                    Hello m8 how you doin.
+                <Col cs="12" className="bg-success text-light p-3 text-center">
+                    Donna's Bnb
+                    {/* Hello m8 how you doin. */}
                 </Col>
             </Row>
         </footer>
