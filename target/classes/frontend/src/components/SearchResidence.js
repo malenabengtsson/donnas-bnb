@@ -22,39 +22,7 @@ export default function SearchResidence() {
     setGotoSearch(true);
   }
 
-  /*
-  const doSearch = async () => {
 
-    // NOT USING RIGHT NOW, USING initSearch INSTEAD
-
-    console.log(city)
-    let res;
-    console.log('test ' + city)
-
-    if (city === null) {
-      //Visa alla om man ej angett en stad 
-      res = await fetch('/rest/residences')
-
-    }
-    else {
-
-      res = await fetch('/rest/addresses/search/' + city)
-      //Visa alla i staden som angetts
-      //Hämtas ur addresses 
-      //eventuellt lägga till /rest/residences/ + city
-    }
-    res = await res.json()
-    //setResidences(res)
-
-  }
-
-  const autoSearch = (input) => {
-    clearTimeout(throttleSearch)
-    throttleSearch = setTimeout(async () => {
-      await doSearch(input)
-    }, 200);
-  }
-  */
 
   return (
     <div>
