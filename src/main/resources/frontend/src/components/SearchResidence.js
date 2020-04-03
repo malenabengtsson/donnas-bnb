@@ -39,7 +39,7 @@ export default function SearchResidence() {
               onChange={e => setCity(e.target.value)}
             />
           </FormGroup>
-          <FormGroup className="col-4 mx-auto">
+          <FormGroup className="col-lg-4 col-sm-10 mx-auto">
             <Label for="check-in">Incheckning</Label>
             <DatePicker
               id="check-in"
@@ -49,7 +49,7 @@ export default function SearchResidence() {
               dateFormat="dd/MM/yyyy"
             />
           </FormGroup>
-          <FormGroup className="col-4 mx-auto">
+          <FormGroup className="col-lg-4 col-sm-10 mx-auto">
             <Label for="check-out">Utcheckning</Label>
             <DatePicker
               id="check-out"
