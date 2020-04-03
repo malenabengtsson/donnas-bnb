@@ -55,8 +55,12 @@ const HomeSlideshow  = (props) => {
   const imgStyle = {
     margin: "10px",
     border: "1px solid gray",
-    cursor: "pointer"
+    cursor: "pointer",
+    
+    
+
   }
+
 
   const slides = images.map((image, i) => {
     return (
@@ -65,12 +69,14 @@ const HomeSlideshow  = (props) => {
         onExited={() => setAnimating(false)}
         key={image.img_path + i}
       >
-          <CardImg
+          <div >
+          <CardImg style={imgStyle}
                   top
                   width="100%"
                   src={image.img_path}
                   alt="Card image cap"
                 />
+                </div>
         {/* <img src={image.img_path} alt={'item.altText'} /> */}
       </CarouselItem>
     );
