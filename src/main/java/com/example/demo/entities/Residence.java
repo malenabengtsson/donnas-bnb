@@ -5,7 +5,7 @@ import java.io.Serializable;
 
 @Entity
 @Table(name = "residences")
-public class Residence {
+public class Residence implements Serializable{
 
 
     @Id
@@ -14,7 +14,10 @@ public class Residence {
 
     private int max_guests;
 
-    private int amenity_profile_id;
+
+   @OneToOne(cascade = CascadeType.ALL)
+   @JoinColumn()
+    private AmenityProfile amenity_profile_id;
 
     private int address_id;
 
@@ -28,12 +31,22 @@ public class Residence {
 
     private int price_per_night;
 
+    public Residence(){}
+
     public String getDescription() {
         return description;
     }
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public AmenityProfile getAmenity_profile_id() {
+        return amenity_profile_id;
+    }
+
+    public void setAmenity_profile_id(AmenityProfile amenity_profile_id) {
+        this.amenity_profile_id = amenity_profile_id;
     }
 
     public int getId() {
@@ -50,14 +63,6 @@ public class Residence {
 
     public void setMax_guests(int max_guests) {
         this.max_guests = max_guests;
-    }
-
-    public int getAmenity_profile_id() {
-        return amenity_profile_id;
-    }
-
-    public void setAmenity_profile_id(int amenity_profile_id) {
-        this.amenity_profile_id = amenity_profile_id;
     }
 
     public int getAddress_id() {

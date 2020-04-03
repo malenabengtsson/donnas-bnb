@@ -3,15 +3,15 @@ import { ResidenceContext } from '../contexts/ResidenceContextProvider'
 import { SearchResidence } from '../components/SearchResidence'
 import {
   Card, CardImg, CardText, CardBody,
-  CardTitle, CardSubtitle
+  CardTitle, CardSubtitle, Container, Form, Input, FormGroup, Button
 } from 'reactstrap';
 import '../sass/style.scss';
 import { Redirect } from 'react-router-dom';
 
 
-let throttleWait;
+let throttleSearch;
 export default function ResidenceList() {
-  const [residence, updateResidence] = useContext(ResidenceContext)
+  const [ residence, updateResidence ] = useContext(ResidenceContext)
   const [searchResult, setSearchResult] = useState([])
   // const residencesArray = [];
   const [residenceArray, setResidenceArray] = useState([])
@@ -23,25 +23,32 @@ export default function ResidenceList() {
   // (right now made by SearchResidence...)
   useEffect(() => {
     getResidences()
+    doSearch()
   }, [])
 
-  useEffect(() => {
+  const doSearch = () => {
     let { searchFor } = residence;
     if (!searchFor) { return; }
-    // thomas' comment: I would do my actual search here
-    // but for now I will just fake it to show you
-    // I picked up the search criterias via context
-    clearTimeout(throttleWait)
-    throttleWait = setTimeout( () => {
-      
-    }, 1000)
-    console.log(residenceArray)
   
-   
+   console.log(residence)
     setSearchResult([
-      { id: 1, max_guests: JSON.stringify(searchFor, '', '  ') }
+      {
+        id: 1, res: JSON.stringify(searchFor, '', '  '),
+      },
     ]);
-  }, [residence])
+    console.log(searchResult)
+  }
+
+  const getAddresses = async () => {
+    let res = await fetch('/rest/addresses')
+    res = await res.json()
+    let result = []
+    res.forEach(el => {
+      result.push(el)
+    })
+
+
+  }
 
 
   const getResidences = async () => {
@@ -52,8 +59,6 @@ export default function ResidenceList() {
       result.push(el)
     })
     setResidenceArray(result)
-    console.log(result)
-    console.log(residenceArray)
    }
   const getImages = async () => {
     let res = await fetch('/rest/images')
@@ -130,9 +135,35 @@ export default function ResidenceList() {
   
   
     return (
-      <>
+      <div>
         {gotoChoice && <Redirect to="/about-residence" />}
+        <Container>
+          <Form className="row"
+          onSubmit={doSearch}>
+          <FormGroup className="col-5 mx-auto">
+              <Input
+                value={residence.searchFor.city}
+                type="text"
+                id="city"
+                placeholder="Skriv en stad..."
+                onChange={e => updateResidence({
+                  searchFor:
+                  {
+                    city: e.target.value,
+                    checkIn: residence.searchFor.checkIn,
+                    checkOut: residence.searchFor.checkOut
+                  }
+              
+                })}
+            />
+            </FormGroup>
+            <Button
+              onClick={doSearch}
+            color="success"
+            className="col-2">Sök</Button>
+            </Form>
         {list()}
-      </>
+        </Container>
+      </div>
     );
   }

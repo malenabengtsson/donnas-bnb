@@ -15,6 +15,7 @@ public class Image  {
 
     private String img_path;
 
+    public Image(){}
     public int getId() {
         return id;
     }

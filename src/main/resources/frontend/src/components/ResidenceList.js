@@ -29,10 +29,6 @@ export default function ResidenceList() {
   const doSearch = () => {
     let { searchFor } = residence;
     if (!searchFor) { return; }
-
-    const result =  residence.searchFor.map((residence, i) => {
-      return console.log(residence.id)
-    })
   
    console.log(residence)
     setSearchResult([

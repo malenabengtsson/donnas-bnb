@@ -16,6 +16,7 @@ public class Address implements Serializable {
     private int zip_code;
     private String city;
 
+    public Address(){}
     public int getId() {
         return id;
     }

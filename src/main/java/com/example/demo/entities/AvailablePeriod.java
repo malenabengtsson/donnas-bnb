@@ -15,6 +15,7 @@ public class AvailablePeriod  {
 
     private int residence_id;
 
+    public AvailablePeriod(){}
     public int getId() {
         return id;
     }

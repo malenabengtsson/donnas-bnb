@@ -18,7 +18,7 @@ public class Booking  {
 
 
     private int user_id;
-
+ public Booking(){}
     public int getId() {
         return id;
     }
