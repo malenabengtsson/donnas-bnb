@@ -9,8 +9,8 @@ let throttleSearch;
 export default function SearchResidence() {
 
   const [city, setCity] = useState('')
-  const [checkIn, setCheckIn] = useState('')
-  const [checkOut, setCheckOut] = useState('')
+  const [checkIn, setCheckIn] = useState(new Date())
+  const [checkOut, setCheckOut] = useState(new Date())
   const [residence, updateResidence] = useContext(ResidenceContext);
   const [gotoSearch, setGotoSearch] = useState(false);
 
@@ -41,18 +41,22 @@ export default function SearchResidence() {
           </FormGroup>
           <FormGroup className="col-4 mx-auto">
             <Label for="check-in">Incheckning</Label>
-            <Input
+            <DatePicker
               id="check-in"
-              type="date"
-              onChange={e => setCheckIn(e.target.value)}
+              onChange={date => setCheckIn(date)}
+              minDate={checkIn}
+              value={checkIn}
+              dateFormat="dd/MM/yyyy"
             />
           </FormGroup>
           <FormGroup className="col-4 mx-auto">
             <Label for="check-out">Utcheckning</Label>
-            <Input
+            <DatePicker
               id="check-out"
-              type="date"
-              onChange={e => setCheckOut(e.target.value)}
+              selected={checkOut}
+              onChange={date => setCheckOut(date)}
+              value={checkOut}
+              dateFormat="dd/MM/yyyy"
             />
           </FormGroup>
           <Button

@@ -42,6 +42,7 @@ export default function ResidenceList() {
       { id: 1, max_guests: JSON.stringify(searchFor, '', '  ') }
     ]);
   }, [residence])
+  console.log(searchResult)
 
 
   const getResidences = async () => {
