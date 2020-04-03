@@ -13,7 +13,7 @@
     import ResidenceList from './components/ResidenceList';
     import BookingList from './components/BookingList';
     import Home from './pages/Home'
-
+    import SignUpPage from './pages/SignUpPage'
 
     function App() {
 
@@ -24,11 +24,11 @@
           <Router>
               <Navbar />
               <BookingList />
-
             <main>
               <Route exact path="/"><Home /></Route>
               <Route exact path="/residences"><ResidenceList /></Route>
               <Route exact path="/about-residence"><AboutResidence /></Route>
+              <Route exact path="/sign-up" component={SignUpPage} />
             </main>
             <Footer />
           </Router>

@@ -44,8 +44,8 @@ const AboutResidence = () => {
                 </Col>
             </Row>
             <Row>
-                <Col sm="10" md={{ size: 3, offset: 5}} >
-                    <ResidenceAmenity residenceId={1} />
+                <Col sm="10" md={{ size: 4, offset: 4}} >
+                    <ResidenceAmenity residenceId={2} />
                 </Col>
             </Row>
             <Row>

@@ -24,6 +24,9 @@ const TopNavbar = () => {
             <NavItem>
               <Link to="/" className="nav-link">Hem</Link>
             </NavItem>
+            <NavItem className="mr-auto" navbar>
+              <Link to="/sign-up" className="nav-link">Registrera dig</Link>
+            </NavItem>
           </Nav>
         </Collapse>
       </Navbar>
