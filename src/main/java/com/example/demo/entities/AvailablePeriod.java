@@ -13,7 +13,9 @@ public class AvailablePeriod  {
     private String start_date;
     private String end_date;
 
-    private int residence_id;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn
+    private Residence residence_id;
 
     public AvailablePeriod(){}
     public int getId() {
@@ -40,11 +42,11 @@ public class AvailablePeriod  {
         this.end_date = end_date;
     }
 
-    public int getResidence_id() {
+    public Residence getResidence_id() {
         return residence_id;
     }
 
-    public void setResidence_id(int residence_id) {
+    public void setResidence_id(Residence residence_id) {
         this.residence_id = residence_id;
     }
 }
