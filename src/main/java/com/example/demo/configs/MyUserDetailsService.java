@@ -20,13 +20,7 @@ public class MyUserDetailsService implements UserDetailsService {
     @Autowired
     private UserRepo userRepo;
 
-    @PostConstruct
-    private void createDefaultUsers(){
-        // String full_name, String email, String password, int phone_number
-        if (userRepo.findByEmail("user") == null) {
-            addUser("user", "h@g.com", "password", 07555534);
-        }
-    }
+
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {

@@ -36,7 +36,7 @@
               <Route exact path="/sign-in" component={SignInPage} />
               <Route exact path="/my-page" component={MyPage} />
             </main>
-            <Footer />
+            <Footer/>
           </Router>
           </BookingContextProvider>
           </ResidenceContextProvider>

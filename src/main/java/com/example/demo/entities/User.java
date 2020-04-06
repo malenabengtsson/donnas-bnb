@@ -1,6 +1,7 @@
 package com.example.demo.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.persistence.*;
 
@@ -20,7 +21,6 @@ public class User {
     public User() {}
 
     public User(String full_name, String email, String password, int phone_number) {
-        System.out.println(email);
         this.full_name = full_name;
         this.email = email;
         this.password = password;
@@ -55,7 +55,7 @@ public class User {
     public String getPassword() {
         return password;
     }
-    @JsonIgnore
+    @JsonProperty
     public void setPassword(String password) {
         this.password = password;
     }

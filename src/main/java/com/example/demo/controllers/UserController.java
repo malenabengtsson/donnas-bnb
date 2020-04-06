@@ -30,9 +30,8 @@ public class UserController {
         return userService.getOneUser(id);
     }
 
-    @PostMapping("/auth/signup")
+    @PostMapping("/auth/register")
     public User registerUser(@RequestBody User user) {
-       // System.out.println(user.getFull_name());
         return userService.registerUser(user);
     }
 
