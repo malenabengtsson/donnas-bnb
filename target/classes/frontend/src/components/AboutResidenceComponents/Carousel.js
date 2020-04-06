@@ -19,9 +19,10 @@ const Slideshow  = (props) => {
     let res = await fetch('/rest/images')
     res = await res.json()
     let arryOfImages = []
-    // console.log(res)
+
     res.forEach(image => {
-      if (image.residence_id === props.residenceId) {
+      console.log(image.residence_id.id)
+      if (image.residence_id.id === props.residenceId) {
         arryOfImages.push(image)
       }
     })

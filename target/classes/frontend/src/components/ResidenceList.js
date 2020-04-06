@@ -22,15 +22,28 @@ export default function ResidenceList() {
   // Listen for updates to residence
   // (right now made by SearchResidence...)
   useEffect(() => {
-    getResidences()
-    doSearch()
+    getResidences() 
   }, [])
+
+  useEffect(() => {
+    doSearch()
+  }, [residenceArray])
 
   const doSearch = () => {
     let { searchFor } = residence;
     if (!searchFor) { return; }
+
+    residenceArray.forEach(res => {
+      if (res.address_id.city == residence.searchFor.city) {
+        console.log('Found')
+      }
+      else {
+        console.log('Not found')
+      }
   
-   console.log(residence)
+    })
+
+
     setSearchResult([
       {
         id: 1, res: JSON.stringify(searchFor, '', '  '),
@@ -38,18 +51,6 @@ export default function ResidenceList() {
     ]);
     console.log(searchResult)
   }
-
-  const getAddresses = async () => {
-    let res = await fetch('/rest/addresses')
-    res = await res.json()
-    let result = []
-    res.forEach(el => {
-      result.push(el)
-    })
-
-
-  }
-
 
   const getResidences = async () => {
     let res = await fetch('/rest/residences')
@@ -59,14 +60,15 @@ export default function ResidenceList() {
       result.push(el)
     })
     setResidenceArray(result)
-   }
+  }
+  
   const getImages = async () => {
     let res = await fetch('/rest/images')
     res = await res.json()
     let arrayOfImages = []
   
     res.forEach(image => {
-      if (image.residence_id === 1) {
+      if (image.residence_id.id === 1) {
         arrayOfImages.push(image.img_path)
       }
     })
@@ -116,7 +118,7 @@ export default function ResidenceList() {
                 <CardBody>
                   <CardTitle
                     style={{ fontWeight: "bold" }}
-                    key={residence.title}
+                    key={residenceArray.title}
                   >
                     {residence.title}
                   </CardTitle>

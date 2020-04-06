@@ -23,12 +23,11 @@ public class Residence implements Serializable{
    @JoinColumn
     private Address address_id;
 
-    private int beds;
-
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn
     private User user_id;
 
+    private int beds;
     private String description;
 
     private String title;
