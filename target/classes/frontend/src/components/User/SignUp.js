@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import { 
     Col, 
     Row, 
@@ -7,6 +7,7 @@ import {
     FormGroup, 
     Label, 
     Input } from 'reactstrap';
+import { UserContext } from '../../contexts/UserContextProvider'
 
 const SignUp = () => {
     const [firstName, setFirstName] = useState('')
@@ -15,6 +16,8 @@ const SignUp = () => {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
 
+    const { setUser } = useContext(UserContext)
+
     const register = async (e) =>{
         e.preventDefault()
 
@@ -22,6 +25,25 @@ const SignUp = () => {
             return
         }
 
+        const userInfo = {
+            firstName,
+            email,
+            password,
+            phoneNumber
+        }
+        console.log(userInfo)
+        let response = await fetch('/auth/register', {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(userInfo)
+        })
+
+        try {
+            response = await response.json()
+            setUser(response)
+        } catch {
+            console.log('Bad credentials')
+        }
         
     }
 
@@ -99,7 +121,7 @@ const SignUp = () => {
             </FormGroup>
           </Col>
         </Row>
-        <Button className="btn btn-success">Sign in</Button>
+        <Button className="btn btn-success">Registrera dig</Button>
       </Form>
     )
 }

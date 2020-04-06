@@ -10,6 +10,7 @@
     } from 'react-router-dom'
     import ResidenceContextProvider from './contexts/ResidenceContextProvider';
     import BookingContextProvider from './contexts/BookingContextProvider';
+    import UserContextProvider from './contexts/UserContextProvider'
     import ResidenceList from './components/ResidenceList';
     import BookingList from './components/BookingList';
     import Home from './pages/Home'
@@ -19,6 +20,7 @@
 
       return (
         <div className="App">
+          <UserContextProvider>
           <ResidenceContextProvider>
           <BookingContextProvider>
           <Router>
@@ -34,6 +36,7 @@
           </Router>
           </BookingContextProvider>
           </ResidenceContextProvider>
+          </UserContextProvider>
         </div>
       );
     }

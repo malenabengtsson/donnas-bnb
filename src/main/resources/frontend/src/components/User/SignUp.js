@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import { 
     Col, 
     Row, 
@@ -6,7 +6,9 @@ import {
     Form, 
     FormGroup, 
     Label, 
-    Input } from 'reactstrap';
+    Input, 
+    Card} from 'reactstrap';
+import { UserContext } from '../../contexts/UserContextProvider'
 
 const SignUp = () => {
     const [firstName, setFirstName] = useState('')
@@ -15,6 +17,8 @@ const SignUp = () => {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
 
+    const { setUser } = useContext(UserContext)
+
     const register = async (e) =>{
         e.preventDefault()
 
@@ -22,15 +26,49 @@ const SignUp = () => {
             return
         }
 
+        let fullName = firstName + ' ' + lastName
+
+        const userInfo = {
+            fullName,
+            email,
+            password,
+            phoneNumber
+        }
+        console.log(userInfo)
+        let response = await fetch('/auth/register', {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(userInfo)
+        })
+
+        try {
+            response = await response.json()
+            setUser(response)
+        } catch {
+            console.log('Bad credentials')
+        }
         
     }
 
+    const cardStyle = {
+      textAlign: "center",
+      margin: "15px",  
+      backgroundColor: "#F5F5DC"
+    }
+
+    const divStyle = {
+      textAlign: "center",
+      margin: "15px",  
+    }
+
     return (
-        <Form onSubmit={register}>
+    <Card style={cardStyle}>
+      <div style={divStyle}>
+        <Form onSubmit={register} >
         <Row form>
           <Col md={6}>
             <FormGroup>
-                <Label for="user-first-name">Förnamn:</Label>
+                <Label for="user-first-name" className="float-left">Förnamn:</Label>
                 <Input 
                     required
                     type="text" 
@@ -44,7 +82,7 @@ const SignUp = () => {
           </Col>
           <Col md={6}>
               <FormGroup>
-                <Label for="user-last-name">Efternamn:</Label>
+                <Label for="user-last-name" className="float-left">Efternamn:</Label>
                 <Input
                     required 
                     type="text" 
@@ -58,7 +96,7 @@ const SignUp = () => {
           </Col>
           <Col md="6" >
               <FormGroup>
-                  <Label for="user-phone-number">Telefonnummer:</Label>
+                  <Label for="user-phone-number" className="float-left">Telefonnummer:</Label>
                   <Input
                     required 
                     type="number" 
@@ -72,7 +110,7 @@ const SignUp = () => {
           </Col>
           <Col md={6}>
             <FormGroup>
-              <Label for="user-email">E-post:</Label>
+              <Label for="user-email" className="float-left">E-post:</Label>
               <Input
                 required 
                 type="email" 
@@ -86,7 +124,7 @@ const SignUp = () => {
           </Col>
           <Col md={6}>
             <FormGroup>
-              <Label for="user-password">Lösenord:</Label>
+              <Label for="user-password" className="float-left">Lösenord:</Label>
               <Input
                 required 
                 type="password" 
@@ -99,8 +137,10 @@ const SignUp = () => {
             </FormGroup>
           </Col>
         </Row>
-        <Button className="btn btn-success">Sign in</Button>
+        <Button className="btn btn-success">Registrera dig</Button>
       </Form>
+      </div>
+    </Card>
     )
 }
 
