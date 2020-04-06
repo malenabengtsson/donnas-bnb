@@ -16,14 +16,18 @@ public class Residence implements Serializable{
 
 
    @OneToOne(cascade = CascadeType.ALL)
-   @JoinColumn()
+   @JoinColumn
     private AmenityProfile amenity_profile_id;
 
-    private int address_id;
+   @OneToOne(cascade = CascadeType.ALL)
+   @JoinColumn
+    private Address address_id;
 
     private int beds;
 
-    private int user_id;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn
+    private User user_id;
 
     private String description;
 
@@ -39,6 +43,14 @@ public class Residence implements Serializable{
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public Address getAddress_id() {
+        return address_id;
+    }
+
+    public void setAddress_id(Address address_id) {
+        this.address_id = address_id;
     }
 
     public AmenityProfile getAmenity_profile_id() {
@@ -65,14 +77,6 @@ public class Residence implements Serializable{
         this.max_guests = max_guests;
     }
 
-    public int getAddress_id() {
-        return address_id;
-    }
-
-    public void setAddress_id(int address_id) {
-        this.address_id = address_id;
-    }
-
     public int getBeds() {
         return beds;
     }
@@ -81,11 +85,11 @@ public class Residence implements Serializable{
         this.beds = beds;
     }
 
-    public int getUser_id() {
+    public User getUser_id() {
         return user_id;
     }
 
-    public void setUser_id(int user_id) {
+    public void setUser_id(User user_id) {
         this.user_id = user_id;
     }
 
