@@ -1,11 +1,14 @@
 import React, { useState, useEffect, useContext } from 'react'
 import { Button } from 'reactstrap'
+import BookAsGuestModal from '../BookAsGuestModal'
+import BookingOptionsModal from '../BookingOptionsModal'
 
 
 const BookingSummary = (props) => {
     const [residence, setResidence] = useState('')
     const [startShortDate, setStartShortDate] = useState('')
     const [endShortDate, setEndShortDate] = useState('')
+  
 
     const calculatePrice = () => {
         let startMonth = ('0' + (props.startDate.getMonth() + 1)).slice(-2)
@@ -55,10 +58,12 @@ const BookingSummary = (props) => {
         return startShortDate + ' - ' + endShortDate
     }
 
-    
-
     const [date, setDate] = useState(getDate)
     const [price, setPrice] = useState(899)// useState(props.pricePerNight)
+
+    const [isModalOpen, setIsModalOpen] = useState(false)
+
+    const toggle = () => setIsModalOpen(!isModalOpen)
 
     const update = () => {
         setDate(getDate())
@@ -73,7 +78,8 @@ const BookingSummary = (props) => {
         <>
             <p>{date}</p>
             <p>Totalt pris: {price} kr</p>
-            <Button className="btn btn-success">Reservera</Button>
+            <Button className="btn btn-success" onClick={toggle}>Reservera</Button>
+            <BookingOptionsModal isOpen = {isModalOpen} toggle={toggle} />
         </>
     )
 }

@@ -34,10 +34,10 @@ export default function ResidenceList() {
     getImages()
   }, [])
 
-    const list = () => {
-        return residences.map((residence, i) => {
+  const list = () => {
+    return residences.map((residence, i) => {
 
-          const cardStyle = {
+       const cardStyle = {
             textAlign: "center",
             marginTop: "15px", 
             marginBottom: "15px", 
@@ -83,8 +83,8 @@ export default function ResidenceList() {
               </Card>
             </div>
           );
-        })  
-    }
+     })  
+ }
   
   
     return (
