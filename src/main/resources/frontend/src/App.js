@@ -15,6 +15,8 @@
     import BookingList from './components/BookingList';
     import Home from './pages/Home'
     import SignUpPage from './pages/SignUpPage'
+    import SignInPage from './pages/SignInPage'
+    import MyPage from './pages/MyPage'
 
     function App() {
 
@@ -31,6 +33,8 @@
               <Route exact path="/residences"><ResidenceList /></Route>
               <Route exact path="/about-residence"><AboutResidence /></Route>
               <Route exact path="/sign-up" component={SignUpPage} />
+              <Route exact path="/sign-in" component={SignInPage} />
+              <Route exact path="/my-page" component={MyPage} />
             </main>
             <Footer />
           </Router>

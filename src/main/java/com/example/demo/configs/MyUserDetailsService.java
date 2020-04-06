@@ -29,10 +29,10 @@ public class MyUserDetailsService implements UserDetailsService {
     }
 
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = userRepo.findByEmail(username);
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+        User user = userRepo.findByEmail(email);
         if (user == null) {
-            throw new UsernameNotFoundException("User not found by name: " + username);
+            throw new UsernameNotFoundException("User not found by name: " + email);
         }
         return toUserDetails(user);
     }
@@ -40,6 +40,7 @@ public class MyUserDetailsService implements UserDetailsService {
     public User addUser(String full_name, String email, String password, int phone_number){
         // String full_name, String email, String password, int phone_number
         User user = new User(full_name, email, encoder.encode(password), phone_number);
+        System.out.println(user);
         try {
             return userRepo.save(user);
         } catch (Exception ex) {

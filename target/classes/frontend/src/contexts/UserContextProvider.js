@@ -16,7 +16,6 @@ const UserContextProvider = (props) => {
             console.log('Not authenticated')
         }
 
-        console.log(res)
     }
 
     useEffect(() => {

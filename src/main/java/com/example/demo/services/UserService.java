@@ -5,7 +5,6 @@ import com.example.demo.entities.User;
 import com.example.demo.repositories.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -25,25 +24,6 @@ public class UserService {
     public List<User> getAllUsers(){
         return (List<User>) userRepo.findAll();
     }
-/*
-    public User customLogin(User user){
-        User dbUser = userRepo.findByEmail(user.getEmail());
-        if (dbUser == null) {
-            return null;
-        }
-
-        if (encoder.matches(user.getPassword(), dbUser.getPassword())){
-            return dbUser;
-        }
-        return null;
-    }
-
-    public User customRegister(User user){
-        User newUser = new User(user.getEmail(), encoder.encode(user.getPassword()));
-        return userRepo.save(newUser);
-    }
- */
-
 
     public User findCurrentUser() {
         String username =

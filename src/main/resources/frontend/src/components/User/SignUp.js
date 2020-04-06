@@ -22,28 +22,30 @@ const SignUp = () => {
     const register = async (e) =>{
         e.preventDefault()
 
-        if (!firstName.trim() || !lastName.trim() || phoneNumber.length < 8 || !email.trim() || !password.trim()){
-            return
-        }
+        
 
         let fullName = firstName + ' ' + lastName
 
-        const userInfo = {
-            fullName,
-            email,
-            password,
-            phoneNumber
+        
+
+        const credentials = {
+          email: email,
+          full_name: fullName,
+          password: password,
+          phone_number: parseInt(phoneNumber)  
         }
-        console.log(userInfo)
+
+         console.log(credentials)
         let response = await fetch('/auth/register', {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(userInfo)
+            body: JSON.stringify(credentials)
         })
 
         try {
             response = await response.json()
             setUser(response)
+            console.log('hej')
         } catch {
             console.log('Bad credentials')
         }
