@@ -18,11 +18,19 @@ const SignIn = (props) => {
     margin: "15px",
   };
 
-  const signIn = async (e) => {
+  const springLogin = async (e) => {
     e.preventDefault()
 
-    if(!email.trim() || !password.trim()){
-        return
+    const credentials = 'username=' + encodeURIComponent(email) + '&password=' + encodeURIComponent(password)
+
+    let response = await fetch("/login", {
+      method: "POST",
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      body: credentials
+    })
+
+    if(response.url.includes('error')) {
+      console.log('Wrong username or password')
     }
 
     setGoToChoice(true)
@@ -32,7 +40,7 @@ const SignIn = (props) => {
     <Card style={cardStyle}>
         {goToChoice && <Redirect to="/my-page" />}
       <div style={divStyle}>
-       <Form onSubmit={signIn}>
+       <Form onSubmit={springLogin}>
         <Col md={6}>
           <FormGroup>
             <Label for="user-email" className="float-left">

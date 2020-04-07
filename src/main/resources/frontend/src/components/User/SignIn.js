@@ -1,11 +1,16 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Card, FormGroup, Col, Label, Input, Form, Button } from "reactstrap";
 import { Redirect } from "react-router-dom";
+import { UserContext } from '../../contexts/UserContextProvider' 
+
+let throttle;
+
 
 const SignIn = (props) => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [goToChoice, setGoToChoice] = useState(false)
+  const { fetchUser } = useContext(UserContext)
 
   const cardStyle = {
     textAlign: "center",
@@ -18,21 +23,30 @@ const SignIn = (props) => {
     margin: "15px",
   };
 
-  const signIn = async (e) => {
+  const springLogin = async (e) => {
     e.preventDefault()
 
-    if(!email.trim() || !password.trim()){
-        return
-    }
+    const credentials = 'username=' + encodeURIComponent(email) + '&password=' + encodeURIComponent(password)
 
-    setGoToChoice(true)
+    let response = await fetch("/login", {
+      method: "POST",
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      body: credentials
+    })
+
+    if(response.url.includes('error')) {
+      console.log('Wrong username or password')
+    }else {
+      fetchUser()
+      setGoToChoice(true)
+    }
   }
 
   return (
     <Card style={cardStyle}>
         {goToChoice && <Redirect to="/my-page" />}
       <div style={divStyle}>
-       <Form onSubmit={signIn}>
+       <Form onSubmit={springLogin}>
         <Col md={6}>
           <FormGroup>
             <Label for="user-email" className="float-left">

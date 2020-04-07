@@ -4,6 +4,7 @@ export const UserContext = createContext()
 
 const UserContextProvider = (props) => {
     const [user, setUser] = useState(null)
+    const [isLoggedIn, setIsLoggedIn] = useState(false)
 
 
     const fetchUser = async () => {
@@ -11,7 +12,7 @@ const UserContextProvider = (props) => {
         try {
             res = await res.json()
             setUser(res)
-            console.log(res)
+            setIsLoggedIn(true)
         }catch {
             console.log('Not authenticated')
         }
@@ -25,7 +26,9 @@ const UserContextProvider = (props) => {
     const values = {
         user,
         fetchUser,
-        setUser
+        setUser,
+        isLoggedIn,
+        setIsLoggedIn
     }
 
     return (
