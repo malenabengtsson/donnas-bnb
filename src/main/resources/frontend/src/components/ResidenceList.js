@@ -6,11 +6,11 @@ import {
   CardTitle, CardSubtitle, Container, Form, Input, FormGroup, Button
 } from 'reactstrap';
 import '../sass/style.scss';
-import { Redirect } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 
 
 let throttleSearch;
-export default function ResidenceList() {
+function ResidenceList(props) {
   const [residence, updateResidence] = useContext(ResidenceContext)
   const [searchResult, setSearchResult] = useState([])
   // const residencesArray = [];
@@ -36,7 +36,6 @@ export default function ResidenceList() {
   const doSearch = () => {
     let { searchFor } = residence;
     if (!searchFor) { return; }
-
     residenceArray.forEach(sortedResidence => {
       if (sortedResidence.address_id.city == residence.searchFor.city) {
         console.log('found')
@@ -47,14 +46,6 @@ export default function ResidenceList() {
       }
   
     })
-
-
-    // setSearchResult([
-    //   {
-    //     id: 1, res: JSON.stringify(searchFor, '', '  '),
-    //   },
-    // ]);
-    
   }
 
   const getResidences = async () => {
@@ -71,26 +62,10 @@ export default function ResidenceList() {
     if (searchResult.length == 0) {
     }
     else {
-    
+      
       let res = await fetch('/rest/images')
       res = await res.json()
       let arrayOfImages = []
-      // res.forEach(image => {
-      //   console.log(searchResult[image.id - 1].sortedResidence.id)
-      //   console.log(image.residence_id.id)
-        
-      //   if (searchResult[image.id-1].sortedResidence.id == undefined) {
-      //     console.log('null')
-      //   }
-      //   else if(image.residence_id.id == searchResult[image.id-1].sortedResidence.id){
-      //     console.log('success')
-      //     arrayOfImages.push(image.img_path)
-      //     setImage(arrayOfImages)
-      //   }
-      //   else {
-      //     console.log('failed ' + image.id-1)
-      //   }
-      // })
       searchResult.forEach(search => {
         console.log(search)
         res.forEach(image => {
@@ -98,6 +73,7 @@ export default function ResidenceList() {
             console.log('success')
             arrayOfImages.push(image.img_path)
             setImage(arrayOfImages)
+            console.log(searchResult[0].sortedResidence.id);
           }
     
         })
@@ -105,8 +81,8 @@ export default function ResidenceList() {
     }
   }
 
-  const gotoResidence = e => {
-    setGotoChoice(true);
+  const gotoResidence = id => {
+   props.history.push('/residences/' + id)
   };
 
   const list = () => {
@@ -141,7 +117,7 @@ export default function ResidenceList() {
                 width="100%"
                 src={images[i]}
                 alt="Card image cap"
-                onClick={gotoResidence}
+                onClick={() => gotoResidence(res.sortedResidence.id)}
               />
 
               <CardBody>
@@ -150,7 +126,6 @@ export default function ResidenceList() {
                   key={res.sortedResidence.title}
                 >
                   {res.sortedResidence.title}
-            
                 </CardTitle>
                 <CardSubtitle key={res.sortedResidence.description}>
                   {res.sortedResidence.description}
@@ -169,7 +144,7 @@ export default function ResidenceList() {
   
     return (
       <div>
-        {gotoChoice && <Redirect to="/about-residence" />}
+        {/* {gotoChoice && <Redirect to={"/residences/" + searchResult[0].sortedResidence.id} />} */}
         <Container>
           <Form className="row"
           onSubmit={doSearch}>
@@ -199,4 +174,5 @@ export default function ResidenceList() {
         </Container>
       </div>
     );
-  }
+}
+  export default withRouter(ResidenceList)

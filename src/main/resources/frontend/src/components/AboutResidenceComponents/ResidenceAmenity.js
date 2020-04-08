@@ -7,7 +7,6 @@ const ResidenceAmenity = (props) => {
     const getDataFromDatabase = async () => {
         let res = await fetch('/rest/residences/' + props.residenceId)
         res = await res.json()
-        console.log(res)
         let data = []
         if(res.amenity_profile_id.wifi === true) data.push('Wifi')
         if(res.amenity_profile_id.tv === true) data.push('TV')
