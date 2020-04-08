@@ -22,12 +22,7 @@ export default function ResidenceList() {
   // Listen for updates to residence
   // (right now made by SearchResidence...)
   useEffect(() => {
-    console.log('residences')
     getResidences()
-  }, [])
-  useEffect(() => {
-    console.log('list')
-    list()
   }, [])
 
   useEffect(() => {
@@ -116,7 +111,6 @@ export default function ResidenceList() {
 
   const list = () => {
     if (searchResult.length < 1) {
-      console.log('In list')
     }
     else {
       return searchResult.map((res, i) => {
