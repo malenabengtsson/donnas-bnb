@@ -11,9 +11,7 @@ public class Image  {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn
-    private Residence residence_id;
+    private int residenceId;
 
     private String img_path;
 
@@ -26,12 +24,12 @@ public class Image  {
         this.id = id;
     }
 
-    public Residence getResidence_id() {
-        return residence_id;
+    public int getResidenceId() {
+        return residenceId;
     }
 
-    public void setResidence_id(Residence residence_id) {
-        this.residence_id = residence_id;
+    public void setResidenceId(int residenceId) {
+        this.residenceId = residenceId;
     }
 
     public String getImg_path() {

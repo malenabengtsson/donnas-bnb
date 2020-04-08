@@ -29,23 +29,18 @@ function ResidenceList(props) {
     doSearch()
   }, [residenceArray])
   
-  useEffect(() => {
-    getImages()
-  }, [searchResult])
-
   const doSearch = () => {
     let { searchFor } = residence;
     if (!searchFor) { return; }
-    residenceArray.forEach(sortedResidence => {
-      if (sortedResidence.address_id.city == residence.searchFor.city) {
-        console.log('found')
-        setSearchResult([{ sortedResidence }])
-      }
-      else {
-        console.log('not found')
-      }
-  
-    })
+
+    setSearchResult(residenceArray.filter(
+      (sortedResidence) =>
+        sortedResidence.address_id.city == residence.searchFor.city
+    ));
+    setTimeout(() => {
+    
+      console.log(searchResult)
+    }, 50)
   }
 
   const getResidences = async () => {
@@ -57,29 +52,7 @@ function ResidenceList(props) {
     })
     setResidenceArray(result)
   }
-  
-  const getImages = async () => {
-    if (searchResult.length == 0) {
-    }
-    else {
-      
-      let res = await fetch('/rest/images')
-      res = await res.json()
-      let arrayOfImages = []
-      searchResult.forEach(search => {
-        console.log(search)
-        res.forEach(image => {
-          if (image.residence_id.id == search.sortedResidence.id) {
-            console.log('success')
-            arrayOfImages.push(image.img_path)
-            setImage(arrayOfImages)
-            console.log(searchResult[0].sortedResidence.id);
-          }
-    
-        })
-      })
-    }
-  }
+
 
   const gotoResidence = id => {
    props.history.push('/residences/' + id)
@@ -115,23 +88,23 @@ function ResidenceList(props) {
                 style={imgStyle}
                 top
                 width="100%"
-                src={images[i]}
+                src={res.images[0].img_path}
                 alt="Card image cap"
-                onClick={() => gotoResidence(res.sortedResidence.id)}
+                onClick={() => gotoResidence(res.id)}
               />
 
               <CardBody>
                 <CardTitle
                   style={{ fontWeight: "bold" }}
-                  key={res.sortedResidence.title}
+                  key={res.title}
                 >
-                  {res.sortedResidence.title}
+                  {res.title}
                 </CardTitle>
-                <CardSubtitle key={res.sortedResidence.description}>
-                  {res.sortedResidence.description}
+                <CardSubtitle key={res.description}>
+                  {res.description}
                 </CardSubtitle>
-                <CardText key={res.sortedResidence.price_per_night}>
-                  Kostnad per natt: {res.sortedResidence.price_per_night}kr{" "}
+                <CardText key={res.price_per_night}>
+                  Kostnad per natt: {res.price_per_night}kr{" "}
                 </CardText>
               </CardBody>
             </Card>

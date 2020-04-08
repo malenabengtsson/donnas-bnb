@@ -6,28 +6,23 @@ import {
   CardTitle, CardSubtitle, Container, Form, Input, FormGroup, Button
 } from 'reactstrap';
 import '../sass/style.scss';
-import { Redirect } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 
 
 let throttleSearch;
-export default function ResidenceList() {
-  const [ residence, updateResidence ] = useContext(ResidenceContext)
+function ResidenceList(props) {
+  const [residence, updateResidence] = useContext(ResidenceContext)
   const [searchResult, setSearchResult] = useState([])
   // const residencesArray = [];
   const [residenceArray, setResidenceArray] = useState([])
-  const {residences, fetchResidences} = useContext(ResidenceContext)
+  const { residences, fetchResidences } = useContext(ResidenceContext)
   const [images, setImage] = useState([])
   const [gotoChoice, setGotoChoice] = useState(false);
   
   // Listen for updates to residence
   // (right now made by SearchResidence...)
   useEffect(() => {
-    console.log('residences')
-    getResidences() 
-  }, [])
-  useEffect(() => {
-    console.log('list')
-    list() 
+    getResidences()
   }, [])
 
   useEffect(() => {
@@ -42,24 +37,14 @@ export default function ResidenceList() {
     let { searchFor } = residence;
     if (!searchFor) { return; }
 
-    residenceArray.forEach(sortedResidence => {
-      if (sortedResidence.address_id.city == residence.searchFor.city) {
-        console.log('found')
-        setSearchResult([{ sortedResidence }])
-      }
-      else {
-        console.log('not found')
-      }
-  
-    })
-
-
-    // setSearchResult([
-    //   {
-    //     id: 1, res: JSON.stringify(searchFor, '', '  '),
-    //   },
-    // ]);
+    setSearchResult(residenceArray.filter(
+      (sortedResidence) =>
+        sortedResidence.address_id.city == residence.searchFor.city
+    ));
+    setTimeout(() => {
     
+      console.log(searchResult)
+    }, 50)
   }
 
   const getResidences = async () => {
@@ -76,36 +61,30 @@ export default function ResidenceList() {
     if (searchResult.length == 0) {
     }
     else {
-    
+      
       let res = await fetch('/rest/images')
       res = await res.json()
       let arrayOfImages = []
-      res.forEach(image => {
-        console.log(searchResult[image.id - 1].sortedResidence.id)
-        console.log(image.residence_id.id)
-        
-        if (searchResult[image.id-1].sortedResidence.id == undefined) {
-          console.log('null')
-        }
-        else if(image.residence_id.id == searchResult[image.id-1].sortedResidence.id){
-          console.log('success')
-          arrayOfImages.push(image.img_path)
-          setImage(arrayOfImages)
-        }
-        else {
-          console.log('failed ' + image.id-1)
-        }
+      searchResult.forEach(search => {
+        console.log(search)
+        res.forEach(image => {
+          if (image.residence_id.id == search.id) {
+            console.log('success')
+            arrayOfImages.push(image.img_path)
+            setImage(arrayOfImages)
+          }
+    
+        })
       })
     }
   }
 
-  const gotoResidence = e => {
-    setGotoChoice(true);
+  const gotoResidence = id => {
+   props.history.push('/residences/' + id)
   };
 
   const list = () => {
     if (searchResult.length < 1) {
-      console.log('In list')
     }
     else {
       return searchResult.map((res, i) => {
@@ -136,22 +115,21 @@ export default function ResidenceList() {
                 width="100%"
                 src={images[i]}
                 alt="Card image cap"
-                onClick={gotoResidence}
+                onClick={() => gotoResidence(res.id)}
               />
 
               <CardBody>
                 <CardTitle
                   style={{ fontWeight: "bold" }}
-                  key={res.sortedResidence.title}
+                  key={res.title}
                 >
-                  {res.sortedResidence.title}
-            
+                  {res.title}
                 </CardTitle>
-                <CardSubtitle key={res.sortedResidence.description}>
-                  {res.sortedResidence.description}
+                <CardSubtitle key={res.description}>
+                  {res.description}
                 </CardSubtitle>
-                <CardText key={res.sortedResidence.price_per_night}>
-                  Kostnad per natt: {res.sortedResidence.price_per_night}kr{" "}
+                <CardText key={res.price_per_night}>
+                  Kostnad per natt: {res.price_per_night}kr{" "}
                 </CardText>
               </CardBody>
             </Card>
@@ -164,7 +142,7 @@ export default function ResidenceList() {
   
     return (
       <div>
-        {gotoChoice && <Redirect to="/about-residence" />}
+        {/* {gotoChoice && <Redirect to={"/residences/" + searchResult[0].sortedResidence.id} />} */}
         <Container>
           <Form className="row"
           onSubmit={doSearch}>
@@ -194,4 +172,5 @@ export default function ResidenceList() {
         </Container>
       </div>
     );
-  }
+}
+  export default withRouter(ResidenceList)

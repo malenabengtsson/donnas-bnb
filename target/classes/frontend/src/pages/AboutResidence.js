@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { Row, Col, Card } from 'reactstrap'
+import { useParams } from 'react-router-dom'
 
 import Slideshow from '../components/AboutResidenceComponents/Carousel'
 import NumberOfGuests from '../components/AboutResidenceComponents/NumberOfGuests'
@@ -12,6 +13,7 @@ import CalendarForBooking from '../components/AboutResidenceComponents/CalendarF
 const AboutResidence = () => {
     const [startDate, setStartDate] = useState(new Date())
     const [endDate, setEndDate] = useState(new Date()) 
+    const { id } = useParams()
 
     const cardStyle = {
         textAlign: "center",
@@ -29,28 +31,28 @@ const AboutResidence = () => {
             <div style={divStyle}>
             <Row>
                 <Col>
-                    <Slideshow residenceId={1}/>
+                    <Slideshow residenceId={id}/>
                 </Col>
             </Row>
             <Row>
                 <Col className="text-center">
-                    <NumberOfBeds className="col-5" residenceId={1} /> 
-                    <NumberOfGuests className="col-5" residenceId={1} />
+                    <NumberOfBeds className="col-5" residenceId={id} /> 
+                    <NumberOfGuests className="col-5" residenceId={id} />
                 </Col>
             </Row>
             <Row>
                 <Col className="text-center">
-                    <DescriptionOfHouse residenceId={1} />
+                    <DescriptionOfHouse residenceId={id} />
                 </Col>
             </Row>
             <Row>
                 <Col sm="10" md={{ size: 4, offset: 4}} >
-                    <ResidenceAmenity residenceId={2} />
+                    <ResidenceAmenity residenceId={id} />
                 </Col>
             </Row>
             <Row>
                 <Col className="text-center">
-                    <CalendarForBooking residenceId={1} startingDate={setStartDate} endingDate={setEndDate} />
+                    <CalendarForBooking residenceId={id} startingDate={setStartDate} endingDate={setEndDate} />
                 </Col>
             </Row>
             <Row>

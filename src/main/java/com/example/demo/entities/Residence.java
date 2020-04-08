@@ -2,6 +2,7 @@ package com.example.demo.entities;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.List;
 
 @Entity
 @Table(name = "residences")
@@ -34,7 +35,18 @@ public class Residence implements Serializable{
 
     private int price_per_night;
 
+    @Transient
+    private List<Image> images;
+
     public Residence(){}
+
+    public List<Image> getImages() {
+        return images;
+    }
+
+    public void setImages(List<Image> images) {
+        this.images = images;
+    }
 
     public String getDescription() {
         return description;

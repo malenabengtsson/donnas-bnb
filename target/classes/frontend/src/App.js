@@ -41,7 +41,7 @@ function App() {
               <Route exact path="/perform-register"><Register/></Route>
               <Route exact path="/help"> <Help/></Route> 
               <Route exact path="/residences"> <ResidenceList /></Route>
-              <Route exact path="/about-residence"> <AboutResidence /></Route>
+              <Route exact path="/residences/:id"> <AboutResidence /></Route>
             </main>
             <Footer />
           </Router>
