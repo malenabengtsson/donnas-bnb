@@ -22,34 +22,44 @@ export default function ResidenceList() {
   // Listen for updates to residence
   // (right now made by SearchResidence...)
   useEffect(() => {
+    console.log('residences')
     getResidences() 
+  }, [])
+  useEffect(() => {
+    console.log('list')
+    list() 
   }, [])
 
   useEffect(() => {
     doSearch()
   }, [residenceArray])
+  
+  useEffect(() => {
+    getImages()
+  }, [searchResult])
 
   const doSearch = () => {
     let { searchFor } = residence;
     if (!searchFor) { return; }
 
-    residenceArray.forEach(res => {
-      if (res.address_id.city == residence.searchFor.city) {
-        console.log('Found')
+    residenceArray.forEach(sortedResidence => {
+      if (sortedResidence.address_id.city == residence.searchFor.city) {
+        console.log('found')
+        setSearchResult([{ sortedResidence }])
       }
       else {
-        console.log('Not found')
+        console.log('not found')
       }
   
     })
 
 
-    setSearchResult([
-      {
-        id: 1, res: JSON.stringify(searchFor, '', '  '),
-      },
-    ]);
-    console.log(searchResult)
+    // setSearchResult([
+    //   {
+    //     id: 1, res: JSON.stringify(searchFor, '', '  '),
+    //   },
+    // ]);
+    
   }
 
   const getResidences = async () => {
@@ -63,77 +73,93 @@ export default function ResidenceList() {
   }
   
   const getImages = async () => {
-    let res = await fetch('/rest/images')
-    res = await res.json()
-    let arrayOfImages = []
-  
-    res.forEach(image => {
-      if (image.residence_id.id === 1) {
-        arrayOfImages.push(image.img_path)
-      }
-    })
-    setImage(arrayOfImages)
+    if (searchResult.length == 0) {
+    }
+    else {
+    
+      let res = await fetch('/rest/images')
+      res = await res.json()
+      let arrayOfImages = []
+      res.forEach(image => {
+        console.log(searchResult[image.id - 1].sortedResidence.id)
+        console.log(image.residence_id.id)
+        
+        if (searchResult[image.id-1].sortedResidence.id == undefined) {
+          console.log('null')
+        }
+        else if(image.residence_id.id == searchResult[image.id-1].sortedResidence.id){
+          console.log('success')
+          arrayOfImages.push(image.img_path)
+          setImage(arrayOfImages)
+        }
+        else {
+          console.log('failed ' + image.id-1)
+        }
+      })
+    }
   }
 
   const gotoResidence = e => {
     setGotoChoice(true);
   };
 
-  useEffect(() => {
-    getImages()
-  }, [])
-
-    const list = () => {
-        return searchResult.map((residence, i) => {
-
-          const cardStyle = {
-            textAlign: "center",
-            marginTop: "15px", 
-            marginBottom: "15px", 
-            backgroundColor: "#F5F5DC"
-          }
-          const imgStyle = {
-            marginTop: "10px",
-            border: "1px solid gray",
-            cursor: "pointer"
-          }
-
-          return (
-            <div key={i}>
-              <Card
-                style={cardStyle}
-                className="col-10 mx-auto"
-                sm="12"
-                md={{ size: 6, offset: 3 }}
-              >
-                <CardImg
-                  style={imgStyle}
-                  top
-                  width="100%"
-                  src={images[i]}
-                  alt="Card image cap"
-                  onClick={gotoResidence}
-                />
-
-                <CardBody>
-                  <CardTitle
-                    style={{ fontWeight: "bold" }}
-                    key={residenceArray.title}
-                  >
-                    {residence.title}
-                  </CardTitle>
-                  <CardSubtitle key={residence.description}>
-                    {residence.description}
-                  </CardSubtitle>
-                  <CardText key={residence.price_per_night}>
-                    Kostnad per natt: {residence.price_per_night}kr{" "}
-                  </CardText>
-                </CardBody>
-              </Card>
-            </div>
-          );
-        })  
+  const list = () => {
+    if (searchResult.length < 1) {
+      console.log('In list')
     }
+    else {
+      return searchResult.map((res, i) => {
+
+        const cardStyle = {
+          textAlign: "center",
+          marginTop: "15px",
+          marginBottom: "15px",
+          backgroundColor: "#F5F5DC"
+        }
+        const imgStyle = {
+          marginTop: "10px",
+          border: "1px solid gray",
+          cursor: "pointer"
+        }
+
+        return (
+          <div key={i}>
+            <Card
+              style={cardStyle}
+              className="col-10 mx-auto"
+              sm="12"
+              md={{ size: 6, offset: 3 }}
+            >
+              <CardImg
+                style={imgStyle}
+                top
+                width="100%"
+                src={images[i]}
+                alt="Card image cap"
+                onClick={gotoResidence}
+              />
+
+              <CardBody>
+                <CardTitle
+                  style={{ fontWeight: "bold" }}
+                  key={res.sortedResidence.title}
+                >
+                  {res.sortedResidence.title}
+            
+                </CardTitle>
+                <CardSubtitle key={res.sortedResidence.description}>
+                  {res.sortedResidence.description}
+                </CardSubtitle>
+                <CardText key={res.sortedResidence.price_per_night}>
+                  Kostnad per natt: {res.sortedResidence.price_per_night}kr{" "}
+                </CardText>
+              </CardBody>
+            </Card>
+          </div>
+        );
+      })
+    }
+  }
   
   
     return (

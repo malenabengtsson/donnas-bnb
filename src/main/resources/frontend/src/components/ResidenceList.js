@@ -11,21 +11,23 @@ import { Redirect } from 'react-router-dom';
 
 let throttleSearch;
 export default function ResidenceList() {
-  const [ residence, updateResidence ] = useContext(ResidenceContext)
+  const [residence, updateResidence] = useContext(ResidenceContext)
   const [searchResult, setSearchResult] = useState([])
   // const residencesArray = [];
   const [residenceArray, setResidenceArray] = useState([])
-  const {residences, fetchResidences} = useContext(ResidenceContext)
+  const { residences, fetchResidences } = useContext(ResidenceContext)
   const [images, setImage] = useState([])
   const [gotoChoice, setGotoChoice] = useState(false);
   
   // Listen for updates to residence
   // (right now made by SearchResidence...)
   useEffect(() => {
-    getResidences() 
+    console.log('residences')
+    getResidences()
   }, [])
   useEffect(() => {
-    list() 
+    console.log('list')
+    list()
   }, [])
 
   useEffect(() => {
@@ -74,18 +76,37 @@ export default function ResidenceList() {
     if (searchResult.length == 0) {
     }
     else {
+    
       let res = await fetch('/rest/images')
       res = await res.json()
       let arrayOfImages = []
-      res.forEach(image => {
-        console.log(searchResult[(image.id - 1)].id)
-        console.log(image.residence_id.id)
+      // res.forEach(image => {
+      //   console.log(searchResult[image.id - 1].sortedResidence.id)
+      //   console.log(image.residence_id.id)
         
-        if (image.residence_id.id == searchResult[(image.id - 1)].id) {
-          arrayOfImages.push(image.img_path)
-        }
+      //   if (searchResult[image.id-1].sortedResidence.id == undefined) {
+      //     console.log('null')
+      //   }
+      //   else if(image.residence_id.id == searchResult[image.id-1].sortedResidence.id){
+      //     console.log('success')
+      //     arrayOfImages.push(image.img_path)
+      //     setImage(arrayOfImages)
+      //   }
+      //   else {
+      //     console.log('failed ' + image.id-1)
+      //   }
+      // })
+      searchResult.forEach(search => {
+        console.log(search)
+        res.forEach(image => {
+          if (image.residence_id.id == search.sortedResidence.id) {
+            console.log('success')
+            arrayOfImages.push(image.img_path)
+            setImage(arrayOfImages)
+          }
+    
+        })
       })
-      setImage(arrayOfImages)
     }
   }
 
