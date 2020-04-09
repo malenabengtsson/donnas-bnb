@@ -74,10 +74,10 @@ const TopNavbar = () => {
             <NavItem>
               <Link to="/" className="nav-link">Hem</Link>
             </NavItem>
-            {loginItem()}
-            {registerItem()}
-            {myPageItem()}
             {logOutItem()}
+            {myPageItem()}
+            {registerItem()}
+            {loginItem()}
           </Nav>
         </Collapse>
       </Navbar>

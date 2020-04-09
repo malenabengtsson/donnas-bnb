@@ -4,10 +4,11 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
 @Table(name = "users")
-public class User {
+public class User implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -18,6 +19,7 @@ public class User {
     private String password;
     private int phone_number;
 
+<<<<<<< HEAD
     public User() {}
 
     public User(String full_name, String email, String password, int phone_number) {
@@ -27,6 +29,9 @@ public class User {
         this.phone_number = phone_number;
     }
 
+=======
+    public User(){}
+>>>>>>> search_result
     public int getId() {
         return id;
     }

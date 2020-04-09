@@ -1,4 +1,3 @@
-    import React from 'react';
     import 'bootstrap/dist/css/bootstrap.min.css';
     import './sass/style.scss'
     import Navbar from './components/Navbar'
@@ -17,24 +16,26 @@
     import SignUpPage from './pages/SignUpPage'
     import SignInPage from './pages/SignInPage'
     import MyPage from './pages/MyPage'
+import React, { useState } from 'react';
 
-    function App() {
+  const updater = x => setter({ ...val, ...x })
+  const [val, setter] = useState({});
 
-      return (
-        <div className="App">
-          <UserContextProvider>
-          <ResidenceContextProvider>
-          <BookingContextProvider>
+
+  return (
+    <div className="App">
+      <ResidenceContext.Provider value={[val, updater]}>
+        <BookingContextProvider>
           <Router>
-              <Navbar />
-              <BookingList />
+            <Navbar />
             <main>
-              <Route exact path="/"><Home /></Route>
-              <Route exact path="/residences"><ResidenceList /></Route>
-              <Route exact path="/about-residence"><AboutResidence /></Route>
+              <Route exact path="/residences/:id"> <AboutResidence /></Route>
+              <Route exact path="/residences"> <ResidenceList /></Route>
+              <Route exact path="/help"> <Help/></Route> 
+              <Route exact path="/"><Home/></Route>
+              <Route exact path="/my-page" component={MyPage} />
               <Route exact path="/sign-up" component={SignUpPage} />
               <Route exact path="/sign-in" component={SignInPage} />
-              <Route exact path="/my-page" component={MyPage} />
             </main>
             <Footer/>
           </Router>
@@ -44,5 +45,3 @@
         </div>
       );
     }
-
-    export default App;

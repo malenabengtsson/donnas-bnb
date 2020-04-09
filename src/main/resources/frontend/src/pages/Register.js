@@ -1,14 +1,14 @@
 import React from 'react'
 
-const Help = () =>{
+const Register = () =>{
 
     return(
         <div>
             <h3>
-                Hjälp
+                Registrera dig
             </h3>
         </div>
     )
 }
 
-export default Help
+export default Register
