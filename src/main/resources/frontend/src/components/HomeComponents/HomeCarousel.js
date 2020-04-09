@@ -13,7 +13,7 @@ import {
 import { ResidenceContext } from '../../contexts/ResidenceContextProvider'
 
 
-const HomeSlideshow  = (props) => {
+const HomeCarousel  = (props) => {
   const { residences } = useContext(ResidenceContext)
   const [images, setImages] = useState([])
 
@@ -77,7 +77,6 @@ const HomeSlideshow  = (props) => {
                   alt="Card image cap"
                 />
             </div>
-        {/* <img src={image.img_path} alt={'item.altText'} /> */}
       </CarouselItem>
      
     );
@@ -97,4 +96,4 @@ const HomeSlideshow  = (props) => {
   );
 }
 
-export default HomeSlideshow ;
+export default HomeCarousel ;
