@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react'
 import { Button } from 'reactstrap'
-import BookAsGuestModal from '../BookAsGuestModal'
 import BookingOptionsModal from '../BookingOptionsModal'
 
 
@@ -61,10 +60,9 @@ const BookingSummary = (props) => {
     const [date, setDate] = useState(getDate)
     const [price, setPrice] = useState(899)// useState(props.pricePerNight)
 
-    const [isModalOpen, setIsModalOpen] = useState(true)
+    const [isModalOpen, setIsModalOpen] = useState(false)
 
     const toggle = () => setIsModalOpen(!isModalOpen)
-    const showModal = () => setIsModalOpen(true)
 
     const update = () => {
         setDate(getDate())

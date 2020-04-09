@@ -12,17 +12,11 @@ import {
   Input
 } from "reactstrap";
 import BookingSummary from "./AboutResidenceComponents/BookingSummary";
+import BookAsGuest from "./BookAsGuest";
 
 const BookingOptionsModal = (props) => {
-
-  //const [show, setShow] = useState(props.show)
-  //const toggle = () => props.handleShow();
-//   useEffect(() => {
-//     setShow(props.show);
-// }, [props.show])
   
-  
-if(!props.isModalOpen){
+if(!props.isOpen){
   return(
     null
   )
@@ -30,27 +24,28 @@ if(!props.isModalOpen){
 else{
   return (
     <div>
-      <Modal isOpen={toggle}>
+      {gotoBookAsGuest <BookAsGuest}
+      <Modal isOpen={props.isOpen}>
         <ModalHeader color="success">Välj hur du vill fortsätta</ModalHeader>
         <ModalBody>
           <Form>
             <FormGroup row>
-              <Col sm={10}>
-               <Button>
+              <Col sm={15} className="col text-center">
+               <Button className="btn btn-success col-5">
                  Logga in
                </Button>
               </Col>
             </FormGroup>
             <FormGroup row>
-            <Col sm={10}>
-            <Button>
+            <Col sm={15} className="col text-center">
+            <Button className="btn btn-success col-5">
                  Registrera dig
-               </Button>
+               </Button >
                </Col>
             </FormGroup>
             <FormGroup row>
-              <Col sm={10}>
-              <Button>
+              <Col sm={15} className="col text-center">
+              <Button className="btn btn-success col-5">
                  Fortsätt som gäst
                </Button>
               </Col>
@@ -59,7 +54,6 @@ else{
         </ModalBody>
 
         <ModalFooter>
-          <Button color="primary">Boka</Button>{" "}
           <Button color="secondary" onClick={props.toggle}>
             Avbryt
           </Button>

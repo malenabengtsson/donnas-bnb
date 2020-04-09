@@ -1,5 +1,6 @@
 import React from 'react'
 import SearchResidence from '../components/SearchResidence'
+import BookAsGuest from '../components/BookAsGuest'
 
 const Home = () => {
 
