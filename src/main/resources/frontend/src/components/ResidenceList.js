@@ -116,6 +116,7 @@ function ResidenceList(props) {
   }
   
   
+  
     return (
       <div>
         {/* {gotoChoice && <Redirect to={"/residences/" + searchResult[0].sortedResidence.id} />} */}
