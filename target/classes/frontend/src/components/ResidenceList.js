@@ -28,10 +28,13 @@ function ResidenceList(props) {
   useEffect(() => {
     doSearch()
   }, [residenceArray])
+
   
   const doSearch = () => {
     let { searchFor } = residence;
     if (!searchFor) { return; }
+    console.log(searchFor)
+    if(searchFor)
 
     setSearchResult(residenceArray.filter(
       (sortedResidence) =>
@@ -113,6 +116,7 @@ function ResidenceList(props) {
       })
     }
   }
+
   
   
     return (
