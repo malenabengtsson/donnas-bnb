@@ -29,10 +29,6 @@ function ResidenceList(props) {
     doSearch()
   }, [residenceArray])
   
-  useEffect(() => {
-    getImages()
-  }, [searchResult])
-
   const doSearch = () => {
     let { searchFor } = residence;
     if (!searchFor) { return; }
@@ -56,28 +52,7 @@ function ResidenceList(props) {
     })
     setResidenceArray(result)
   }
-  
-  const getImages = async () => {
-    if (searchResult.length == 0) {
-    }
-    else {
-      
-      let res = await fetch('/rest/images')
-      res = await res.json()
-      let arrayOfImages = []
-      searchResult.forEach(search => {
-        console.log(search)
-        res.forEach(image => {
-          if (image.residence_id.id == search.id) {
-            console.log('success')
-            arrayOfImages.push(image.img_path)
-            setImage(arrayOfImages)
-          }
-    
-        })
-      })
-    }
-  }
+
 
   const gotoResidence = id => {
    props.history.push('/residences/' + id)
@@ -113,7 +88,7 @@ function ResidenceList(props) {
                 style={imgStyle}
                 top
                 width="100%"
-                src={images[i]}
+                src={res.images[0].img_path}
                 alt="Card image cap"
                 onClick={() => gotoResidence(res.id)}
               />

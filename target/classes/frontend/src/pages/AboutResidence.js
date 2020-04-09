@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Row, Col, Card } from 'reactstrap'
 import { useParams } from 'react-router-dom'
 
@@ -13,7 +13,19 @@ import CalendarForBooking from '../components/AboutResidenceComponents/CalendarF
 const AboutResidence = () => {
     const [startDate, setStartDate] = useState(new Date())
     const [endDate, setEndDate] = useState(new Date()) 
+    const [residence, setResidence] = useState(null)
     const { id } = useParams()
+
+    const getResidence = async () => {
+        let res = await fetch('/rest/residences/' + id)
+        res = await res.json()
+        setResidence(res)
+        console.log(res)
+    }
+    useEffect(() => {
+        getResidence()
+    
+    }, [])
 
     const cardStyle = {
         textAlign: "center",

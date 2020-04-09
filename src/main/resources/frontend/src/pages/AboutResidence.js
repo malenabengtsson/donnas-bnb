@@ -21,6 +21,10 @@ const AboutResidence = () => {
         res = await res.json()
         setResidence(res)
         console.log(res)
+
+        setTimeout(() => {
+            console.log(residence)
+        }, 50)
     }
     useEffect(() => {
         getResidence()
@@ -43,7 +47,7 @@ const AboutResidence = () => {
             <div style={divStyle}>
             <Row>
                 <Col>
-                    <Slideshow residenceId={id}/>
+                    <Slideshow residenceId={residence.images}/>
                 </Col>
             </Row>
             <Row>
