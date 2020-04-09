@@ -1,7 +1,8 @@
 import React, { useState, useContext, useEffect } from 'react'
 import {UserContext} from '../../contexts/UserContextProvider'
+import { withRouter } from 'react-router-dom'
 
-const UserPage = () => {
+const UserPage = (props) => {
     const [fullName, setFullName] = useState('')
     const { user } = useContext(UserContext)
 
@@ -10,14 +11,17 @@ const UserPage = () => {
     })
 
     const getName = () => {
-        console.log(user)
+        if(user !== null){
+            setFullName(user.full_name)
+        }
+        
     }
 
     
 
     return (
-        <h1>hello</h1>
+        <h1 className="text-white text-center">{fullName}</h1>
     )
 }
 
-export default UserPage
+export default withRouter(UserPage)

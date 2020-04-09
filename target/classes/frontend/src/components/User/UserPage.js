@@ -16,7 +16,7 @@ const UserPage = () => {
     
 
     return (
-        <h1>{user}</h1>
+        <h1>hello</h1>
     )
 }
 

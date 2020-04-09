@@ -7,15 +7,16 @@
       BrowserRouter as Router,
       Route
     } from 'react-router-dom'
-    import ResidenceContextProvider from './contexts/ResidenceContextProvider';
+    import ResidenceContextProvider, { ResidenceContext } from './contexts/ResidenceContextProvider';
     import BookingContextProvider from './contexts/BookingContextProvider';
-    import UserContextProvider from './contexts/UserContextProvider'
+    import UserContextProvider, { UserContext } from './contexts/UserContextProvider'
     import ResidenceList from './components/ResidenceList';
     import BookingList from './components/BookingList';
     import Home from './pages/Home'
     import SignUpPage from './pages/SignUpPage'
     import SignInPage from './pages/SignInPage'
     import MyPage from './pages/MyPage'
+    import Help from './pages/Help'
 import React, { useState } from 'react';
 
 function App() {
@@ -31,6 +32,7 @@ function App() {
 
   return (
     <div className="App">
+    <UserContextProvider>
       <ResidenceContext.Provider value={[val, updater]}>
         <BookingContextProvider>
           <Router>
@@ -47,8 +49,10 @@ function App() {
             <Footer/>
           </Router>
           </BookingContextProvider>
-          </ResidenceContextProvider>
+          </ResidenceContext.Provider>
           </UserContextProvider>
         </div>
       );
     }
+
+  export default App

@@ -19,7 +19,7 @@ public class User implements Serializable {
     private String password;
     private int phone_number;
 
-<<<<<<< HEAD
+
     public User() {}
 
     public User(String full_name, String email, String password, int phone_number) {
@@ -29,9 +29,6 @@ public class User implements Serializable {
         this.phone_number = phone_number;
     }
 
-=======
-    public User(){}
->>>>>>> search_result
     public int getId() {
         return id;
     }

@@ -28,6 +28,7 @@ function ResidenceList(props) {
   useEffect(() => {
     doSearch()
   }, [residenceArray])
+
   
   const doSearch = () => {
     let { searchFor } = residence;

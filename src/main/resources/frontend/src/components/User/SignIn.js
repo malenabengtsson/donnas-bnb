@@ -2,6 +2,7 @@ import React, { useState, useContext } from "react";
 import { Card, FormGroup, Col, Label, Input, Form, Button } from "reactstrap";
 import { Redirect } from "react-router-dom";
 import { UserContext } from '../../contexts/UserContextProvider' 
+import { withRouter } from 'react-router-dom'
 
 let throttle;
 
@@ -38,7 +39,8 @@ const SignIn = (props) => {
       console.log('Wrong username or password')
     }else {
       fetchUser()
-      setGoToChoice(true)
+      props.history.push('/my-page')
+      // setGoToChoice(true)
     }
   }
 
@@ -86,4 +88,4 @@ const SignIn = (props) => {
   );
 };
 
-export default SignIn;
+export default withRouter(SignIn)
