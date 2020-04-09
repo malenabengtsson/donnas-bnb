@@ -5,7 +5,8 @@ import {
   NavbarToggler,
   NavbarBrand,
   Nav,
-  NavItem
+  NavItem,
+  Button
 } from "reactstrap";
 import { Link } from 'react-router-dom'
 import { UserContext } from '../contexts/UserContextProvider'
@@ -15,13 +16,19 @@ const TopNavbar = () => {
 
   const toggle = () => setIsOpen(!isOpen);
 
-  const { isLoggedIn } = useContext(UserContext)
+  const { isLoggedIn, setUser, setIsLoggedIn } = useContext(UserContext)
+
+  const logout = () => {
+    fetch('/logout')
+    setUser(null)
+    setIsLoggedIn(false)
+  }
 
   const logOutItem = () => {
     if(isLoggedIn){
       return (
         <NavItem className="mr-auto" navbar>
-          <Link to="/" className="nav-link">Logga ut</Link>
+          <Link onClick={logout} className="nav-link" to="/">Logga ut</Link>
         </NavItem>
       )
     }
@@ -47,6 +54,16 @@ const TopNavbar = () => {
     }
   }
 
+  const myPageItem = () => {
+    if (isLoggedIn){
+      return (
+        <NavItem className="mr-auto" navbar>
+          <Link to="/my-page" className="nav-link">Mina sidor</Link>
+        </NavItem>
+      )
+    }
+  }
+
   return (
     <div>
       <Navbar color="success" dark expand="md">
@@ -59,6 +76,7 @@ const TopNavbar = () => {
             </NavItem>
             {loginItem()}
             {registerItem()}
+            {myPageItem()}
             {logOutItem()}
           </Nav>
         </Collapse>

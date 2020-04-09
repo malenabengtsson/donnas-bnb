@@ -1,11 +1,16 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Card, FormGroup, Col, Label, Input, Form, Button } from "reactstrap";
 import { Redirect } from "react-router-dom";
+import { UserContext } from '../../contexts/UserContextProvider' 
+
+let throttle;
+
 
 const SignIn = (props) => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [goToChoice, setGoToChoice] = useState(false)
+  const { fetchUser } = useContext(UserContext)
 
   const cardStyle = {
     textAlign: "center",
@@ -31,9 +36,10 @@ const SignIn = (props) => {
 
     if(response.url.includes('error')) {
       console.log('Wrong username or password')
+    }else {
+      fetchUser()
+      setGoToChoice(true)
     }
-
-    setGoToChoice(true)
   }
 
   return (
