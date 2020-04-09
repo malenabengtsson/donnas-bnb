@@ -9,7 +9,7 @@ import '../sass/style.scss';
 import { withRouter } from 'react-router-dom';
 
 
-let throttleSearch;
+let arrayToMap = [];
 function ResidenceList(props) {
   const [residence, updateResidence] = useContext(ResidenceContext)
   const [searchResult, setSearchResult] = useState([])
@@ -67,10 +67,16 @@ function ResidenceList(props) {
   };
 
   const list = () => {
-    if (searchResult.length < 1) {
+    if (residence.searchFor.city == '') {
+      arrayToMap = residenceArray;
+      console.log('all residences')
     }
     else {
-      return searchResult.map((res, i) => {
+      arrayToMap = searchResult
+      console.log('Searchresult')
+    }
+      
+      return arrayToMap.map((res, i) => {
 
         const cardStyle = {
           textAlign: "center",
@@ -119,7 +125,7 @@ function ResidenceList(props) {
           </div>
         );
       })
-    }
+    
   }
 
   

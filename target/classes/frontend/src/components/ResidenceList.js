@@ -9,7 +9,7 @@ import '../sass/style.scss';
 import { withRouter } from 'react-router-dom';
 
 
-let throttleSearch;
+let arrayToMap = [];
 function ResidenceList(props) {
   const [residence, updateResidence] = useContext(ResidenceContext)
   const [searchResult, setSearchResult] = useState([])
@@ -33,17 +33,22 @@ function ResidenceList(props) {
   const doSearch = () => {
     let { searchFor } = residence;
     if (!searchFor) { return; }
-    console.log(searchFor)
-    if(searchFor)
+    console.log(searchFor.city)
 
-    setSearchResult(residenceArray.filter(
-      (sortedResidence) =>
-        sortedResidence.address_id.city == residence.searchFor.city
-    ));
-    setTimeout(() => {
+    if (searchFor.city == '' || searchFor.city == undefined) {
+      console.log('not')
+    }
+    else {
+
+      setSearchResult(residenceArray.filter(
+        (sortedResidence) =>
+          sortedResidence.address_id.city == residence.searchFor.city
+      ));
+      setTimeout(() => {
     
-      console.log(searchResult)
-    }, 50)
+        console.log(searchResult)
+      }, 50)
+    }
   }
 
   const getResidences = async () => {
@@ -65,6 +70,8 @@ function ResidenceList(props) {
     if (searchResult.length < 1) {
     }
     else {
+      arrayToMap = searchResult;
+      console.log(arrayToMap)
       return searchResult.map((res, i) => {
 
         const cardStyle = {
