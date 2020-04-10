@@ -34,7 +34,19 @@ const Help = () =>{
                     </UncontrolledCollapse>          
             </div> 
             <div>
-                <Button color="success" id="rentToggler" style={{ marginBottom: '1rem', marginLeft: '10px'}}>Hyra ut?</Button>
+                <Button color="success" id="rentoutToggler" style={{ marginBottom: '1rem', marginLeft: '10px'}}>Hyra ut?</Button>
+                    <UncontrolledCollapse toggler="#rentoutToggler">
+                        <Card style={{ width: '100%', height: 'auto' }}>
+                            <CardBody>
+                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Nesciunt magni, voluptas debitis
+                            similique porro a molestias consequuntur earum odio officiis natus, amet hic, iste sed
+                            dignissimos esse fuga! Minus, alias.
+                            </CardBody>
+                        </Card>
+                    </UncontrolledCollapse>          
+            </div> 
+            <div>
+                <Button color="success" id="rentToggler" style={{ marginBottom: '1rem', marginLeft: '10px'}}>Söka boende?</Button>
                     <UncontrolledCollapse toggler="#rentToggler">
                         <Card style={{ width: '100%', height: 'auto' }}>
                             <CardBody>
