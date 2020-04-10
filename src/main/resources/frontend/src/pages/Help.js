@@ -6,7 +6,7 @@ const Help = () =>{
 
     return(
         <div className="backGround" >
-            <h2 style={{marginBottom: '15px', marginLeft: '10px'}}>
+            <h2 style={{marginBottom: '15px', marginLeft: '10px', color: 'white', textAlign: 'center'}}>
                 Frågor och svar
             </h2>
             <div>
