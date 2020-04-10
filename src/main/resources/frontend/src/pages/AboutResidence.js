@@ -21,14 +21,12 @@ const AboutResidence = () => {
         res = await res.json()
         setResidence(res)
         console.log(res)
-
         setTimeout(() => {
             console.log(residence)
         }, 50)
     }
     useEffect(() => {
         getResidence()
-    
     }, [])
 
     const cardStyle = {
@@ -47,7 +45,7 @@ const AboutResidence = () => {
             <div style={divStyle}>
             <Row>
                 <Col>
-                    <Slideshow residenceId={residence.images}/>
+                    <Slideshow residenceId={residence.images.img_path}/>
                 </Col>
             </Row>
             <Row>
