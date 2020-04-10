@@ -1,5 +1,5 @@
 
-// // Works with mobile / ipad. HOWEVER!! Does the same changes in Aboutresidence.
+// Works with mobile / ipad. HOWEVER!! Does the same changes in Aboutresidence.
 //  .card-img, .card-img-top {
 //      height: 340px;
 //      object-fit: cover;
@@ -16,3 +16,35 @@
 //     height: 400px;
 //     object-fit: contain;
 // }
+
+// .carousel .thumb img {
+//     width: 100% !important;
+//     height: 100% !important;
+// }
+
+// .carousel .slide img {
+//     max-height: 300px !important;  /* change this to whatever you want */
+//     width: auto !important;
+// }
+
+.carousel {
+
+height:360px;
+
+}
+
+.carousel-inner, .item, img {
+
+height:360px;
+
+object-fit: contain;
+
+}
+
+.carousel-control-next-icon {
+     background-image: url("../assets/images/right-arrow.png") !important;
+  }
+
+.carousel-control-prev-icon {
+    background-image: url("../assets/images/left-arrow.png") !important;
+}
