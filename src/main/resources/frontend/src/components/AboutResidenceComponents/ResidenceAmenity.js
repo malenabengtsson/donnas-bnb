@@ -4,8 +4,7 @@ const ResidenceAmenity = (props) => {
     
     const [Amenitys, setAmenitys] = useState([])
 
-    const checkAmenity = async () => {
-        console.log(props.ResidenceAmenity)
+    const checkAmenities = async () => {
         let data = []
         if(props.ResidenceAmenity.wifi === true) data.push('Wifi')
         if(props.ResidenceAmenity.tv === true) data.push('TV')
@@ -21,7 +20,7 @@ const ResidenceAmenity = (props) => {
     }
 
     useEffect(() => {
-        checkAmenity()
+        checkAmenities()
     }, [])
 
     const list = Amenitys.map((amenity, i) => {
