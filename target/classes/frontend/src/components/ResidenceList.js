@@ -67,12 +67,16 @@ function ResidenceList(props) {
   };
 
   const list = () => {
-    if (searchResult.length < 1) {
+    if (residence.searchFor.city == '') {
+      arrayToMap = residenceArray;
+      console.log('all residences')
     }
     else {
-      arrayToMap = searchResult;
-      console.log(arrayToMap)
-      return searchResult.map((res, i) => {
+      arrayToMap = searchResult
+      console.log('Searchresult')
+    }
+      
+      return arrayToMap.map((res, i) => {
 
         const cardStyle = {
           textAlign: "center",
@@ -121,7 +125,7 @@ function ResidenceList(props) {
           </div>
         );
       })
-    }
+    
   }
 
   

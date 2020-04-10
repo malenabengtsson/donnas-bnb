@@ -15,22 +15,12 @@ const Slideshow  = (props) => {
   const { residences } = useContext(ResidenceContext)
   const [images, setImages] = useState([])
 
-  const getImages = async () => {
-    let res = await fetch('/rest/images')
-    res = await res.json()
-    let arryOfImages = []
-
-    res.forEach(image => {
-      console.log(image.residence_id.id)
-      if (image.residence_id.id === props.residenceId) {
-        arryOfImages.push(image)
-      }
-    })
-    setImages(arryOfImages)
+  const settingImages = async () => {
+    setImages(props.residenceId)
   }
 
   useEffect(() => {
-    getImages()
+    settingImages()
   }, [])
 
   const [activeIndex, setActiveIndex] = useState(0);
