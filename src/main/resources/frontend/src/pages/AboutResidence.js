@@ -48,7 +48,7 @@ const AboutResidence = () => {
             <div style={divStyle}>
             <Row>
                 <Col>
-                    <Slideshow residenceId={residence.images.img_path}/>
+                    <Slideshow residenceId={residence.images}/>
                 </Col>
             </Row>
             <Row>

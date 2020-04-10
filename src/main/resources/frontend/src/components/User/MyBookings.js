@@ -5,6 +5,7 @@ import {UserContext} from '../../contexts/UserContextProvider'
 
 const MyBooking = (props) => {
     const { user } = useContext(UserContext)
+    
 
     const cardStyle = {
         textAlign: "center",
@@ -20,12 +21,13 @@ const MyBooking = (props) => {
           margin: "25px"
     }
 
-    const toResidencePage = (e) => {
-        e.preventDefault()
-        
-        props.history.push('/residences/2')
+    const toResidencePage = (id, bookingId) => {
+      //  e.preventDefault()
+        //console.log(e)
+
+        props.history.push('/my-page/residence/' + id + '/' + bookingId)
     } 
-    
+
     const list = () => {
         return props.usrBookings('Hello').map((booking, i) => {
             return (
@@ -35,7 +37,7 @@ const MyBooking = (props) => {
                     <CardBody>
                         <CardText>Address: {booking.residence_id.address_id.street}</CardText>
                         <CardText>Datum: {booking.start_date} - {booking.end_date}</CardText>
-                        <Button className="btn btn-success" onClick={toResidencePage}>Mer info</Button>
+                        <Button className="btn btn-success" onClick={() => toResidencePage(booking.residence_id.id, booking.id)}>Mer info</Button>
                     </CardBody>
                 </Row>
                 </Card>

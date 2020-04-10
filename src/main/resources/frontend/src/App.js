@@ -17,6 +17,7 @@
     import SignInPage from './pages/SignInPage'
     import MyPage from './pages/MyPage'
     import Help from './pages/Help'
+    import ModifiedAboutResidence from './pages/ModifiedAboutResidence'
 import React, { useState } from 'react';
 
 function App() {
@@ -39,6 +40,7 @@ function App() {
             <Navbar />
             <main>
               <Route exact path="/residences/:id"> <AboutResidence /></Route>
+              <Route exact path="/my-page/residence/:id/:bookingId"> <ModifiedAboutResidence /> </Route>
               <Route exact path="/residences"> <ResidenceList /></Route>
               <Route exact path="/help"> <Help/></Route> 
               <Route exact path="/"><Home/></Route>

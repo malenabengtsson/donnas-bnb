@@ -1,13 +1,12 @@
 import React, { useState, useContext, useEffect } from 'react'
 import {UserContext} from '../../contexts/UserContextProvider'
-import { withRouter } from 'react-router-dom'
+import { withRouter, useParams } from 'react-router-dom'
 import MyBookings from './MyBookings'
 
 const UserPage = (props) => {
     const [fullName, setFullName] = useState('')
     const [bookings, setBookings] = useState([])
     const { user } = useContext(UserContext)
-    const [bookingsIsLoaded, setBookingsIsLoaded] = useState(false)
 
     useEffect(() => {
         getName()
@@ -27,22 +26,29 @@ const UserPage = (props) => {
 
     const getBookings = async () => {
         if(bookings && bookings.length){
-            setBookingsIsLoaded(true)
-            console.log('hello')
             return
         }
         if (user !== null){
-            let res = await fetch('/rest/bookings/' + user.id)
+            let arryOfUserBookings = []
+            let res = await fetch('/rest/bookings')
             res = await res.json()
-            setBookingsIsLoaded(res)
+            res.forEach(el => {
+                if (el.user_id.id === user.id){
+                    arryOfUserBookings.push(el)
+                }
+            })
+            setBookings(arryOfUserBookings)
         } 
+    }
+
+    const sendToChild = (bookingsChild) => {
+        return bookings
     }
 
     return (
         <>
         <h1 className="text-white text-center">{fullName}</h1>
-        <MyBookings usrBookings={bookings}/>
-        
+        <MyBookings usrBookings={sendToChild}/>      
         </>
     )
 }
