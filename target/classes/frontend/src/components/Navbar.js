@@ -24,6 +24,15 @@ const TopNavbar = () => {
             <NavItem>
               <Link to="/" className="nav-link">Hem</Link>
             </NavItem>
+            <NavItem>
+              <Link to="/perform-login" className="nav-link">Logga in</Link>
+            </NavItem>
+            <NavItem>
+              <Link to="/perform-register" className="nav-link">Registrera dig</Link>
+            </NavItem>
+            <NavItem>
+              <Link to="/help" className="nav-link">Hjälp</Link>
+            </NavItem>
           </Nav>
         </Collapse>
       </Navbar>

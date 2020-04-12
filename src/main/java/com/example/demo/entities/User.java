@@ -1,10 +1,11 @@
 package com.example.demo.entities;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
 @Table(name = "users")
-public class User {
+public class User implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -15,6 +16,7 @@ public class User {
     private String password;
     private int phone_number;
 
+    public User(){}
     public int getId() {
         return id;
     }

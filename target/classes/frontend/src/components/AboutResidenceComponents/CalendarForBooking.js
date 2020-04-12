@@ -46,7 +46,7 @@ const CalendarForBooking = (props) => {
       let arryOfStartDates = []
       let arryOfEndDates = []
       res.forEach(el => {
-        if(el.residence_id === props.residenceId){
+        if(el.residence_id.id === props.residenceId){
           arryOfStartDates.push(el.start_date)
           arryOfEndDates.push(el.end_date)
         }

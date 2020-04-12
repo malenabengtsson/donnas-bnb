@@ -34,6 +34,7 @@ const BookingSummary = (props) => {
     }
 
     const getPriceFromDb = async () => {
+        console.log(residence)
         let res = await fetch('/rest/residences/' + props.residenceId)
         res = await res.json()
         setResidence(res)
