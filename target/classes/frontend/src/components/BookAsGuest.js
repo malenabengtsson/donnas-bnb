@@ -3,10 +3,12 @@ import { Card, CardBody, CardTitle, CardText, CardSubtitle, CardImg, Row, Form, 
 import ResidenceContext from '../contexts/ResidenceContextProvider'
 
 
-const BookAsGuest = () => {
+const BookAsGuest = (props) => {
 
     //const {residences} = useContext(ResidenceContext)
     const [images, setImage] = useState([])
+
+    console.log("BaG props ", props)
 
     const getImages = async () => {
         let res = await fetch('/rest/images')
@@ -57,7 +59,8 @@ const BookAsGuest = () => {
                     // style={{ fontWeight: "bold" }}
                     // key={residence.title}
                   >
-                   Hej
+                    Hej
+                  {console.log("props ", props)} 
                   </CardTitle>
                   
                    <CardText>

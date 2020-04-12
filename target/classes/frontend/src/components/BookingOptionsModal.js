@@ -24,7 +24,7 @@ if(!props.isOpen){
 else{
   return (
     <div>
-      {gotoBookAsGuest <BookAsGuest}
+      {/* {gotoBookAsGuest <BookAsGuest} */}
       <Modal isOpen={props.isOpen}>
         <ModalHeader color="success">Välj hur du vill fortsätta</ModalHeader>
         <ModalBody>
@@ -45,7 +45,8 @@ else{
             </FormGroup>
             <FormGroup row>
               <Col sm={15} className="col text-center">
-              <Button className="btn btn-success col-5">
+              <Button className="btn btn-success col-5"
+              onClick={props.toggleBaG}>
                  Fortsätt som gäst
                </Button>
               </Col>

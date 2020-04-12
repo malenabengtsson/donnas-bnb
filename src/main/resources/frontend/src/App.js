@@ -30,7 +30,7 @@ import BookAsGuest from './components/BookAsGuest';
               <Route exact path="/"><Home /></Route>
               <Route exact path="/residences"><ResidenceList /></Route>
               <Route exact path="/about-residence"><AboutResidence /></Route>
-              <Route exact path="/book-as-guest"><BookAsGuest /></Route>
+              <Route exact path="/book-as-guest/:id"><BookAsGuest /></Route>
             </main>
             <Footer />
           </Router>

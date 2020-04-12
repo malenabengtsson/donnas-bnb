@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useContext } from 'react'
 import { Button } from 'reactstrap'
 import BookingOptionsModal from '../BookingOptionsModal'
+import { withRouter, useHistory } from 'react-router-dom'
+
 
 
 const BookingSummary = (props) => {
@@ -61,8 +63,12 @@ const BookingSummary = (props) => {
     const [price, setPrice] = useState(899)// useState(props.pricePerNight)
 
     const [isModalOpen, setIsModalOpen] = useState(false)
+    const [openBaG, setOpenBaG] = useState(false)
 
     const toggle = () => setIsModalOpen(!isModalOpen)
+    const toggleBaG = () => setOpenBaG(!openBaG)
+
+    console.log(props.startDate)
 
     const update = () => {
         setDate(getDate())
@@ -73,14 +79,16 @@ const BookingSummary = (props) => {
         update()
     })
 
+
     return (
         <>
             <p>{date}</p>
             <p>Totalt pris: {price} kr</p>
             <Button className="btn btn-success" onClick={toggle}>Reservera</Button>
-            <BookingOptionsModal isOpen = {isModalOpen} toggle={toggle} />
+            <BookingOptionsModal isOpen = {isModalOpen} toggle={toggle} toggleBaG ={toggleBaG} />
+            {openBaG && props.history.push("/book-as-guest")}
         </>
     )
 }
 
-export default BookingSummary
+export default withRouter(BookingSummary)

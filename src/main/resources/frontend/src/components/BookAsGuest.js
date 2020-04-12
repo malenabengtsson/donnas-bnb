@@ -1,12 +1,14 @@
 import React, {useContext, useEffect, useState} from 'react'
 import { Card, CardBody, CardTitle, CardText, CardSubtitle, CardImg, Row, Form, FormGroup, Input, Button } from 'reactstrap'
-import ResidenceContext from '../contexts/ResidenceContextProvider'
+import {ResidenceContext} from '../contexts/ResidenceContextProvider'
 
 
-const BookAsGuest = () => {
+const BookAsGuest = (props) => {
 
     //const {residences} = useContext(ResidenceContext)
     const [images, setImage] = useState([])
+
+    console.log("BaG props ", props)
 
     const getImages = async () => {
         let res = await fetch('/rest/images')
@@ -34,6 +36,8 @@ const BookAsGuest = () => {
     const imgStyle = {
         marginTop: "15px"
     }
+    const {residences} = useContext(ResidenceContext)
+    console.log(residences)
 
     return(
     <div>
@@ -55,9 +59,9 @@ const BookAsGuest = () => {
                 <CardBody>
                   <CardTitle
                     // style={{ fontWeight: "bold" }}
-                    // key={residence.title}
+                    //key={residence.title}
                   >
-                   Hej
+                    Hej
                   </CardTitle>
                   
                    <CardText>

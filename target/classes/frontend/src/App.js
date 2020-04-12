@@ -13,6 +13,7 @@
     import ResidenceList from './components/ResidenceList';
     import BookingList from './components/BookingList';
     import Home from './pages/Home'
+import BookAsGuest from './components/BookAsGuest';
 
 
     function App() {
@@ -29,6 +30,7 @@
               <Route exact path="/"><Home /></Route>
               <Route exact path="/residences"><ResidenceList /></Route>
               <Route exact path="/about-residence"><AboutResidence /></Route>
+              <Route exact path="/book-as-guest/:id"><BookAsGuest /></Route>
             </main>
             <Footer />
           </Router>
