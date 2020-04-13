@@ -1,20 +1,22 @@
 import React, { useState, useEffect } from 'react'
-import { Row, Col, Card, Spinner } from 'reactstrap'
-import { useParams } from 'react-router-dom'
+import { Row, Col, Card, Spinner, Button } from 'reactstrap'
+import { useParams, withRouter } from 'react-router-dom'
 
 import Slideshow from '../components/AboutResidenceComponents/Carousel'
 import NumberOfGuests from '../components/AboutResidenceComponents/NumberOfGuests'
 import NumberOfBeds from '../components/AboutResidenceComponents/NumberOfBeds'
 import DescriptionOfHouse from '../components/AboutResidenceComponents/DescriptionOfHouse'
 import ResidenceAmenity from '../components/AboutResidenceComponents/ResidenceAmenity'
-import CalendarForBooking from '../components/AboutResidenceComponents/CalendarForBooking'
+import BookedResidence from '../components/AboutResidenceComponents/BookedResidence'
 
 
-const AboutResidence = () => {
+const ModifiedAboutResidence = (props) => {
     const [startDate, setStartDate] = useState(new Date())
     const [endDate, setEndDate] = useState(new Date()) 
+    const [price, setPrice] = useState(999)
     const [residence, setResidence] = useState(null)
     const { id } = useParams()
+    const { bookingId } = useParams()
 
     const getResidence = async () => {
         let res = await fetch('/rest/residences/' + id)
@@ -25,8 +27,18 @@ const AboutResidence = () => {
             console.log(residence)
         }, 50)
     }
+
+    const getBooking = async () => {
+        let res = await fetch('/rest/bookings/' + bookingId)
+        res = await res.json()
+        setStartDate(res.start_date)
+        setEndDate(res.end_date)
+        setPrice(res.total_price)
+    }
+
     useEffect(() => {
         getResidence()
+        getBooking()
     }, [])
 
     const cardStyle = {
@@ -37,6 +49,10 @@ const AboutResidence = () => {
       const divStyle = {
         textAlign: "center",
         margin: "15px",  
+      }
+
+      const goBackToMyPage = () => {
+          props.history.goBack()
       }
 
 
@@ -69,7 +85,9 @@ const AboutResidence = () => {
             </Row>
             <Row>
                 <Col className="text-center">
-                    <CalendarForBooking residenceId={id} startingDate={setStartDate} endingDate={setEndDate} />
+                    {/* <CalendarForBooking residenceId={id} startingDate={setStartDate} endingDate={setEndDate} /> */}
+                    <BookedResidence startDate={startDate} endDate={endDate} totalPrice={price}/>
+                    <Button className="btn btn-success float-right" onClick={() => goBackToMyPage()}>Tillbaka</Button>
                 </Col>
             </Row>
             <Row>
@@ -85,4 +103,4 @@ const AboutResidence = () => {
     )
 }
 
-export default AboutResidence
+export default withRouter(ModifiedAboutResidence)
