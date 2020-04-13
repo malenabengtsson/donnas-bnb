@@ -3,164 +3,111 @@ import { ResidenceContext } from '../contexts/ResidenceContextProvider'
 import { SearchResidence } from '../components/SearchResidence'
 import {
   Card, CardImg, CardText, CardBody,
-  CardTitle, CardSubtitle, Container, Form, Input, FormGroup, Button
+  CardTitle, CardSubtitle
 } from 'reactstrap';
 import '../sass/style.scss';
-import { withRouter } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 
 
-let arrayToMap = [];
-function ResidenceList(props) {
+
+export default function ResidenceList() {
   const [residence, updateResidence] = useContext(ResidenceContext)
   const [searchResult, setSearchResult] = useState([])
-  // const residencesArray = [];
-  const [residenceArray, setResidenceArray] = useState([])
-  const { residences, fetchResidences } = useContext(ResidenceContext)
+  const residences = [];
+  const {residences} = useContext(ResidenceContext)
   const [images, setImage] = useState([])
   const [gotoChoice, setGotoChoice] = useState(false);
-  
+
   // Listen for updates to residence
   // (right now made by SearchResidence...)
   useEffect(() => {
-    getResidences()
-  }, [])
-
-  useEffect(() => {
-    doSearch()
-  }, [residenceArray])
-
-  
-  const doSearch = () => {
     let { searchFor } = residence;
     if (!searchFor) { return; }
-    console.log(searchFor.city)
-
-    if (searchFor.city == '' || searchFor.city == undefined) {
-      console.log('not')
-    }
-    else {
-
-      setSearchResult(residenceArray.filter(
-        (sortedResidence) =>
-          sortedResidence.address_id.city == residence.searchFor.city
-      ));
-      setTimeout(() => {
-    
-        console.log(searchResult)
-      }, 50)
-    }
-  }
-
-  const getResidences = async () => {
-    let res = await fetch('/rest/residences')
+    // thomas' comment: I would do my actual search here
+    // but for now I will just fake it to show you
+    // I picked up the search criterias via context
+    setSearchResult([
+      { id: 1, max_guests: JSON.stringify(searchFor, '', '  ') }
+    ]);
+  }, [residence])
+  const getImages = async () => {
+    let res = await fetch('/rest/images')
     res = await res.json()
-    let result = []
-    res.forEach(el => {
-      result.push(el)
+    let arrayOfImages = []
+  
+    res.forEach(image => {
+      if (image.residence_id === 1) {
+        arrayOfImages.push(image.img_path)
+      }
     })
-    setResidenceArray(result)
+    setImage(arrayOfImages)
   }
 
-
-  const gotoResidence = id => {
-   props.history.push('/residences/' + id)
+  const gotoResidence = e => {
+    setGotoChoice(true);
   };
 
-  const list = () => {
-    if (residence.searchFor.city == '') {
-      arrayToMap = residenceArray;
-      console.log('all residences')
+  useEffect(() => {
+    getImages()
+  }, [])
+
+    const list = () => {
+        return residences.map((residence, i) => {
+
+          const cardStyle = {
+            textAlign: "center",
+            marginTop: "15px", 
+            marginBottom: "15px", 
+            backgroundColor: "#F5F5DC"
+          }
+          const imgStyle = {
+            marginTop: "10px",
+            border: "1px solid gray",
+            cursor: "pointer"
+          }
+
+          return (
+            <div key={i}>
+              <Card
+                style={cardStyle}
+                className="col-10 mx-auto"
+                sm="12"
+                md={{ size: 6, offset: 3 }}
+              >
+                <CardImg
+                  style={imgStyle}
+                  top
+                  width="100%"
+                  src={images[i]}
+                  alt="Card image cap"
+                  onClick={gotoResidence}
+                />
+
+                <CardBody>
+                  <CardTitle
+                    style={{ fontWeight: "bold" }}
+                    key={residence.title}
+                  >
+                    {residence.title}
+                  </CardTitle>
+                  <CardSubtitle key={residence.description}>
+                    {residence.description}
+                  </CardSubtitle>
+                  <CardText key={residence.price_per_night}>
+                    Kostnad per natt: {residence.price_per_night}kr{" "}
+                  </CardText>
+                </CardBody>
+              </Card>
+            </div>
+          );
+        })  
     }
-    else {
-      arrayToMap = searchResult
-      console.log('Searchresult')
-    }
-      
-      return arrayToMap.map((res, i) => {
-
-        const cardStyle = {
-          textAlign: "center",
-          marginTop: "15px",
-          marginBottom: "15px",
-          backgroundColor: "#F5F5DC"
-        }
-        const imgStyle = {
-          marginTop: "10px",
-          border: "1px solid gray",
-          cursor: "pointer"
-        }
-
-        return (
-          <div key={i}>
-            <Card
-              style={cardStyle}
-              className="col-10 mx-auto"
-              sm="12"
-              md={{ size: 6, offset: 3 }}
-            >
-              <CardImg
-                style={imgStyle}
-                top
-                width="100%"
-                src={res.images[0].img_path}
-                alt="Card image cap"
-                onClick={() => gotoResidence(res.id)}
-              />
-
-              <CardBody>
-                <CardTitle
-                  style={{ fontWeight: "bold" }}
-                  key={res.title}
-                >
-                  {res.title}
-                </CardTitle>
-                <CardSubtitle key={res.description}>
-                  {res.description}
-                </CardSubtitle>
-                <CardText key={res.price_per_night}>
-                  Kostnad per natt: {res.price_per_night}kr{" "}
-                </CardText>
-              </CardBody>
-            </Card>
-          </div>
-        );
-      })
-    
-  }
-
   
   
     return (
-      <div>
-        {/* {gotoChoice && <Redirect to={"/residences/" + searchResult[0].sortedResidence.id} />} */}
-        <Container>
-          <Form className="row"
-          onSubmit={doSearch}>
-          <FormGroup className="col-5 mx-auto">
-              <Input
-                value={residence.searchFor.city}
-                type="text"
-                id="city"
-                placeholder="Skriv en stad..."
-                onChange={e => updateResidence({
-                  searchFor:
-                  {
-                    city: e.target.value,
-                    checkIn: residence.searchFor.checkIn,
-                    checkOut: residence.searchFor.checkOut
-                  }
-              
-                })}
-            />
-            </FormGroup>
-            <Button
-              onClick={doSearch}
-            color="success"
-            className="col-2">Sök</Button>
-            </Form>
+      <>
+        {gotoChoice && <Redirect to="/about-residence" />}
         {list()}
-        </Container>
-      </div>
+      </>
     );
-}
-  export default withRouter(ResidenceList)
+  }

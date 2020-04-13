@@ -9,13 +9,32 @@ export default function ResidenceContextProvider(props) {
 
     setResidences([...residences, residence])
   }
-   
-  useEffect(() => {
-    fetchResidences()
-  }, [])
+    }
+    const fetchResidences = async () => {
+        let res = await fetch('/rest/residences')
+        res = await res.json()
+       
+        setResidences(res)
+      }
+    
+      useEffect(() => {
+        fetchResidences()
+      }, [])
       
+      const values = {
+        residences, 
+        setResidences,
+        appendResidence,
+        removeResidence
+      }
 
   const removeResidence = id => {
+    return(
+        <ResidenceContext.Provider value={values}>
+            {props.children}
+        </ResidenceContext.Provider>
+    )
+
     setResidences(residences.filter(r => r.id !== id))
 
 
@@ -47,4 +66,6 @@ export default function ResidenceContextProvider(props) {
       {props.children}
     </ResidenceContext.Provider>
   )
+
+
 }

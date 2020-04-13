@@ -1,59 +1,27 @@
 package com.example.demo.entities;
 
-import org.hibernate.annotations.Type;
-
 import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
-@Table(name = "amenity_profiles")
-public class AmenityProfile implements Serializable{
+@Table(name = "amenityProfiles")
+public class AmenityProfile {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(nullable = false)
-    @Type(type = "org.hibernate.type.NumericBooleanType")
     private boolean wifi;
-
-    @Column(nullable = false)
-    @Type(type = "org.hibernate.type.NumericBooleanType")
     private boolean tv;
-
-    @Column(nullable = false)
-    @Type(type = "org.hibernate.type.NumericBooleanType")
     private boolean shower;
-
-    @Column(nullable = false)
-    @Type(type = "org.hibernate.type.NumericBooleanType")
     private boolean bathtub;
-
-    @Column(nullable = false)
-    @Type(type = "org.hibernate.type.NumericBooleanType")
     private boolean balcony;
-
-    @Column(nullable = false)
-    @Type(type = "org.hibernate.type.NumericBooleanType")
     private boolean washing_machine;
-
-    @Column(nullable = false)
-    @Type(type = "org.hibernate.type.NumericBooleanType")
     private boolean kitchen;
-
-    @Column(nullable = false)
-    @Type(type = "org.hibernate.type.NumericBooleanType")
     private boolean pool;
-
-    @Column(nullable = false)
-    @Type(type = "org.hibernate.type.NumericBooleanType")
     private boolean free_parking;
-
-    @Column(nullable = false)
-    @Type(type = "org.hibernate.type.NumericBooleanType")
     private boolean air_conditioner;
 
-    public AmenityProfile(){}
     public int getId() {
         return id;
     }

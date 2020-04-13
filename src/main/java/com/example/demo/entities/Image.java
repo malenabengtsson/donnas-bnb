@@ -11,11 +11,10 @@ public class Image  {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    private int residenceId;
+    private int residence_id;
 
     private String img_path;
 
-    public Image(){}
     public int getId() {
         return id;
     }
@@ -24,12 +23,12 @@ public class Image  {
         this.id = id;
     }
 
-    public int getResidenceId() {
-        return residenceId;
+    public int getResidence_id() {
+        return residence_id;
     }
 
-    public void setResidenceId(int residenceId) {
-        this.residenceId = residenceId;
+    public void setResidence_id(int residence_id) {
+        this.residence_id = residence_id;
     }
 
     public String getImg_path() {

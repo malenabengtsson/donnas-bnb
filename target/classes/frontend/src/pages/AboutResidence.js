@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from 'react'
-import { Row, Col, Card, Spinner } from 'reactstrap'
-import { useParams } from 'react-router-dom'
+import React, { useState } from 'react'
+import { Row, Col, Card } from 'reactstrap'
 
 import Slideshow from '../components/AboutResidenceComponents/Carousel'
 import NumberOfGuests from '../components/AboutResidenceComponents/NumberOfGuests'
@@ -13,21 +12,6 @@ import CalendarForBooking from '../components/AboutResidenceComponents/CalendarF
 const AboutResidence = () => {
     const [startDate, setStartDate] = useState(new Date())
     const [endDate, setEndDate] = useState(new Date()) 
-    const [residence, setResidence] = useState(null)
-    const { id } = useParams()
-
-    const getResidence = async () => {
-        let res = await fetch('/rest/residences/' + id)
-        res = await res.json()
-        setResidence(res)
-        console.log(res)
-        setTimeout(() => {
-            console.log(residence)
-        }, 50)
-    }
-    useEffect(() => {
-        getResidence()
-    }, [])
 
     const cardStyle = {
         textAlign: "center",
@@ -41,35 +25,32 @@ const AboutResidence = () => {
 
 
     return (
-        <div>
-            {residence ? (
-                <>
-            <Card style={cardStyle}>
+        <Card style={cardStyle}>
             <div style={divStyle}>
             <Row>
                 <Col>
-                    <Slideshow residenceId={residence.images.img_path}/>
+                    <Slideshow residenceId={1}/>
                 </Col>
             </Row>
             <Row>
                 <Col className="text-center">
-                    <NumberOfBeds className="col-5" NumberOfBeds={residence.beds} /> 
-                    <NumberOfGuests className="col-5" NumberOfGuests={residence.max_guests} />
+                    <NumberOfBeds className="col-5" residenceId={1} /> 
+                    <NumberOfGuests className="col-5" residenceId={1} />
                 </Col>
             </Row>
             <Row>
                 <Col className="text-center">
-                    <DescriptionOfHouse DescriptionOfHouse={residence.description} />
+                    <DescriptionOfHouse residenceId={1} />
                 </Col>
             </Row>
             <Row>
                 <Col sm="10" md={{ size: 4, offset: 4}} >
-                    <ResidenceAmenity ResidenceAmenity={residence.amenity_profile_id} />
+                    <ResidenceAmenity residenceId={2} />
                 </Col>
             </Row>
             <Row>
                 <Col className="text-center">
-                    <CalendarForBooking residenceId={id} startingDate={setStartDate} endingDate={setEndDate} />
+                    <CalendarForBooking residenceId={1} startingDate={setStartDate} endingDate={setEndDate} />
                 </Col>
             </Row>
             <Row>
@@ -78,10 +59,7 @@ const AboutResidence = () => {
                 </Col>
             </Row>
             </div>
-                    </Card>
-                </>)
-                    :<Spinner color="success" />}
-            </div>
+        </Card>
     )
 }
 
