@@ -2,6 +2,7 @@ import React, { useState, useContext, useEffect } from 'react'
 import {UserContext} from '../../contexts/UserContextProvider'
 import { withRouter, useParams } from 'react-router-dom'
 import MyBookings from './MyBookings'
+import MyLeases from './MyLeases'
 
 const UserPage = (props) => {
     const [fullName, setFullName] = useState('')
@@ -48,7 +49,8 @@ const UserPage = (props) => {
     return (
         <>
         <h1 className="text-white text-center">{fullName}</h1>
-        <MyBookings usrBookings={sendToChild}/>      
+        <MyBookings usrBookings={sendToChild}/>
+        <MyLeases usrLeases={'hello'} />      
         </>
     )
 }
