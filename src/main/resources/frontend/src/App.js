@@ -1,24 +1,22 @@
-    import 'bootstrap/dist/css/bootstrap.min.css';
-    import './sass/style.scss'
-    import Navbar from './components/Navbar'
-    import Footer from './components/Footer'
-    import AboutResidence from './pages/AboutResidence'
-    import {
-      BrowserRouter as Router,
-      Route
-    } from 'react-router-dom'
-    import ResidenceContextProvider, { ResidenceContext } from './contexts/ResidenceContextProvider';
-    import BookingContextProvider from './contexts/BookingContextProvider';
-    import UserContextProvider, { UserContext } from './contexts/UserContextProvider'
-    import ResidenceList from './components/ResidenceList';
-    import BookingList from './components/BookingList';
-    import Home from './pages/Home'
-    import SignUpPage from './pages/SignUpPage'
-    import SignInPage from './pages/SignInPage'
-    import MyPage from './pages/MyPage'
-    import Help from './pages/Help'
-    import ModifiedAboutResidence from './pages/ModifiedAboutResidence'
 import React, { useState } from 'react';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import './sass/style.scss'
+import Navbar from './components/Navbar'
+import Footer from './components/Footer'
+import Help from './pages/Help'
+import Home from './pages/Home'
+import Login from './pages/Login'
+import Register from './pages/Register'
+import AboutResidence from './pages/AboutResidence'
+import ResidenceList from './components/ResidenceList'
+import {
+  BrowserRouter as Router,
+  Route,
+  Link,
+  Switch
+} from 'react-router-dom'
+import ResidenceContextProvider, { ResidenceContext } from './contexts/ResidenceContextProvider';
+import BookingContextProvider, { BookingContext } from './contexts/BookingContextProvider';
 
 function App() {
 
@@ -33,28 +31,23 @@ function App() {
 
   return (
     <div className="App">
-    <UserContextProvider>
       <ResidenceContext.Provider value={[val, updater]}>
         <BookingContextProvider>
           <Router>
             <Navbar />
             <main>
-              <Route exact path="/residences/:id"> <AboutResidence /></Route>
-              <Route exact path="/my-page/residence/:id/:bookingId"> <ModifiedAboutResidence /> </Route>
-              <Route exact path="/residences"> <ResidenceList /></Route>
-              <Route exact path="/help"> <Help/></Route> 
               <Route exact path="/"><Home/></Route>
-              <Route exact path="/my-page" component={MyPage} />
-              <Route exact path="/sign-in" component={SignInPage} />
-              <Route exact path="/sign-up" component={SignUpPage} />
+              <Route exact path="/perform-login"> <Login/></Route>
+              <Route exact path="/perform-register"><Register/></Route>
+              <Route exact path="/help"> <Help/></Route> 
+              <Route exact path="/residences"> <ResidenceList /></Route>
+              <Route exact path="/about-residence"> <AboutResidence /></Route>
             </main>
-            <Footer/>
+            <Footer />
           </Router>
-          </BookingContextProvider>
-          </ResidenceContext.Provider>
-          </UserContextProvider>
-        </div>
-      );
-    }
-
-  export default App
+        </BookingContextProvider>
+      </ResidenceContext.Provider>
+    </div>
+  );
+}
+export default App;
