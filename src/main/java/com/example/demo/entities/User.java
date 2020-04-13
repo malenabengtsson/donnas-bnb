@@ -1,5 +1,8 @@
 package com.example.demo.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import javax.persistence.*;
 import java.io.Serializable;
 
@@ -15,6 +18,16 @@ public class User implements Serializable {
     private String email;
     private String password;
     private int phone_number;
+
+
+    public User() {}
+
+    public User(String full_name, String email, String password, int phone_number) {
+        this.full_name = full_name;
+        this.email = email;
+        this.password = password;
+        this.phone_number = phone_number;
+    }
 
     public int getId() {
         return id;
@@ -40,10 +53,11 @@ public class User implements Serializable {
         this.email = email;
     }
 
+    @JsonIgnore
     public String getPassword() {
         return password;
     }
-
+    @JsonProperty
     public void setPassword(String password) {
         this.password = password;
     }
