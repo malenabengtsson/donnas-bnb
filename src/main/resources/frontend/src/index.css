@@ -11,3 +11,9 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.App {
+  min-height: 100vh;
+  background: url("http://www.sverigesnationalparker.se/globalassets/stenshuvud/karusell-3000x1875/stenshuvud-nationalpark-stranden.jpg");
+  background-size: cover;
+}

@@ -2,10 +2,11 @@ package com.example.demo.entities;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.List;
 
 @Entity
 @Table(name = "residences")
-public class Residence {
+public class Residence implements Serializable{
 
 
     @Id
@@ -14,19 +15,38 @@ public class Residence {
 
     private int max_guests;
 
-    private int amenity_profile_id;
 
-    private int address_id;
+   @OneToOne(cascade = CascadeType.ALL)
+   @JoinColumn
+    private AmenityProfile amenity_profile_id;
+
+   @OneToOne(cascade = CascadeType.ALL)
+   @JoinColumn
+    private Address address_id;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn
+    private User user_id;
 
     private int beds;
-
-    private int user_id;
-
     private String description;
 
     private String title;
 
     private int price_per_night;
+
+    @Transient
+    private List<Image> images;
+
+    public Residence(){}
+
+    public List<Image> getImages() {
+        return images;
+    }
+
+    public void setImages(List<Image> images) {
+        this.images = images;
+    }
 
     public String getDescription() {
         return description;
@@ -34,6 +54,22 @@ public class Residence {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public Address getAddress_id() {
+        return address_id;
+    }
+
+    public void setAddress_id(Address address_id) {
+        this.address_id = address_id;
+    }
+
+    public AmenityProfile getAmenity_profile_id() {
+        return amenity_profile_id;
+    }
+
+    public void setAmenity_profile_id(AmenityProfile amenity_profile_id) {
+        this.amenity_profile_id = amenity_profile_id;
     }
 
     public int getId() {
@@ -52,22 +88,6 @@ public class Residence {
         this.max_guests = max_guests;
     }
 
-    public int getAmenity_profile_id() {
-        return amenity_profile_id;
-    }
-
-    public void setAmenity_profile_id(int amenity_profile_id) {
-        this.amenity_profile_id = amenity_profile_id;
-    }
-
-    public int getAddress_id() {
-        return address_id;
-    }
-
-    public void setAddress_id(int address_id) {
-        this.address_id = address_id;
-    }
-
     public int getBeds() {
         return beds;
     }
@@ -76,11 +96,11 @@ public class Residence {
         this.beds = beds;
     }
 
-    public int getUser_id() {
+    public User getUser_id() {
         return user_id;
     }
 
-    public void setUser_id(int user_id) {
+    public void setUser_id(User user_id) {
         this.user_id = user_id;
     }
 
