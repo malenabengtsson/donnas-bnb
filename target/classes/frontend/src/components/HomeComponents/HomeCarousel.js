@@ -21,13 +21,11 @@ const HomeCarousel  = (props) => {
     let res = await fetch('/rest/images')
     res = await res.json()
     let arryOfImages = []
-    // console.log(res)
     res.forEach(image => {
-      if (image.residence_id === props.residenceId) {
         arryOfImages.push(image)
-      }
     })
     setImages(arryOfImages)
+    console.log(arryOfImages)
   }
 
   useEffect(() => {
