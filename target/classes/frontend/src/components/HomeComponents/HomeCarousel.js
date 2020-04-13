@@ -6,12 +6,14 @@ import {
   CarouselIndicators,
   CarouselCaption,
   CardImg,
+  Row,
+  Col
 } from 'reactstrap';
 
 import { ResidenceContext } from '../../contexts/ResidenceContextProvider'
 
 
-const HomeSlideshow  = (props) => {
+const HomeCarousel  = (props) => {
   const { residences } = useContext(ResidenceContext)
   const [images, setImages] = useState([])
 
@@ -19,13 +21,11 @@ const HomeSlideshow  = (props) => {
     let res = await fetch('/rest/images')
     res = await res.json()
     let arryOfImages = []
-    // console.log(res)
     res.forEach(image => {
-      if (image.residence_id === props.residenceId) {
         arryOfImages.push(image)
-      }
     })
     setImages(arryOfImages)
+    console.log(arryOfImages)
   }
 
   useEffect(() => {
@@ -55,24 +55,28 @@ const HomeSlideshow  = (props) => {
   const imgStyle = {
     margin: "10px",
     border: "1px solid gray",
-    cursor: "pointer"
+    cursor: "pointer",
   }
+
 
   const slides = images.map((image, i) => {
     return (
-      <CarouselItem
+      
+      <CarouselItem className="bigpicture"
         onExiting={() => setAnimating(true)}
         onExited={() => setAnimating(false)}
         key={image.img_path + i}
       >
-          <CardImg
+        <div className="imagesize">
+          <CardImg style={imgStyle}
                   top
                   width="100%"
                   src={image.img_path}
                   alt="Card image cap"
                 />
-        {/* <img src={image.img_path} alt={'item.altText'} /> */}
+            </div>
       </CarouselItem>
+     
     );
   });
 
@@ -90,4 +94,4 @@ const HomeSlideshow  = (props) => {
   );
 }
 
-export default HomeSlideshow ;
+export default HomeCarousel ;

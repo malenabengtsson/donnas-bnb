@@ -13,7 +13,7 @@ import {
 import { ResidenceContext } from '../../contexts/ResidenceContextProvider'
 
 
-const HomeSlideshow  = (props) => {
+const HomeCarousel  = (props) => {
   const { residences } = useContext(ResidenceContext)
   const [images, setImages] = useState([])
 
@@ -21,13 +21,11 @@ const HomeSlideshow  = (props) => {
     let res = await fetch('/rest/images')
     res = await res.json()
     let arryOfImages = []
-    // console.log(res)
     res.forEach(image => {
-      if (image.residence_id === props.residenceId) {
         arryOfImages.push(image)
-      }
     })
     setImages(arryOfImages)
+    console.log(arryOfImages)
   }
 
   useEffect(() => {
@@ -77,7 +75,6 @@ const HomeSlideshow  = (props) => {
                   alt="Card image cap"
                 />
             </div>
-        {/* <img src={image.img_path} alt={'item.altText'} /> */}
       </CarouselItem>
      
     );
@@ -97,4 +94,4 @@ const HomeSlideshow  = (props) => {
   );
 }
 
-export default HomeSlideshow ;
+export default HomeCarousel ;

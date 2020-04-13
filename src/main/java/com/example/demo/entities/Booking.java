@@ -10,15 +10,19 @@ public class Booking  {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-
     private String start_date;
     private String end_date;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn
+    private Residence residence_id;
     private int total_price;
-    private int residence_id;
 
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn
+    private User user_id;
 
-    private int user_id;
-
+ public Booking(){}
     public int getId() {
         return id;
     }
@@ -43,21 +47,22 @@ public class Booking  {
         this.end_date = end_date;
     }
 
-    public int getResidence_id() {
+    public Residence getResidence_id() {
         return residence_id;
     }
 
-    public void setResidence_id(int residence_id) {
+    public void setResidence_id(Residence residence_id) {
         this.residence_id = residence_id;
     }
 
-    public int getUser_id() {
+    public User getUser_id() {
         return user_id;
     }
 
-    public void setUser_id(int user_id) {
+    public void setUser_id(User user_id) {
         this.user_id = user_id;
     }
+
     public int getTotal_price() {
         return total_price;
     }

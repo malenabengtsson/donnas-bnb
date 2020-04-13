@@ -40,24 +40,25 @@ const CalendarForBooking = (props) => {
       This function get all the periods from the db and then store all the periods linked to a residence in an arry.
       Then loop through them and split them on "/" to be able to set date as month/day/year instead of day/month/year.
     */
-    const getStartAndEndDate = async () => {
+  const getStartAndEndDate = async () => {
       let res = await fetch('/rest/availablePeriods')
       res = await res.json()
       let arryOfStartDates = []
-      let arryOfEndDates = []
+    let arryOfEndDates = []
       res.forEach(el => {
-        if(el.residence_id === props.residenceId){
+        if(el.residence_id.id === props.residenceId){
           arryOfStartDates.push(el.start_date)
           arryOfEndDates.push(el.end_date)
         }
       })
-
+      
+     
       arryOfStartDates = splitArray(arryOfStartDates, "/")
       arryOfEndDates = splitArray(arryOfEndDates, "/")
 
       let arryOfPeriods = getCalculatedPeriods(arryOfStartDates, arryOfEndDates)
       setPeriods(arryOfPeriods)
-      
+
 
       arryOfStartDates = getAsDates(arryOfStartDates)
       arryOfEndDates = getAsDates(arryOfEndDates)
@@ -104,7 +105,8 @@ const CalendarForBooking = (props) => {
 
     
 
-    const periodsList = periods.map((period, i) => {
+  const periodsList = periods.map((period, i) => {
+    console.log(periodsList)
       return (
         <DropdownItem key={period + i} onClick={e => {
           setSelectedStartDate(startDates[i])
