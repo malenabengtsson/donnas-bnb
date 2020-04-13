@@ -6,16 +6,6 @@ import { Link } from 'react-router-dom'
 const Help = () =>{
 
 
-    const [gotoLogin, setGotoLogin] = useState(false)
-    const [gotoRegister, setGotoRegister] = useState(false)
-    
-    const initSearch = (e) => {
-        e.preventDefault()
-
-        setGotoLogin(true)
-        
-    }
-
     return(
         <div className="backGround" >
             <h2 style={{marginBottom: '15px', marginLeft: '10px', color: 'white', textAlign: 'center'}}>
