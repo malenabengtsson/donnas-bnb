@@ -42,15 +42,18 @@ const CalendarForBooking = (props) => {
     */
   const getStartAndEndDate = async () => {
       let res = await fetch('/rest/availablePeriods')
-      res = await res.json()
+    res = await res.json()
+    console.log(res)
       let arryOfStartDates = []
-    let arryOfEndDates = []
+      let arryOfEndDates = []
       res.forEach(el => {
-        if(el.residence_id.id === props.residenceId){
+        if (el.residence_id.id === props.residenceId) {
+          console.log(el)
           arryOfStartDates.push(el.start_date)
           arryOfEndDates.push(el.end_date)
         }
       })
+    console.log(arryOfEndDates)
       
      
       arryOfStartDates = splitArray(arryOfStartDates, "/")
