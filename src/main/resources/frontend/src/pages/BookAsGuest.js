@@ -1,31 +1,28 @@
 import React, {useContext, useEffect, useState} from 'react'
 import { Card, CardBody, CardTitle, CardText, CardSubtitle, CardImg, Row, Form, FormGroup, Input, Button } from 'reactstrap'
 import {ResidenceContext} from '../contexts/ResidenceContextProvider'
-
+import { useParams } from 'react-router-dom'
+import { disconnect } from 'mongoose'
 
 const BookAsGuest = (props) => {
 
-    //const {residences} = useContext(ResidenceContext)
-    const [images, setImage] = useState([])
+    const [residence, setResidence] = useState(null)
+    let {id} = useParams()
+
+    const getResidence = async () => {
+
+     // let id = props.match.params.id
+      let res = await fetch('/rest/residences/' + id)
+      res = await res.json()
+      console.log(res)
+      setResidence(res)
+    }
+   
+    useEffect(() => {
+      getResidence()
+    },[])
 
     console.log("BaG props ", props)
-
-    const getImages = async () => {
-        let res = await fetch('/rest/images')
-        res = await res.json()
-        let arrayOfImages = []
-      
-        res.forEach(image => {
-          if (image.residence_id === 1) {
-            arrayOfImages.push(image.img_path)
-          }
-        })
-        setImage(arrayOfImages)
-      }
-
-      useEffect(() => {
-        getImages()
-      }, [])
 
     const cardStyle = {
         textAlign: "center",
@@ -36,11 +33,10 @@ const BookAsGuest = (props) => {
     const imgStyle = {
         marginTop: "15px"
     }
-    const {residences} = useContext(ResidenceContext)
-    console.log(residences)
 
     return(
     <div>
+      {residence ? 
               <Card
                 style={cardStyle}
                 className="col-10 mx-auto"
@@ -51,22 +47,27 @@ const BookAsGuest = (props) => {
                  style={imgStyle}
                  top
                  width="100%"
-                 src={images[0]}
-                 alt="Card image cap"
+                 src={residence.images[0].img_path}
                   
                 /> 
 
                 <CardBody>
                   <CardTitle
-                    // style={{ fontWeight: "bold" }}
-                    //key={residence.title}
+                     style={{ fontWeight: "bold" }}
+                    key={residence.title}
                   >
-                    Hej
+                    {residence.title}
+                    
                   </CardTitle>
                   
                    <CardText>
-                     {/* key={residence.price_per_night}> */}
-                     {/* Kostnad per natt: {residence.price_per_night}kr{" "} */}
+                     <div key={residence.price_per_night}>
+                      Kostnad per natt: {residence.price_per_night}kr
+                      </div>
+                      {/* <div key={residence.addresses.street}>
+                        {residence.addresses.street}
+                      </div> */}
+
                      <Form>
                      <FormGroup>
                          <Input className="col-lg-4 col-sm-10 mx-auto" type="text" placeholder="För- och efternamn"> </Input>
@@ -86,6 +87,7 @@ const BookAsGuest = (props) => {
                   </CardText> 
                 </CardBody>
               </Card>
+              :''}
             </div>
             )
 

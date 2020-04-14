@@ -12,7 +12,7 @@ import {
   Input
 } from "reactstrap";
 import BookingSummary from "./AboutResidenceComponents/BookingSummary";
-import BookAsGuest from "./BookAsGuest";
+import BookAsGuest from "../pages/BookAsGuest";
 
 const BookingOptionsModal = (props) => {
   
@@ -24,7 +24,6 @@ if(!props.isOpen){
 else{
   return (
     <div>
-      {/* {gotoBookAsGuest <BookAsGuest} */}
       <Modal isOpen={props.isOpen}>
         <ModalHeader color="success">Välj hur du vill fortsätta</ModalHeader>
         <ModalBody>

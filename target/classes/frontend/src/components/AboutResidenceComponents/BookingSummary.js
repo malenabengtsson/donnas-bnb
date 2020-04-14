@@ -34,6 +34,7 @@ const BookingSummary = (props) => {
     }
 
     const getPriceFromDb = async () => {
+        console.log(residence)
         let res = await fetch('/rest/residences/' + props.residenceId)
         res = await res.json()
         setResidence(res)
@@ -68,8 +69,6 @@ const BookingSummary = (props) => {
     const toggle = () => setIsModalOpen(!isModalOpen)
     const toggleBaG = () => setOpenBaG(!openBaG)
 
-    console.log(props.startDate)
-
     const update = () => {
         setDate(getDate())
         setPrice(calculatePrice)
@@ -86,7 +85,8 @@ const BookingSummary = (props) => {
             <p>Totalt pris: {price} kr</p>
             <Button className="btn btn-success" onClick={toggle}>Reservera</Button>
             <BookingOptionsModal isOpen = {isModalOpen} toggle={toggle} toggleBaG ={toggleBaG} />
-            {openBaG && props.history.push("/book-as-guest")}
+           {console.log("test ", props)}
+            {openBaG && props.history.push("/book-as-guest/" + props.residenceId)}
         </>
     )
 }

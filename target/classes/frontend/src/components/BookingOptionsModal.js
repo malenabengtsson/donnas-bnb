@@ -12,7 +12,7 @@ import {
   Input
 } from "reactstrap";
 import BookingSummary from "./AboutResidenceComponents/BookingSummary";
-import BookAsGuest from "./BookAsGuest";
+import BookAsGuest from "../pages/BookAsGuest";
 
 const BookingOptionsModal = (props) => {
   

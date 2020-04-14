@@ -1,4 +1,4 @@
-import BookAsGuest from './components/BookAsGuest';
+import BookAsGuest from './pages/BookAsGuest';
 import React, { useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './sass/style.scss'

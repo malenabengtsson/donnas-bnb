@@ -1,3 +1,4 @@
+import BookAsGuest from './pages/BookAsGuest';
 import React, { useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './sass/style.scss'
@@ -17,7 +18,6 @@ import {
 } from 'react-router-dom'
 import ResidenceContextProvider, { ResidenceContext } from './contexts/ResidenceContextProvider';
 import BookingContextProvider, { BookingContext } from './contexts/BookingContextProvider';
-import BookAsGuest from './components/BookAsGuest';
 
 function App() {
 

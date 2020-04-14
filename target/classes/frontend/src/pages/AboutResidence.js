@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Row, Col, Card } from 'reactstrap'
+import { Row, Col, Card, Spinner } from 'reactstrap'
 import { useParams } from 'react-router-dom'
 
 import Slideshow from '../components/AboutResidenceComponents/Carousel'
@@ -43,7 +43,10 @@ const AboutResidence = () => {
 
 
     return (
-        <Card style={cardStyle}>
+        <div>
+            {residence ? (
+                <>
+            <Card style={cardStyle}>
             <div style={divStyle}>
             <Row>
                 <Col>
@@ -52,18 +55,18 @@ const AboutResidence = () => {
             </Row>
             <Row>
                 <Col className="text-center">
-                    <NumberOfBeds className="col-5" residenceId={id} /> 
-                    <NumberOfGuests className="col-5" residenceId={id} />
+                    <NumberOfBeds className="col-5" NumberOfBeds={residence.beds} /> 
+                    <NumberOfGuests className="col-5" NumberOfGuests={residence.max_guests} />
                 </Col>
             </Row>
             <Row>
                 <Col className="text-center">
-                    <DescriptionOfHouse residenceId={id} />
+                    <DescriptionOfHouse DescriptionOfHouse={residence.description} />
                 </Col>
             </Row>
             <Row>
                 <Col sm="10" md={{ size: 4, offset: 4}} >
-                    <ResidenceAmenity residenceId={id} />
+                    <ResidenceAmenity ResidenceAmenity={residence.amenity_profile_id} />
                 </Col>
             </Row>
             <Row>
@@ -77,7 +80,10 @@ const AboutResidence = () => {
                 </Col>
             </Row>
             </div>
-        </Card>
+                    </Card>
+                </>)
+                    :<Spinner color="success" />}
+            </div>
     )
 }
 
