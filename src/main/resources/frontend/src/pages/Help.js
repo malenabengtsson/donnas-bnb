@@ -12,6 +12,7 @@ const Help = () => {
           marginLeft: "10px",
           color: "white",
           textAlign: "center",
+          paddingTop: "20px"
         }}
       >
         Frågor och svar
@@ -20,12 +21,12 @@ const Help = () => {
         <Button
           color="success"
           id="registerToggler"
-          style={{ marginBottom: "1rem", marginLeft: "10px" }}
+          style={{ marginBottom: "1rem", marginLeft: "20px", marginTop: "15px" }}
         >
           Registering?
         </Button>
         <UncontrolledCollapse toggler="#registerToggler">
-          <Card style={{ width: "100%", height: "auto" }}>
+          <Card className="helpCard" style={{ width: "100%", height: "auto" }}>
             <CardBody>
               Som uthyrare av bostad måste du först registrera dig och skapa ett konto hos oss. Det gör du genom att följa länken nedan och fylla i den information
               som efterfrågas. Självklart kan du registrera dig även om ditt mål endast är att hyra ett boende och inte hyra ut, och om du inte är intresserad av att 
@@ -41,12 +42,12 @@ const Help = () => {
         <Button
           color="success"
           id="loginToggler"
-          style={{ marginBottom: "1rem", marginLeft: "10px" }}
+          style={{ marginBottom: "1rem", marginLeft: "20px" }}
         >
           Logga in?
         </Button>
         <UncontrolledCollapse toggler="#loginToggler">
-          <Card style={{ width: "100%", height: "auto" }}>
+          <Card className="helpCard" style={{ width: "100%", height: "auto" }}>
             <CardBody>
               För att logga in måste du först ha registrerat ett konto hos oss. Information om hur och var du registrerar dig finner du i fliken ovan "Registrering?"
               När registeringen är gjord kan du logga in på ditt konto. Klicka på länken nedan som tar dig vidare till vårt inloggningsformulär.
@@ -61,12 +62,12 @@ const Help = () => {
         <Button
           color="success"
           id="rentoutToggler"
-          style={{ marginBottom: "1rem", marginLeft: "10px" }}
+          style={{ marginBottom: "1rem", marginLeft: "20px" }}
         >
           Hyra ut?
         </Button>
         <UncontrolledCollapse toggler="#rentoutToggler">
-          <Card style={{ width: "100%", height: "auto" }}>
+          <Card className="helpCard" style={{ width: "100%", height: "auto" }}>
             <CardBody>
              Som uthyrare hos oss kan du på din profil skapa och hyra ut objekt som du önskar. Under vilka perioder, bekvämligheter, bilder, allmän information om boendet
              och kontaktuppgifter till dig som uthyrare.
@@ -80,12 +81,12 @@ const Help = () => {
         <Button
           color="success"
           id="rentToggler"
-          style={{ marginBottom: "1rem", marginLeft: "10px" }}
+          style={{ marginBottom: "1rem", marginLeft: "20px" }}
         >
           Söka boende?
         </Button>
         <UncontrolledCollapse toggler="#rentToggler">
-          <Card style={{ width: "100%", height: "auto" }}>
+          <Card className="helpCard" style={{ width: "100%", height: "auto" }}>
             <CardBody>
              Du är några få enkla knapptryckningar från att hyra en bostad hos oss!
              På startsidan kan du söka efter en stad och datum som passar dig.
@@ -101,12 +102,12 @@ const Help = () => {
         <Button
           color="success"
           id="priceToggler"
-          style={{ marginBottom: "1rem", marginLeft: "10px" }}
+          style={{ marginBottom: "1rem", marginLeft: "20px" }}
         >
           Priser?
         </Button>
         <UncontrolledCollapse toggler="#priceToggler">
-          <Card style={{ width: "100%", height: "auto" }}>
+          <Card className="helpCard" style={{ width: "100%", height: "auto" }}>
             <CardBody>
               Priserna för ett boende kommer att visas och räknas ut samtidigt som du väljer hur många dagar du är intresserad av att hyra boendet.
               Priserna är beräknade och inga andra kostnader tillkommer utöver det som anges.
