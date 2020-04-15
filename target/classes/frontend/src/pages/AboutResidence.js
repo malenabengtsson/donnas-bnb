@@ -20,7 +20,6 @@ const AboutResidence = () => {
         let res = await fetch('/rest/residences/' + id)
         res = await res.json()
         setResidence(res)
-        console.log(res)
 
         setTimeout(() => {
             console.log(residence)

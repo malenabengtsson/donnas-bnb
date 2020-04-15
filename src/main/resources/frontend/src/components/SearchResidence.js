@@ -1,7 +1,7 @@
 import React, { useState, useContext } from 'react'
 import { Button, Form, FormGroup, Label, Input, FormText, Col, Row, Container } from 'reactstrap';
 import { ResidenceContext } from '../contexts/ResidenceContextProvider'
-import DatePicker from 'react-date-picker'
+import DatePicker from 'react-datepicker'
 import { Redirect } from 'react-router-dom'
 
 let throttleSearch;
@@ -49,8 +49,9 @@ export default function SearchResidence() {
           <FormGroup className="col-lg-5 col-sm-10 mx-auto">
             <DatePicker
               id="check-in"
+              selected={checkIn}
               onChange={date => setCheckIn(date)}
-              minDate={checkIn}
+              minDate={new Date()}
               value={checkIn}
               dateFormat="dd/MM/yyyy"
             />
@@ -59,6 +60,7 @@ export default function SearchResidence() {
             
             <DatePicker
               id="check-out"
+              minDate={checkIn}
               selected={checkOut}
               onChange={date => setCheckOut(date)}
               value={checkOut}
