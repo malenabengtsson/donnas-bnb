@@ -1,11 +1,6 @@
 import React, { useState, useEffect } from "react";
-import DatePicker from "react-date-picker";
-import {
-  ButtonDropdown,
-  DropdownToggle,
-  DropdownMenu,
-  DropdownItem,
-} from "reactstrap";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 import BookingSummary from "./BookingSummary";
 
 const CalendarForBooking = (props) => {
@@ -13,6 +8,7 @@ const CalendarForBooking = (props) => {
 
   const [startDates, setStartDates] = useState([]); // stores periods start dates as year/month/day
   const [endDates, setEndDates] = useState([]); // stores periods end dates as year/month/day
+  const [unavailableDates, setUnavailableDates] = useState([]);
 
   const [selectedStartDate, setSelectedStartDate] = useState(new Date());
   const [selectedEndDate, setSelectedEndDate] = useState(new Date());
@@ -66,7 +62,38 @@ const CalendarForBooking = (props) => {
 
     setStartDates(arryOfStartDates);
     setEndDates(arryOfEndDates);
+    setSelectedStartDate(arryOfStartDates[0])
+    setSelectedEndDate(arryOfEndDates[0])
+
+    console.log(arryOfEndDates[0])
+    console.log(arryOfStartDates[1])
+
+    let unavailableDays =
+      (arryOfStartDates[1] - arryOfEndDates[0]) / (24 * 60 * 60 * 1000);  
+    console.log(
+      unavailableDays)
+    let uDates = [];
+    for (let i = 0; i < unavailableDays; i++){
+      let date = new Date(arryOfEndDates[0]);
+      date.setDate(date.getDate() + i)
+      uDates.push(date);
+    }
+    setUnavailableDates(uDates)
+  
+    
   };
+
+  // () => {
+  //   const [startDate, setStartDate] = useState(null);
+  //   return (
+  //     <DatePicker
+  //       selected={startDate}
+  //       onChange={(date) => setStartDate(date)}
+  //       includeDates={[new Date(), addDays(new Date(), 1)]}
+  //       placeholderText="This only includes today and tomorrow"
+  //     />
+  //   );
+  // };
 
   // Loop through an array and split on charackter
   // arry = array you want to split
@@ -100,9 +127,22 @@ const CalendarForBooking = (props) => {
       // let date = new Date(2020, month-1, day)
       let date = new Date(arry[i]);
       dates.push(date);
+      
     }
     return dates;
   };
+
+  // () => {
+  //   const [startDate, setStartDate] = useState(new Date());
+  //   return (
+  //     <DatePicker
+  //       selected={startDate}
+  //       onChange={(date) => setStartDate(date)}
+  //       excludeDates={[new Date(), subDays(new Date(), 1)]}
+  //       placeholderText="Select a date other than today or yesterday"
+  //     />
+  //   );
+  // };
 
   // const periodsList = periods.map((period, i) => {
   //     return (
@@ -119,7 +159,9 @@ const CalendarForBooking = (props) => {
     getStartAndEndDate();
   }, []);
 
-  useEffect(() => {});
+  useEffect(() => {
+
+  },[unavailableDates]);
 
   return (
     <>
@@ -134,20 +176,22 @@ const CalendarForBooking = (props) => {
         </ButtonDropdown> */}
       <h6>Från: </h6>
       <DatePicker
-        minDate={startDates[0]}
-        maxDate={endDates[0]}
+        minDate={new Date()}
+        maxDate={endDates[1]}
         // onChange={onFromDateChange}
         value={selectedStartDate}
         selected={selectedStartDate}
+        excludeDates={unavailableDates}
         onChange={(date) => setSelectedStartDate(date)}
       />
       <h6>Till: </h6>
       <DatePicker
         minDate={selectedStartDate}
-        maxDate={endDates[0]}
+        maxDate={endDates[1]}
         // onChange={onUntilDateChange}
         value={selectedEndDate}
-        selected={selectedStartDate}
+        selected={selectedEndDate}
+        excludeDates={unavailableDates}
         onChange={(date) => setSelectedEndDate(date)}
       />
       <BookingSummary

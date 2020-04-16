@@ -27,7 +27,6 @@ const AboutResidence = () => {
     }
     useEffect(() => {
         getResidence()
-    
     }, [])
 
     const cardStyle = {
