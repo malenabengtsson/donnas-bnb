@@ -61,7 +61,25 @@ const BookingSummary = (props) => {
         return startShortDate + ' - ' + endShortDate
     }
 
+    const getStartDate = () => {
+        let startMonth = ('0' + (props.startDate.getMonth() + 1)).slice(-2)
+        let startDate = ('0' + props.startDate.getDate()).slice(-2);
+        let startYear = props.startDate.getFullYear()
+        let startShortDate = startDate + '/' + startMonth + '/' + startYear
+        return startShortDate
+    }
+
+    const getEndDate = () => {
+        let endMonth = ('0' + (props.endDate.getMonth() + 1)).slice(-2)
+        let endDate = ('0' + props.endDate.getDate()).slice(-2);
+        let endYear = props.startDate.getFullYear()
+        let endShortDate = endDate + '/' + endMonth + '/' + endYear
+        return endShortDate
+    }
+
     console.log(getDate())
+    const [startDate, setStartDate] = useState(getStartDate())
+    const [endDate, setEndDate] = useState(getEndDate())
     const [date, setDate] = useState(getDate())
     const [price, setPrice] = useState(899)// useState(props.pricePerNight)
     const {thisBooking, setThisBooking} = useContext(BookingContext)
@@ -73,13 +91,13 @@ const BookingSummary = (props) => {
     const toggleBaG = (e) => {
         e.preventDefault()
         setThisBooking({
-            startDate: "datum test",
-            endDate: "end date",
+            startDate: startDate,
+            endDate: endDate,
             residenceId:props.residenceId,
             userId: null,
             totalPrice: price
         })
-        console.log(thisBooking)
+        console.log(price)
      setOpenBaG(!openBaG)
        props.history.push('/book-as-guest/' + props.residenceId)
     }
@@ -89,6 +107,8 @@ const BookingSummary = (props) => {
     const update = () => {
         
         setDate(getDate())
+        setStartDate(getStartDate())
+        setEndDate(getStartDate())
         setPrice(calculatePrice)
     }
 
@@ -115,7 +135,7 @@ const BookingSummary = (props) => {
            
            <p>{date}</p>
             <p>Totalt pris: {price} kr</p>
-            <Button type="submit" className="btn btn-success" thisBooking={thisBooking} residenceId={props.residenceId} date={props.date} onClick={toggleBaG}>Reservera</Button>
+            <Button type="submit" className="btn btn-success" thisBooking={thisBooking} residenceId={props.residenceId} onClick={toggleBaG}>Reservera</Button>
             {/* <BookingOptionsModal isOpen = {isModalOpen}  toggle={toggle} toggleBaG ={toggleBaG} startDate={props.startDate} /> */}
             {/* {bookingDate.startDate ?
 

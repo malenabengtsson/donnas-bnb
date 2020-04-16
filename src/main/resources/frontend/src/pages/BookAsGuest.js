@@ -70,17 +70,19 @@ const BookAsGuest = (props) => {
                    <CardText>
                      <div>
                        {residence.address_id.street} {residence.address_id.street_number}
-                       {thisBooking.startDate}
-                     </div>
-                     <div>
-                       Total price: 
                      </div>
                      <div>
                        {residence.address_id.zip_code}  {residence.address_id.city}
                      </div>
+                     <div>
+                     {thisBooking.startDate} - {thisBooking.endDate}
+                     </div>
                      <div key={residence.price_per_night}>
                       Kostnad per natt: {residence.price_per_night}kr
                       </div>
+                      <div>
+                       Totalt pris: {thisBooking.totalPrice}
+                     </div>
 
                      <Form>
                      <FormGroup>
