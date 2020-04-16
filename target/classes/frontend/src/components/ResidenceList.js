@@ -21,21 +21,26 @@ let arrayToMap = [];
 function ResidenceList(props) {
   const [residence, updateResidence] = useContext(ResidenceContext);
   const [searchResult, setSearchResult] = useState([]);
+    const [startDates, setStartDates] = useState([]);
+    const [endDates, setEndDates] = useState([]);
   // const residencesArray = [];
   const [residenceArray, setResidenceArray] = useState([]);
-  const { residences, fetchResidences } = useContext(ResidenceContext);
-  const [images, setImage] = useState([]);
-  const [gotoChoice, setGotoChoice] = useState(false);
+  
 
   // Listen for updates to residence
   // (right now made by SearchResidence...)
   useEffect(() => {
     getResidences();
+    getPeriods();
   }, []);
 
   useEffect(() => {
     doSearch();
   }, [residenceArray]);
+
+  useEffect(() => {
+    console.log(startDates)
+  }, [startDates])
 
   const doSearch = () => {
     let { searchFor } = residence;
@@ -65,9 +70,46 @@ function ResidenceList(props) {
     setResidenceArray(result);
   };
 
+  const getPeriods = async () => {
+     let res = await fetch("/rest/availablePeriods");
+     res = await res.json();
+     let arrayOfStartDates = [];
+    let arrayOfEndDates = [];
+    console.log(res)
+     res.forEach((el) => {
+       if (el.residence_id.id == props.residenceId) {
+         arrayOfStartDates.push(el.start_date);
+         arrayOfEndDates.push(el.end_date);
+       }
+     });
+    
+    arrayOfStartDates = getAsDates(arrayOfStartDates)
+    arrayOfStartDates = getAsDates(arrayOfEndDates)
+    setStartDates(arrayOfStartDates);
+    setEndDates(arrayOfEndDates);
+  }
+
+    const getAsDates = (array) => {
+      let dates = [];
+      for (let i = 0; i < array.length; i++) {
+        let date = new Date(array[i]);
+        dates.push(date);
+      }
+      return dates;
+    };
+
   const gotoResidence = (id) => {
     props.history.push("/residences/" + id);
   };
+
+  const values = () => {
+    if (!residence.searchFor.city) {
+      return ''
+    }
+    else {
+      return residence.searchFor.city
+    }
+  }
 
   const list = () => {
     if (residence.searchFor.city == "") {
@@ -130,7 +172,7 @@ function ResidenceList(props) {
         <Form className="row" onSubmit={doSearch}>
           <FormGroup className="col-5 mx-auto">
             <Input
-              value={residence.searchFor.city}
+              value={values()}
               type="text"
               id="city"
               placeholder="Skriv en stad..."

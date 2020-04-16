@@ -2,6 +2,7 @@ import React, { useState, useContext } from 'react'
 import { Button, Form, FormGroup, Label, Input, FormText, Col, Row, Container } from 'reactstrap';
 import { ResidenceContext } from '../contexts/ResidenceContextProvider'
 import DatePicker from 'react-datepicker'
+import "react-datepicker/dist/react-datepicker.css";
 import { Redirect } from 'react-router-dom'
 
 let throttleSearch;

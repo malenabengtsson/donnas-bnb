@@ -34,6 +34,7 @@ const BookingSummary = (props) => {
         let res = await fetch('/rest/residences/' + props.residenceId)
         res = await res.json()
         setResidence(res)
+        console.log(res)
       //  return res
     }
 
@@ -59,7 +60,7 @@ const BookingSummary = (props) => {
     
 
     const [date, setDate] = useState(getDate)
-    const [price, setPrice] = useState(899)// useState(props.pricePerNight)
+    const [price, setPrice] = useState()// useState(props.pricePerNight)
 
     const update = () => {
         setDate(getDate())

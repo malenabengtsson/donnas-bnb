@@ -20,32 +20,77 @@ import { withRouter } from "react-router-dom";
 let arrayToMap = [];
 function ResidenceList(props) {
   const [residence, updateResidence] = useContext(ResidenceContext);
+  const [periods, setPeriods] = useState([])
   const [searchResult, setSearchResult] = useState([]);
+    const [startDates, setStartDates] = useState([]);
+    const [endDates, setEndDates] = useState([]);
   // const residencesArray = [];
   const [residenceArray, setResidenceArray] = useState([]);
-  const { residences, fetchResidences } = useContext(ResidenceContext);
-  const [images, setImage] = useState([]);
-  const [gotoChoice, setGotoChoice] = useState(false);
+  
 
   // Listen for updates to residence
   // (right now made by SearchResidence...)
   useEffect(() => {
     getResidences();
+    getPeriods();
   }, []);
 
   useEffect(() => {
+    getPeriods();
     doSearch();
   }, [residenceArray]);
+
+  useEffect(() => {
+    console.log('periods changed')
+    doSearch();
+  }, [periods])
+
+  
+  useEffect(() => {
+   doSearch()
+  }, [startDates])
+
+  useEffect(() => {
+   doSearch()
+  }, [endDates])
 
   const doSearch = () => {
     let { searchFor } = residence;
     if (!searchFor) {
       return;
     }
-    console.log(searchFor.city);
 
-    if (searchFor.city == "" || searchFor.city == undefined) {
-    } else {
+    if (searchFor.city == "") {
+      return;
+    }
+    else{
+      if (searchFor.checkIn != "" && searchFor.checkOut != "") {
+        residenceArray.forEach((res) => {
+          if (res.address_id.city == residence.searchFor.city) {
+            periods.forEach((period) => {
+              if (res.id == period.residence_id.id) {
+                let startDate = searchFor.checkIn
+                let endDate = searchFor.checkOut
+                if(startDates.length > 0){
+                  for (let i = 0; i < startDates.length; i++) {
+                    if ((startDate >= startDates[i] && startDate < endDates[i]) &&
+                      (endDate > startDates[i] && endDate <= endDates[i])) {
+                      console.log(res.id)
+                      setSearchResult(res.id)
+                    }
+                  }
+                }
+              }
+              else {
+                console.log('not matched')
+              }
+            })
+            // if(res.residence_id.id )
+          }
+         
+       })
+
+      }
       setSearchResult(
         residenceArray.filter(
           (sortedResidence) =>
@@ -65,9 +110,49 @@ function ResidenceList(props) {
     setResidenceArray(result);
   };
 
+  const getPeriods = async () => {
+     let res = await fetch("/rest/availablePeriods");
+    res = await res.json();
+    setPeriods(res)
+     let arrayOfStartDates = [];
+    let arrayOfEndDates = [];
+    residenceArray.forEach((el) => {
+      res.forEach((r) => { 
+        console.log(r)
+        if (r.residence_id.id === el.id) {
+           arrayOfStartDates.push(r.start_date);
+           arrayOfEndDates.push(r.end_date);
+         }
+      })
+     });
+  
+    arrayOfStartDates = getAsDates(arrayOfStartDates)
+    arrayOfEndDates = getAsDates(arrayOfEndDates)
+    setStartDates(arrayOfStartDates);
+    setEndDates(arrayOfEndDates);
+  }
+
+    const getAsDates = (array) => {
+      let dates = [];
+      for (let i = 0; i < array.length; i++) {
+        let date = new Date(array[i]);
+        dates.push(date);
+      }
+      return dates;
+    };
+
   const gotoResidence = (id) => {
     props.history.push("/residences/" + id);
   };
+
+  const values = () => {
+    if (!residence.searchFor.city) {
+      return ''
+    }
+    else {
+      return residence.searchFor.city
+    }
+  }
 
   const list = () => {
     if (residence.searchFor.city == "") {
@@ -130,7 +215,7 @@ function ResidenceList(props) {
         <Form className="row" onSubmit={doSearch}>
           <FormGroup className="col-5 mx-auto">
             <Input
-              value={residence.searchFor.city}
+              value={values()}
               type="text"
               id="city"
               placeholder="Skriv en stad..."
