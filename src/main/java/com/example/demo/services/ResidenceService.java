@@ -29,4 +29,8 @@ public class ResidenceService {
         return  residences;
     }
 
+    public Residence createResidence(Residence residence){
+        return residenceRepo.save(residence);
+    }
+
 }

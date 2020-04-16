@@ -2,10 +2,8 @@ import React, { useState } from "react";
 import { withRouter } from "react-router-dom";
 import { Card, Form, Row, Col } from "reactstrap";
 import { Button, FormGroup, Label, Input, FormText } from "reactstrap";
-import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
 
-const ResidenceForRental = (props) => {
+const ResidenceForRental = () => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [wifi, setWifi] = useState(false);
@@ -18,10 +16,6 @@ const ResidenceForRental = (props) => {
   const [pool, setPool] = useState(false);
   const [freeParking, setFreeParking] = useState(false);
   const [airConditioner, setAirConditioner] = useState(false);
-  const [address, setAddress] = useState("");
-  const [startDate, setStartDate] = useState(new Date());
-  const [endDate, setEndDate] = useState(new Date());
-  const [price, setPrice] = useState(0);
 
   let images = [];
 
@@ -55,112 +49,7 @@ const ResidenceForRental = (props) => {
     images = response;
   };
 
-  const addRental = async (e) => {
-    e.preventDefault();
-
-    if (wifi === true) setWifi(1);
-    if (tv === true) setTv(1);
-    if (shower === true) setShower(1);
-    if (bathtub === true) setBathtub(1);
-    if (balcony === true) setBalcony(1);
-    if (washingMachine === true) setWashingMachine(1);
-    if (kitchen === true) setKitchen(1);
-    if (pool === true) setPool(1);
-    if (freeParking === true) setFreeParking(1);
-    if (airConditioner === true) setAirConditioner(1);
-
-    // TODO address, dates and price
-    const rental = {
-      image: images[0],
-      title: title,
-      description: description,
-      wifi: wifi,
-      tv: tv,
-      shower: shower,
-      bathtub: bathtub,
-      balcony: balcony,
-      washing_machine: washingMachine,
-      kitchen: kitchen,
-      pool,
-      pool,
-      free_parking: freeParking,
-      air_conditioner: airConditioner,
-      start_date: startDate,
-      end_date: endDate,
-      price_per_night: price * 1.15,
-    };
-
-    let res = await fetch("/rest/residences/", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(rental),
-    });
-
-    res = await res.json();
-
-    console.log(res);
-
-    // TODO append residence list
-    //  clearInputFields();
-
-    // props.history.push("/");
-  };
-
-  const clearInputFields = () => {
-    setTitle("");
-    setDescription("");
-    setWifi(false);
-    setTv(false);
-    setShower(false);
-    setBathtub(false);
-    setBalcony(false);
-    setWashingMachine(false);
-    setKitchen(false);
-    setPool(false);
-    setFreeParking(false);
-    setAirConditioner(false);
-  };
-
-  const handleStartDate = (date) => {
-    setStartDate(date);
-  };
-
-  const handleEndDate = (date) => {
-    setEndDate(date);
-  };
-
-  let monthNames = [
-    "Januari",
-    "Februari",
-    "Mars",
-    "April",
-    "Maj",
-    "Juni",
-    "Juli",
-    "Augusti",
-    "September",
-    "Oktober",
-    "November",
-    "December",
-  ];
-
-  const getDateAsText = () => {
-    let startDateText =
-      startDate.getDay() +
-      " " +
-      monthNames[startDate.getMonth()] +
-      " " +
-      startDate.getFullYear();
-
-    let endDateText =
-      endDate.getDay() +
-      " " +
-      monthNames[endDate.getMonth()] +
-      " " +
-      endDate.getFullYear();
-
-    return startDateText + " - " + endDateText;
-  };
+  const addRental = async (e) => {};
 
   return (
     <Card style={cardStyle}>
@@ -181,7 +70,6 @@ const ResidenceForRental = (props) => {
               />
             </Col>
           </Row>
-          <br></br>
           <Row>
             <Col>
               <Label>Rubrik:</Label>
@@ -204,18 +92,6 @@ const ResidenceForRental = (props) => {
               />
             </Col>
           </Row>
-          <Row>
-            <Col>
-              <Label>Address:</Label>
-              <Input
-                required
-                type="text"
-                value={address}
-                onChange={(e) => setAddress(e.target.value)}
-              />
-            </Col>
-          </Row>
-          <br></br>
           <Label>Bekvämligheter:</Label>
           <Col style={{ marginLeft: "22px" }}>
             <Row>
@@ -329,44 +205,6 @@ const ResidenceForRental = (props) => {
               </Label>
             </Row>
           </Col>
-          <br></br>
-          <Row>
-            <Col>
-              <Label>Välj datum för uthyrning:</Label>
-              <br></br>
-              <Label>Från:</Label>
-              <br></br>
-              <DatePicker selected={startDate} onChange={handleStartDate} />
-              <br></br>
-              <br></br>
-              <Label>Till:</Label>
-              <br></br>
-              <DatePicker selected={endDate} onChange={handleEndDate} />
-            </Col>
-          </Row>
-          <br></br>
-          <Row>
-            <Col>{getDateAsText()}</Col>
-          </Row>
-          <br></br>
-          <Row>
-            <Col>
-              <Label>Pris per natt:</Label>
-              <Input
-                required
-                type="number"
-                value={price}
-                onChange={(e) => setPrice(e.target.value)}
-              />
-            </Col>
-          </Row>
-          <br></br>
-          <Row>
-            <Col>
-              <p>Pris efter avgifter: {price * 1.15}</p>
-            </Col>
-          </Row>
-          <br></br>
           <Col>
             <Row>
               <Button className="btn btn-success">Lägg till fastighet</Button>
