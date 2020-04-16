@@ -3,18 +3,20 @@ import { Card, CardBody, CardTitle, CardText, CardSubtitle, CardImg, Row, Form, 
 import {ResidenceContext} from '../contexts/ResidenceContextProvider'
 import { useParams } from 'react-router-dom'
 import { disconnect } from 'mongoose'
+import {BookingContext} from "../contexts/BookingContextProvider"
 
 const BookAsGuest = (props) => {
 
+  const {thisBooking, setThisBooking} = useContext(BookingContext)
     const [residence, setResidence] = useState(null)
-    let {id} = useParams()
+    //let id = props.residenceId
+     let {id} = useParams()
 
     const getResidence = async () => {
 
      // let id = props.match.params.id
       let res = await fetch('/rest/residences/' + id)
       res = await res.json()
-      console.log(res)
       setResidence(res)
     }
    
@@ -22,7 +24,20 @@ const BookAsGuest = (props) => {
       getResidence()
     },[])
 
-    console.log("BaG props ", props)
+    useEffect(() => {
+      if(thisBooking){
+        console.log(thisBooking);
+      }
+      else{
+        console.log("Not true");
+        
+      }
+      
+    },[thisBooking])
+    useEffect(() =>{
+      console.log(props.date)
+    },[props.date] )
+
 
     const cardStyle = {
         textAlign: "center",
@@ -52,21 +67,20 @@ const BookAsGuest = (props) => {
                 /> 
 
                 <CardBody>
-                  <CardTitle
-                     style={{ fontWeight: "bold" }}
-                    key={residence.title}
-                  >
-                    {residence.title}
-                    
-                  </CardTitle>
-                  
                    <CardText>
+                     <div>
+                       {residence.address_id.street} {residence.address_id.street_number}
+                       {thisBooking.startDate}
+                     </div>
+                     <div>
+                       Total price: 
+                     </div>
+                     <div>
+                       {residence.address_id.zip_code}  {residence.address_id.city}
+                     </div>
                      <div key={residence.price_per_night}>
                       Kostnad per natt: {residence.price_per_night}kr
                       </div>
-                      {/* <div key={residence.addresses.street}>
-                        {residence.addresses.street}
-                      </div> */}
 
                      <Form>
                      <FormGroup>

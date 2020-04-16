@@ -24,7 +24,6 @@ if(!props.isOpen){
 else{
   return (
     <div>
-      {/* {gotoBookAsGuest <BookAsGuest} */}
       <Modal isOpen={props.isOpen}>
         <ModalHeader color="success">Välj hur du vill fortsätta</ModalHeader>
         <ModalBody>

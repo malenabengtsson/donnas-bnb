@@ -1,7 +1,9 @@
 import React, { useState, useEffect, useContext } from 'react'
 import { Button } from 'reactstrap'
 import BookingOptionsModal from '../BookingOptionsModal'
-import { withRouter, useHistory } from 'react-router-dom'
+import { withRouter, useHistory, Route, Redirect } from 'react-router-dom'
+import BookAsGuest from '../../pages/BookAsGuest'
+import {BookingContext} from "../../contexts/BookingContextProvider"
 
 
 
@@ -34,7 +36,6 @@ const BookingSummary = (props) => {
     }
 
     const getPriceFromDb = async () => {
-        console.log(residence)
         let res = await fetch('/rest/residences/' + props.residenceId)
         res = await res.json()
         setResidence(res)
@@ -60,19 +61,41 @@ const BookingSummary = (props) => {
         return startShortDate + ' - ' + endShortDate
     }
 
-    const [date, setDate] = useState(getDate)
+    console.log(getDate())
+    const [date, setDate] = useState(getDate())
     const [price, setPrice] = useState(899)// useState(props.pricePerNight)
+    const {thisBooking, setThisBooking} = useContext(BookingContext)
 
     const [isModalOpen, setIsModalOpen] = useState(false)
     const [openBaG, setOpenBaG] = useState(false)
 
     const toggle = () => setIsModalOpen(!isModalOpen)
-    const toggleBaG = () => setOpenBaG(!openBaG)
+    const toggleBaG = (e) => {
+        e.preventDefault()
+        setThisBooking({
+            startDate: "datum test",
+            endDate: "end date",
+            residenceId:props.residenceId,
+            userId: null,
+            totalPrice: price
+        })
+        console.log(thisBooking)
+     setOpenBaG(!openBaG)
+       props.history.push('/book-as-guest/' + props.residenceId)
+    }
+
+    
 
     const update = () => {
+        
         setDate(getDate())
         setPrice(calculatePrice)
     }
+
+    useEffect(() => {
+        console.log(thisBooking)
+
+    },[thisBooking])
 
     useEffect(() => {
         update()
@@ -81,12 +104,27 @@ const BookingSummary = (props) => {
 
     return (
         <>
-            <p>{date}</p>
+        
+          {/* <> 
+        
+              {props.history.push('/book-as-guest/' + props.residenceId)} 
+             
+             </>  */}
+           
+           
+           
+           <p>{date}</p>
             <p>Totalt pris: {price} kr</p>
-            <Button className="btn btn-success" onClick={toggle}>Reservera</Button>
-            <BookingOptionsModal isOpen = {isModalOpen} toggle={toggle} toggleBaG ={toggleBaG} />
-           {console.log("test ", props)}
-            {openBaG && props.history.push("/book-as-guest/" + props.residenceId)}
+            <Button type="submit" className="btn btn-success" thisBooking={thisBooking} residenceId={props.residenceId} date={props.date} onClick={toggleBaG}>Reservera</Button>
+            {/* <BookingOptionsModal isOpen = {isModalOpen}  toggle={toggle} toggleBaG ={toggleBaG} startDate={props.startDate} /> */}
+            {/* {bookingDate.startDate ?
+
+            (<BookAsGuest bookingDate={bookingDate} residenceId={props.residenceId} date={date} />)
+            :''
+            } */}
+            
+        
+        
         </>
     )
 }
