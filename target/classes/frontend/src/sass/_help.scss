@@ -1,15 +1,20 @@
-Card{
-    width: 25%;
-    height: 25%;
+.helpCard{
+    // width: 25%;
+    // height: 25%;
+    background-color: rgba(248, 249, 250, 0.7) !important;
+    margin-left: 10px;   
 }
 
 .backGround{
-    background-image: url(https://smartwatermagazine.com/sites/default/files/styles/thumbnail-1180x647/public/stockholm-sweden.jpg?itok=9tQ0gTVx);
+  //  background-image: url(https://smartwatermagazine.com/sites/default/files/styles/thumbnail-1180x647/public/stockholm-sweden.jpg?itok=9tQ0gTVx);
+    background-image: url(https://besthqwallpapers.com/img/original/19214/4k-slovenia-lake-forest-summer.jpg);
     background-repeat: no-repeat;
     background-position: center;
     width: 100%;
     background-size: cover;
+    height: 100vh;
 }
+
 
 
    

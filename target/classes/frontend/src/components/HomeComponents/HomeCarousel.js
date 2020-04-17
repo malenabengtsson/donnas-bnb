@@ -9,6 +9,7 @@ import {
   Row,
   Col
 } from 'reactstrap';
+import { withRouter } from 'react-router-dom'
 
 import { ResidenceContext } from '../../contexts/ResidenceContextProvider'
 
@@ -18,7 +19,7 @@ const HomeCarousel  = (props) => {
   const [images, setImages] = useState([])
 
   const getImages = async () => {
-    let res = await fetch('/rest/images')
+    let res = await fetch('/rest/residences')
     res = await res.json()
     let arryOfImages = []
     res.forEach(image => {
@@ -27,6 +28,10 @@ const HomeCarousel  = (props) => {
     setImages(arryOfImages)
     console.log(arryOfImages)
   }
+
+  const gotoResidence = id => {
+    props.history.push('/residences/' + id)
+   };
 
   useEffect(() => {
     getImages()
@@ -60,19 +65,21 @@ const HomeCarousel  = (props) => {
 
 
   const slides = images.map((image, i) => {
+    
     return (
       
       <CarouselItem className="bigpicture"
         onExiting={() => setAnimating(true)}
         onExited={() => setAnimating(false)}
-        key={image.img_path + i}
+        key={image.images[0].img_path + i}
       >
         <div className="imagesize">
           <CardImg style={imgStyle}
                   top
                   width="100%"
-                  src={image.img_path}
+                  src={image.images[0].img_path}
                   alt="Card image cap"
+                  onClick={() => gotoResidence(image.id)}
                 />
             </div>
       </CarouselItem>
@@ -94,4 +101,4 @@ const HomeCarousel  = (props) => {
   );
 }
 
-export default HomeCarousel ;
+export default withRouter(HomeCarousel);

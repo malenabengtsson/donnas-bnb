@@ -32,7 +32,7 @@ const Help = () => {
               som efterfrågas. Självklart kan du registrera dig även om ditt mål endast är att hyra ett boende och inte hyra ut, och om du inte är intresserad av att 
               registrera dig alls går det fortfarande att fritt söka efter ett boende.
               <p>
-                <Link to="/perform-register">Registrera dig</Link>
+                <Link to="/sign-up">Registrera dig</Link>
               </p>
             </CardBody>
           </Card>
@@ -52,7 +52,7 @@ const Help = () => {
               För att logga in måste du först ha registrerat ett konto hos oss. Information om hur och var du registrerar dig finner du i fliken ovan "Registrering?"
               När registeringen är gjord kan du logga in på ditt konto. Klicka på länken nedan som tar dig vidare till vårt inloggningsformulär.
               <p>
-                <Link to="/perform-login">Logga in</Link>
+                <Link to="/sign-in">Logga in</Link>
               </p>
             </CardBody>
           </Card>

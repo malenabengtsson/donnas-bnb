@@ -21,14 +21,12 @@ const AboutResidence = () => {
         res = await res.json()
         setResidence(res)
         console.log(res)
-
         setTimeout(() => {
             console.log(residence)
         }, 50)
     }
     useEffect(() => {
         getResidence()
-    
     }, [])
 
     const cardStyle = {

@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from '.react'
+import React, { useContext, useState, useEffect } from 'react'
 import { ResidenceContext } from '../../contexts/ResidenceContextProvider'
 
 const AdvertiserInformation = (props) => {
@@ -18,11 +18,13 @@ const AdvertiserInformation = (props) => {
 
     return (
         <>
-        <h3>Uthyrare</h3>
+        <h5>Uthyrare</h5>
         <p>{ information }</p>
 
         </>
     )
 
-    export default AdvertiserInformation
+    
 }
+
+export default AdvertiserInformation
