@@ -4,6 +4,13 @@ export const BookingContext = createContext()
 
 export default function BookingContextProvider(props){
     const [bookings, setBookings] = useState([])
+    const [thisBooking,setThisBooking] = useState({
+      startDate: null,
+      endDate: null,
+      residenceId:null,
+      userId: null,
+      totalPrice: null
+  })
 
     const appendBooking = (booking) => {
         
@@ -34,11 +41,13 @@ export default function BookingContextProvider(props){
         bookings, 
         setBookings,
         appendBooking,
-        removeBooking
+        removeBooking,
+        thisBooking,
+        setThisBooking
       }
 
     return(
-        <BookingContext.Provider value={{bookings}}>
+        <BookingContext.Provider value={values}>
             {props.children}
         </BookingContext.Provider>
     )

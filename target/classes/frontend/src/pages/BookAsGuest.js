@@ -3,18 +3,28 @@ import { Card, CardBody, CardTitle, CardText, CardSubtitle, CardImg, Row, Form, 
 import {ResidenceContext} from '../contexts/ResidenceContextProvider'
 import { useParams } from 'react-router-dom'
 import { disconnect } from 'mongoose'
+import {BookingContext} from "../contexts/BookingContextProvider"
+import {UserContext} from "../contexts/UserContextProvider"
 
 const BookAsGuest = (props) => {
 
-    const [residence, setResidence] = useState(null)
-    let {id} = useParams()
+  const {thisBooking, setThisBooking} = useContext(BookingContext)
+  const {appendUser} = useContext(UserContext)
+  const {appendResidence} = useContext(ResidenceContext)
+  const [residence, setResidence] = useState(null)
+  const [full_name, setFullName] = useState(null)
+  const [email, setEmail] = useState(null)
+  const [password, setPassword] = useState(null)
+  const [phone_number, setPhoneNumber] = useState(null)
+
+    //let id = props.residenceId
+     let {id} = useParams()
 
     const getResidence = async () => {
 
      // let id = props.match.params.id
       let res = await fetch('/rest/residences/' + id)
       res = await res.json()
-      console.log(res)
       setResidence(res)
     }
    
@@ -22,7 +32,54 @@ const BookAsGuest = (props) => {
       getResidence()
     },[])
 
-    console.log("BaG props ", props)
+    useEffect(() => {
+      if(thisBooking){
+        console.log(thisBooking);
+      }
+      else{
+        console.log("Not true");
+        
+      }
+      
+    },[thisBooking])
+    useEffect(() =>{
+      console.log(props.date)
+    },[props.date] )
+
+    setPassword(null)
+
+    const addUser = async (e) => {
+      e.preventDefault()
+  
+  
+      const user = {
+        full_name, 
+        email,
+        password,
+        phone_number
+      }
+  
+      
+      // send new recipe to backend
+      let res = await fetch('/rest/users', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(user)
+      })
+      res = await res.json()
+  
+      console.log('Recipe after:', res)
+      
+      // the recipe response has the incremented id,
+      // and it's this recipe we want to add to our 
+      // list, so we later can remove it by id
+      appendUser(res)
+  
+      setFullName('')
+      setEmail('')
+      setPhoneNumber('')
+    }
+
 
     const cardStyle = {
         textAlign: "center",
@@ -52,31 +109,44 @@ const BookAsGuest = (props) => {
                 /> 
 
                 <CardBody>
-                  <CardTitle
-                     style={{ fontWeight: "bold" }}
-                    key={residence.title}
-                  >
-                    {residence.title}
-                    
-                  </CardTitle>
-                  
                    <CardText>
+                     <div>
+                       {residence.address_id.street} {residence.address_id.street_number}
+                     </div>
+                     <div>
+                       {residence.address_id.zip_code}  {residence.address_id.city}
+                     </div>
+                     <div>
+                     {thisBooking.startDate} - {thisBooking.endDate}
+                     </div>
                      <div key={residence.price_per_night}>
                       Kostnad per natt: {residence.price_per_night}kr
                       </div>
-                      {/* <div key={residence.addresses.street}>
-                        {residence.addresses.street}
-                      </div> */}
+                      <div>
+                       Totalt pris: {thisBooking.totalPrice}
+                     </div>
 
                      <Form>
                      <FormGroup>
-                         <Input className="col-lg-4 col-sm-10 mx-auto" type="text" placeholder="För- och efternamn"> </Input>
+                         <Input className="col-lg-4 col-sm-10 mx-auto" 
+                         type="text" 
+                         placeholder="För- och efternamn"
+                         value={full_name}
+                         onChange={ e => setFullName(e.target.value)}> </Input>
                          </FormGroup>
                          <FormGroup>    
-                         <Input className="col-lg-4 col-sm-10 mx-auto" type="email" placeholder="Email"> </Input>
+                         <Input className="col-lg-4 col-sm-10 mx-auto" 
+                         type="email" 
+                         placeholder="Email"
+                         value={email}
+                         onChange={ e => setEmail(e.target.value)}> </Input>
                          </FormGroup>
                          <FormGroup>  
-                         <Input className="col-lg-4 col-sm-10 mx-auto" type="text" placeholder="Telefonnummer"> </Input>
+                         <Input className="col-lg-4 col-sm-10 mx-auto" 
+                         type="text" 
+                         placeholder="Telefonnummer"
+                         value={phone_number}
+                         onChange={ e => setPhoneNumber(e.target.value)}> </Input>
                      </FormGroup>
                      <FormGroup>
                          <Button color="success">

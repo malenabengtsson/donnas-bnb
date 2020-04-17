@@ -4,11 +4,19 @@ import {ResidenceContext} from '../contexts/ResidenceContextProvider'
 import { useParams } from 'react-router-dom'
 import { disconnect } from 'mongoose'
 import {BookingContext} from "../contexts/BookingContextProvider"
+import {UserContext} from "../contexts/UserContextProvider"
 
 const BookAsGuest = (props) => {
 
   const {thisBooking, setThisBooking} = useContext(BookingContext)
-    const [residence, setResidence] = useState(null)
+  const {appendUser} = useContext(UserContext)
+  const {appendResidence} = useContext(ResidenceContext)
+  const [residence, setResidence] = useState(null)
+  const [full_name, setFullName] = useState(null)
+  const [email, setEmail] = useState(null)
+  const [password, setPassword] = useState(null)
+  const [phone_number, setPhoneNumber] = useState(null)
+
     //let id = props.residenceId
      let {id} = useParams()
 
@@ -37,6 +45,40 @@ const BookAsGuest = (props) => {
     useEffect(() =>{
       console.log(props.date)
     },[props.date] )
+
+    
+
+    const addUser = async (e) => {
+      e.preventDefault()
+  
+  
+      const user = {
+        full_name, 
+        email,
+        password,
+        phone_number
+      }
+  
+      
+      // send new recipe to backend
+      let res = await fetch('/rest/users', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(user)
+      })
+      res = await res.json()
+  
+      console.log('Recipe after:', full_name)
+      
+      // the recipe response has the incremented id,
+      // and it's this recipe we want to add to our 
+      // list, so we later can remove it by id
+      appendUser(res)
+  
+      // setFullName('')
+      // setEmail('')
+      // setPhoneNumber('')
+    }
 
 
     const cardStyle = {
@@ -86,16 +128,28 @@ const BookAsGuest = (props) => {
 
                      <Form>
                      <FormGroup>
-                         <Input className="col-lg-4 col-sm-10 mx-auto" type="text" placeholder="För- och efternamn"> </Input>
+                         <Input className="col-lg-4 col-sm-10 mx-auto" 
+                         type="text" 
+                         placeholder="För- och efternamn"
+                         value={full_name}
+                         onChange={ e => setFullName(e.target.value)}> </Input>
                          </FormGroup>
                          <FormGroup>    
-                         <Input className="col-lg-4 col-sm-10 mx-auto" type="email" placeholder="Email"> </Input>
+                         <Input className="col-lg-4 col-sm-10 mx-auto" 
+                         type="email" 
+                         placeholder="Email"
+                         value={email}
+                         onChange={ e => setEmail(e.target.value)}> </Input>
                          </FormGroup>
                          <FormGroup>  
-                         <Input className="col-lg-4 col-sm-10 mx-auto" type="text" placeholder="Telefonnummer"> </Input>
+                         <Input className="col-lg-4 col-sm-10 mx-auto" 
+                         type="text" 
+                         placeholder="Telefonnummer"
+                         value={phone_number}
+                         onChange={ e => setPhoneNumber(e.target.value)}> </Input>
                      </FormGroup>
                      <FormGroup>
-                         <Button color="success">
+                         <Button color="success" onClick={addUser}>
                              Boka
                          </Button>
                      </FormGroup>

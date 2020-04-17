@@ -1,17 +1,10 @@
 import React, { createContext, useState, useEffect } from 'react'
-import { useParams } from 'react-router-dom'
 
 export const UserContext = createContext()
 
 const UserContextProvider = (props) => {
     const [user, setUser] = useState(null)
-    const [users, setUsers] = useState(null)
     const [isLoggedIn, setIsLoggedIn] = useState(false)
-
-    const appendUser = (user) => {
-
-        setUsers([...users, user])
-    }
 
 
     const fetchUser = async () => {
@@ -26,12 +19,6 @@ const UserContextProvider = (props) => {
 
     }
 
-    const fetchUsers = async () => {
-        let res = await fetch('/rest/users')
-        res = await res.json()
-        setUsers(res)
-      }
-
     useEffect(() => {
         fetchUser()
     }, [])
@@ -39,9 +26,7 @@ const UserContextProvider = (props) => {
     const values = {
         user,
         fetchUser,
-        fetchUsers,
         setUser,
-        appendUser,
         isLoggedIn,
         setIsLoggedIn
     }
