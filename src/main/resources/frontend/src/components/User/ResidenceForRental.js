@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { withRouter } from "react-router-dom";
 import { Card, Form, Row, Col } from "reactstrap";
 import { Button, FormGroup, Label, Input, FormText } from "reactstrap";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import {UserContext} from '../../contexts/UserContextProvider'
 
 const ResidenceForRental = (props) => {
   const [title, setTitle] = useState("");
@@ -22,6 +23,16 @@ const ResidenceForRental = (props) => {
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
   const [price, setPrice] = useState(0);
+  const [nrOfGuest, setNrOfGuests] = useState(0)
+  const [nrOfBeds, setNrOfBeds] = useState(0)
+
+  const [street, setStreet] = useState('')
+  const [streetNumber, setStreetNumber] = useState(0)
+  const [zipCode, setZipCode] = useState(0)
+  const [city, setCity] = useState('')
+
+  const { user } = useContext(UserContext)
+  const [userId, setUserId] = useState(null)
 
   let images = [];
 
@@ -33,6 +44,18 @@ const ResidenceForRental = (props) => {
   const divStyle = {
     margin: "15px",
   };
+
+  useEffect(() => {
+    getUserId()
+  })
+
+  const getUserId = () => {
+    if(userId === null) return
+    if(user !== null){
+        setUserId(user.id)
+    }
+    
+}
 
   const filesChange = async (fileList) => {
     // handle file changes
@@ -70,10 +93,7 @@ const ResidenceForRental = (props) => {
     if (airConditioner === true) setAirConditioner(1);
 
     // TODO address, dates and price
-    const rental = {
-      image: images[0],
-      title: title,
-      description: description,
+    const amenityObj = {
       wifi: wifi,
       tv: tv,
       shower: shower,
@@ -81,24 +101,56 @@ const ResidenceForRental = (props) => {
       balcony: balcony,
       washing_machine: washingMachine,
       kitchen: kitchen,
-      pool,
-      pool,
+      pool: pool,
       free_parking: freeParking,
-      air_conditioner: airConditioner,
-      start_date: startDate,
-      end_date: endDate,
-      price_per_night: price * 1.15,
-    };
+      air_conditioner: airConditioner
+    }
 
-    let res = await fetch("/rest/residences/", {
-      method: "POST",
+    let amenityResponse = await fetch('/rest/amenityProfiles/', {
+      method: 'POST',
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(rental),
-    });
+      body: JSON.stringify(amenityObj)
+    })
 
-    res = await res.json();
+    amenityResponse = await amenityResponse.json()
 
-    console.log(res);
+    const addressObj = {
+      street: street,
+      street_number: streetNumber,
+      zip_code: zipCode,
+      city: city
+    }
+
+    let addressResponse = await fetch('/rest/addresses/', {
+      method: 'POST',
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(addressObj)
+    })
+
+    addressResponse = await addressResponse.json()
+
+    let residenceObj = {
+      max_guests: nrOfGuest,
+      amenity_profile_id_id: amenityResponse.id,
+      address_id_id: addressResponse.id,
+      user_id_id: userId,
+      description: description,
+      beds: nrOfBeds,
+      title: title,
+      price_per_night: price * 1.15
+    }
+
+    let residenceResponse = await fetch('/rest/residences/', {
+      method: 'POST',
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(residenceObj)
+    })
+
+    residenceResponse = residenceResponse.json()
+
+    console.log(residenceResponse)
+
+    
 
     // TODO append residence list
     //  clearInputFields();
@@ -204,17 +256,47 @@ const ResidenceForRental = (props) => {
               />
             </Col>
           </Row>
-          <Row>
-            <Col>
-              <Label>Address:</Label>
+          <Col>
+            <Row>
+             <Label>Address:</Label>
+            </Row>
+            <Row>
+              <Label>Väg:</Label>
               <Input
-                required
                 type="text"
-                value={address}
-                onChange={(e) => setAddress(e.target.value)}
-              />
-            </Col>
-          </Row>
+                required
+                value={street}
+                onChange={e => setStreet(e.target.value)}
+                />
+            </Row>
+            <Row>
+              <Label>Väg nummer:</Label>
+              <Input
+                type="text"
+                required
+                value={streetNumber}
+                onChange={e => setStreetNumber(e.target.value)}
+                />
+            </Row>
+            <Row>
+              <Label>Post nummer:</Label>
+              <Input
+                type="number"
+                required
+                value={zipCode}
+                onChange={e => setZipCode(e.target.value)}
+                />
+            </Row>
+            <Row>
+              <Label>Stad:</Label>
+              <Input
+                type="text"
+                required
+                value={city}
+                onChange={e => setCity(e.target.value)}
+                />
+            </Row>
+          </Col>
           <br></br>
           <Label>Bekvämligheter:</Label>
           <Col style={{ marginLeft: "22px" }}>
@@ -329,6 +411,30 @@ const ResidenceForRental = (props) => {
               </Label>
             </Row>
           </Col>
+          <br></br>
+          <Row>
+            <Col>
+              <Label>Antal sängar:</Label>
+              <Input
+                type="number"
+                required
+                value={nrOfBeds}
+                onChange={e => setNrOfBeds(e.target.value)}
+                />
+            </Col>
+          </Row>
+          <br></br>
+          <Row>
+            <Col>
+              <Label>Antal gäster</Label>
+              <Input
+                type="number"
+                required
+                value={nrOfGuest}
+                onChange={e => setNrOfGuests(e.target.value)}
+                />
+            </Col>
+          </Row>
           <br></br>
           <Row>
             <Col>

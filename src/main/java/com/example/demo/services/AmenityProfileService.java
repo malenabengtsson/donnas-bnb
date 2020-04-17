@@ -20,4 +20,8 @@ public class AmenityProfileService {
     public List<AmenityProfile> getAllAmenityProfiles(){
         return (List<AmenityProfile>) amenityProfileRepo.findAll();
     }
+
+    public AmenityProfile createAmenityProfile(AmenityProfile amenityProfile) {
+        return amenityProfileRepo.save(amenityProfile);
+    }
 }

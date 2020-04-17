@@ -24,4 +24,8 @@ public class AddressService {
     public List<Address> getByCity(String city){
         return addressRepo.findAllByCityContainingIgnoreCase(city);
     }
+
+    public Address createAddress(Address address){
+        return addressRepo.save(address);
+    }
 }
