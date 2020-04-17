@@ -8,8 +8,9 @@ import {UserContext} from "../contexts/UserContextProvider"
 
 const BookAsGuest = (props) => {
 
+  const { setUser } = useContext(UserContext)
+  const { appendUser } = useContext(UserContext)
   const {thisBooking, setThisBooking} = useContext(BookingContext)
-  const {appendUser} = useContext(UserContext)
   const {appendResidence} = useContext(ResidenceContext)
   const [residence, setResidence] = useState(null)
   const [full_name, setFullName] = useState(null)
@@ -21,6 +22,8 @@ const BookAsGuest = (props) => {
      let {id} = useParams()
 
     const getResidence = async () => {
+
+      
 
      // let id = props.match.params.id
       let res = await fetch('/rest/residences/' + id)
@@ -46,38 +49,44 @@ const BookAsGuest = (props) => {
       console.log(props.date)
     },[props.date] )
 
-    setPassword(null)
+    
 
     const addUser = async (e) => {
       e.preventDefault()
   
-  
       const user = {
-        full_name, 
-        email,
-        password,
-        phone_number
+        id: 3,
+        full_name: full_name, 
+        email: email,
+        password: password,
+        phone_number: phone_number
+      }
+
+       //console.log(user)
+      let response = await fetch('/auth/register', {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(user)
+      })
+
+      try {
+          response = await response.json()
+          setUser(response)
+          console.log('hej ', response)
+      } catch {
+          console.log('Bad credentials')
       }
   
-      
-      // send new recipe to backend
-      let res = await fetch('/rest/users', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(user)
-      })
-      res = await res.json()
   
-      console.log('Recipe after:', res)
       
       // the recipe response has the incremented id,
       // and it's this recipe we want to add to our 
       // list, so we later can remove it by id
-      appendUser(res)
+      //appendUser(res)
   
-      setFullName('')
-      setEmail('')
-      setPhoneNumber('')
+      // setFullName('')
+      // setEmail('')
+      // setPhoneNumber('')
     }
 
 
@@ -126,7 +135,7 @@ const BookAsGuest = (props) => {
                        Totalt pris: {thisBooking.totalPrice}
                      </div>
 
-                     <Form>
+                     <Form onSubmit={addUser}>
                      <FormGroup>
                          <Input className="col-lg-4 col-sm-10 mx-auto" 
                          type="text" 
