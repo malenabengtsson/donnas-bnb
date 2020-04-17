@@ -48,7 +48,7 @@ const MyBooking = (props) => {
 
     return (
         <div style={divStyle}>
-        <h3 className="text-white" style={{margin: '15px'}}>Mina bokningar</h3>
+        <h3 style={{margin: '15px'}}>Mina bokningar</h3>
         {list()} 
         </div>
     )

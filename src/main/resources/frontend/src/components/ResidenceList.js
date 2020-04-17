@@ -127,7 +127,7 @@ function ResidenceList(props) {
     <div>
       {/* {gotoChoice && <Redirect to={"/residences/" + searchResult[0].sortedResidence.id} />} */}
       <Container>
-        <Form className="row" onSubmit={doSearch}>
+        <Form className="row search-field" onSubmit={doSearch}>
           <FormGroup className="col-5 mx-auto">
             <Input
               value={residence.searchFor.city}
@@ -145,7 +145,7 @@ function ResidenceList(props) {
               }
             />
           </FormGroup>
-          <Button onClick={doSearch} color="success" className="col-2">
+          <Button onClick={doSearch} color="success" className="col-2 search-button">
             Sök
           </Button>
         </Form>

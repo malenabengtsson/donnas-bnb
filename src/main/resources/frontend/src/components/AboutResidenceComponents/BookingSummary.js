@@ -75,7 +75,6 @@ const BookingSummary = (props) => {
         <>
             <p>{date}</p>
             <p>Totalt pris: {price} kr</p>
-            <Button className="btn btn-success">Reservera</Button>
         </>
     )
 }

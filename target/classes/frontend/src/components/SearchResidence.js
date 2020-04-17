@@ -27,8 +27,6 @@ export default function SearchResidence() {
   return (
     <div className="search-result">
       {gotoSearch && <Redirect to="/residences" />}
-      <Container>
-        <Card>
           <Form className="row" onSubmit={initSearch}>
             <FormGroup className="col-10 mx-auto">
               <Label for="city">Var</Label>
@@ -75,8 +73,7 @@ export default function SearchResidence() {
               Sök
             </Button>
           </Form>
-        </Card>
-      </Container>
+    
     </div>
   );
 }

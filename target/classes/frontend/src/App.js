@@ -48,8 +48,8 @@ function App() {
               <Route exact path="/sign-in" component={SignInPage} />
               <Route exact path="/sign-up" component={SignUpPage} />
             </main>
-            <Footer/>
           </Router>
+            <Footer/>
           </BookingContextProvider>
           </ResidenceContext.Provider>
           </UserContextProvider>

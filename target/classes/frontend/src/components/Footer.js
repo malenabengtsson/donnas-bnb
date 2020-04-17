@@ -11,21 +11,21 @@ const Footer = () => {
         bottom: "0",
         height: "53px",
         width: "100%",
+        
     }
     
-    var phantom = {
-      display: 'block',
-      padding: '20px',
-      height: '60px',
-      width: '100%',
-    }
+    // var phantom = {
+    //   display: 'block',
+    //   padding: '20px',
+    //   height: '60px',
+    //   width: '100%',
+    // }
 
     return (
         <footer className="container-fluid mt-4" style={style}>
             <Row>
                 <Col cs="12" className="bg-success text-light p-3 text-center">
                     Donna's Bnb
-                    {/* Hello m8 how you doin. */}
                 </Col>
             </Row>
         </footer>

@@ -48,7 +48,7 @@ const UserPage = (props) => {
 
     return (
         <>
-        <h1 className="text-white text-center">{fullName}</h1>
+        <h1 className="text-center">{fullName}</h1>
         <MyBookings usrBookings={sendToChild}/>
     
         </>

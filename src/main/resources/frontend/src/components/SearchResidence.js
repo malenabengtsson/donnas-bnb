@@ -40,7 +40,7 @@ export default function SearchResidence() {
             {/* <FormGroup className="col-lg-3 col-sm-10 mx-auto">
             <Label for="check-in">Incheckning</Label>
           </FormGroup> */}
-            <FormGroup className="col-lg-5 col-sm-10 mx-auto">
+            {/* <FormGroup className="col-lg-5 col-sm-10 mx-auto">
               <Label for="check-in">Incheckning</Label>
               <DatePicker
                 id="check-in"
@@ -54,7 +54,7 @@ export default function SearchResidence() {
             {/* <FormGroup className="col-lg-2 col-sm-10 mx-auto">
             <Label for="check-out">Utcheckning</Label>
           </FormGroup> */}
-            <FormGroup className="col-lg-5 col-sm-10 mx-auto">
+            {/* <FormGroup className="col-lg-5 col-sm-10 mx-auto">
               <Label for="check-out">Utcheckning</Label>
               <DatePicker
                 id="check-out"
@@ -64,7 +64,7 @@ export default function SearchResidence() {
                 value={checkOut}
                 dateFormat="dd/MM/yyyy"
               />
-            </FormGroup>
+            </FormGroup> } */}
             <Button
               onClick={initSearch}
               color="success"

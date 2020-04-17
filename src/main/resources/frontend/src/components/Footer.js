@@ -6,11 +6,13 @@ const Footer = () => {
     var style = {
         textAlign: "center",
         padding: "0px",
-        position: "fixed",
+        // position: "fixed",
         left: "0",
         bottom: "0",
         height: "53px",
         width: "100%",
+        flex: "1"
+        
     }
     
     // var phantom = {
@@ -25,7 +27,6 @@ const Footer = () => {
             <Row>
                 <Col cs="12" className="bg-success text-light p-3 text-center">
                     Donna's Bnb
-                    {/* Hello m8 how you doin. */}
                 </Col>
             </Row>
         </footer>

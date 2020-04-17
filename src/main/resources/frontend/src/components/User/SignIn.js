@@ -22,6 +22,7 @@ const SignIn = (props) => {
   const divStyle = {
     textAlign: "center",
     margin: "15px",
+    backgroundColor: "rgb(245, 245, 220)",
   };
 
   const springLogin = async (e) => {

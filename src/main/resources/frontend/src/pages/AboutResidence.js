@@ -8,6 +8,8 @@ import NumberOfBeds from '../components/AboutResidenceComponents/NumberOfBeds'
 import DescriptionOfHouse from '../components/AboutResidenceComponents/DescriptionOfHouse'
 import ResidenceAmenity from '../components/AboutResidenceComponents/ResidenceAmenity'
 import CalendarForBooking from '../components/AboutResidenceComponents/CalendarForBooking'
+import AdvertiserInformation from '../components/AboutResidenceComponents/AdvertiserInformation'
+
 
 
 const AboutResidence = () => {

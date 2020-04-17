@@ -9,15 +9,17 @@ import {
     Input, 
     Card} from 'reactstrap';
 import { UserContext } from '../../contexts/UserContextProvider'
+import { withRouter} from 'react-router-dom'
 
-const SignUp = () => {
+const SignUp = (props) => {
     const [firstName, setFirstName] = useState('')
     const [lastName, setLastName] = useState('')
     const [phoneNumber, setPhoneNumber] = useState('')
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
 
-    const { setUser } = useContext(UserContext)
+  const { setUser } = useContext(UserContext)
+
 
     const register = async (e) =>{
         e.preventDefault()
@@ -44,13 +46,13 @@ const SignUp = () => {
 
         try {
             response = await response.json()
-            setUser(response)
-            console.log('hej')
+          setUser(response)
         } catch {
             console.log('Bad credentials')
         }
         
-    }
+  }
+ 
 
     const cardStyle = {
       textAlign: "center",
@@ -146,4 +148,4 @@ const SignUp = () => {
     )
 }
 
-export default SignUp
+export default withRouter(SignUp)
