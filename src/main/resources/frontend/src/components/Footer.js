@@ -13,12 +13,12 @@ const Footer = () => {
         width: "100%",
     }
     
-    var phantom = {
-      display: 'block',
-      padding: '20px',
-      height: '60px',
-      width: '100%',
-    }
+    // var phantom = {
+    //   display: 'block',
+    //   padding: '20px',
+    //   height: '60px',
+    //   width: '100%',
+    // }
 
     return (
         <footer className="container-fluid mt-4" style={style}>

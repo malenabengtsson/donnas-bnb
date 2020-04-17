@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react'
-import { Button, Form, FormGroup, Label, Input, FormText, Col, Row, Container } from 'reactstrap';
+import { Button, Form, FormGroup, Label, Input, Card, Container } from 'reactstrap';
 import { ResidenceContext } from '../contexts/ResidenceContextProvider'
 import DatePicker from 'react-datepicker'
 import { Redirect } from 'react-router-dom'
@@ -25,56 +25,55 @@ export default function SearchResidence() {
 
 
   return (
-    <div>
+    <div className="search-result">
       {gotoSearch && <Redirect to="/residences" />}
-      <Container>
-        <Form className="row"
-          onSubmit={initSearch}>
-          <FormGroup className="col-10 mx-auto">
-            <Label for="city">Var</Label>
-            <Input
-              type="text"
-              id="city"
-              placeholder="Skriv en stad..."
-              onChange={e => setCity(e.target.value)}
-            />
-          </FormGroup>
-          <FormGroup className="col-lg-5 mx-auto">
-            <Label for="check-in">Incheckning</Label>
-          </FormGroup>
-          <FormGroup className="col-lg-5 mx-auto">
-            <Label for="check-out">Utcheckning</Label>
+          <Form className="row" onSubmit={initSearch}>
+            <FormGroup className="col-10 mx-auto">
+              <Label for="city">Var</Label>
+              <Input
+                type="text"
+                id="city"
+                placeholder="Skriv en stad..."
+                onChange={(e) => setCity(e.target.value)}
+              />
             </FormGroup>
-          
-          <FormGroup className="col-lg-5 col-sm-10 mx-auto">
-            <DatePicker
-              id="check-in"
-              selected={checkIn}
-              onChange={date => setCheckIn(date)}
-              minDate={new Date()}
-              value={checkIn}
-              dateFormat="dd/MM/yyyy"
-            />
-          </FormGroup>
-          <FormGroup className="col-lg-5 col-sm-10 mx-auto">
-            
-            <DatePicker
-              id="check-out"
-              minDate={checkIn}
-              selected={checkOut}
-              onChange={date => setCheckOut(date)}
-              value={checkOut}
-              dateFormat="dd/MM/yyyy"
-            />
-          </FormGroup>
-          <Button
-            onClick={initSearch}
-            color="success"
-            className="col-5 mx-auto">Sök</Button>
-
-        </Form>
-      </Container>
+            {/* <FormGroup className="col-lg-3 col-sm-10 mx-auto">
+            <Label for="check-in">Incheckning</Label>
+          </FormGroup> */}
+            <FormGroup className="col-lg-5 col-sm-10 mx-auto">
+              <Label for="check-in">Incheckning</Label>
+              <DatePicker
+                id="check-in"
+                selected={checkIn}
+                onChange={(date) => setCheckIn(date)}
+                minDate={new Date()}
+                value={checkIn}
+                dateFormat="dd/MM/yyyy"
+              />
+            </FormGroup>
+            {/* <FormGroup className="col-lg-2 col-sm-10 mx-auto">
+            <Label for="check-out">Utcheckning</Label>
+          </FormGroup> */}
+            <FormGroup className="col-lg-5 col-sm-10 mx-auto">
+              <Label for="check-out">Utcheckning</Label>
+              <DatePicker
+                id="check-out"
+                minDate={checkIn}
+                selected={checkOut}
+                onChange={(date) => setCheckOut(date)}
+                value={checkOut}
+                dateFormat="dd/MM/yyyy"
+              />
+            </FormGroup>
+            <Button
+              onClick={initSearch}
+              color="success"
+              className="col-5 mx-auto"
+            >
+              Sök
+            </Button>
+          </Form>
+    
     </div>
-
-  )
+  );
 }

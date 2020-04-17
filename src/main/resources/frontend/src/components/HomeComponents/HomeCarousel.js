@@ -61,36 +61,48 @@ const HomeCarousel  = (props) => {
 
   const slides = images.map((image, i) => {
     return (
-      
-      <CarouselItem className="bigpicture"
-        onExiting={() => setAnimating(true)}
-        onExited={() => setAnimating(false)}
-        key={image.img_path + i}
-      >
-        <div className="imagesize">
-          <CardImg style={imgStyle}
-                  top
-                  width="100%"
-                  src={image.img_path}
-                  alt="Card image cap"
-                />
-            </div>
-      </CarouselItem>
      
+        <CarouselItem
+          className="bigpicture"
+          onExiting={() => setAnimating(true)}
+          onExited={() => setAnimating(false)}
+          key={image.img_path + i}
+        >
+          <div className="imagesize">
+            <CardImg
+              style={imgStyle}
+              top
+              width="100%"
+              src={image.img_path}
+              alt="Card image cap"
+            />
+          </div>
+        </CarouselItem>
+      
     );
   });
 
   return (
-    <Carousel
-      activeIndex={activeIndex}
-      next={next}
-      previous={previous}
-    >
-      <CarouselIndicators items={images} activeIndex={activeIndex} onClickHandler={goToIndex} />
-      {slides}
-      <CarouselControl direction="prev" directionText="Previous" onClickHandler={previous} />
-      <CarouselControl direction="next" directionText="Next" onClickHandler={next} />
-    </Carousel>
+    <div className="carousel-background">
+      <Carousel activeIndex={activeIndex} next={next} previous={previous}>
+        <CarouselIndicators
+          items={images}
+          activeIndex={activeIndex}
+          onClickHandler={goToIndex}
+        />
+        {slides}
+        <CarouselControl
+          direction="prev"
+          directionText="Previous"
+          onClickHandler={previous}
+        />
+        <CarouselControl
+          direction="next"
+          directionText="Next"
+          onClickHandler={next}
+        />
+      </Carousel>
+    </div>
   );
 }
 

@@ -50,7 +50,7 @@ const UserPage = (props) => {
         <>
         <h1 className="text-white text-center">{fullName}</h1>
         <MyBookings usrBookings={sendToChild}/>
-        <MyLeases usrLeases={'hello'} />      
+    
         </>
     )
 }

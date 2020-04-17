@@ -30,10 +30,11 @@ const MyBooking = (props) => {
 
     const list = () => {
         return props.usrBookings('Hello').map((booking, i) => {
+            console.log(booking)
             return (
                 <Card key={i} style={cardStyle}>
                 <Row style={rowStyle}>
-                    <img width="80px" height="80px" style={{margin: '20px'}} src={'https://icons.iconarchive.com/icons/artdesigner/urban-stories/256/House-icon.png'} alt="A house image" />
+                        <img width="100px" height="100px" style={{ margin: '20px' }} src={booking.residence_id.images[0].img_path} alt="A house image" />
                     <CardBody>
                         <CardText>Address: {booking.residence_id.address_id.street}</CardText>
                         <CardText>Datum: {booking.start_date} - {booking.end_date}</CardText>
