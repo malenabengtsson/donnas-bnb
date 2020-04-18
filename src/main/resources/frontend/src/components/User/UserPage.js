@@ -9,27 +9,30 @@ const UserPage = (props) => {
     const [fullName, setFullName] = useState('')
     const [bookings, setBookings] = useState([])
     const { user } = useContext(UserContext)
+    
 
     useEffect(() => {
         getName()
     })
 
     useEffect(() => {
-        getBookings()
-    })
+        console.log('Updated bookings')
+    }, [bookings])
+
 
     const getName = () => {
         if(fullName !== '') return
         if(user !== null){
             setFullName(user.full_name)
         }
+        getBookings()
         
     }
 
     const getBookings = async () => {
-        if(bookings && bookings.length){
-            return
-        }
+        // if(bookings && bookings.length){
+        //     return
+        // }
         if (user !== null){
             let arryOfUserBookings = []
             let res = await fetch('/rest/bookings')
@@ -60,7 +63,7 @@ const UserPage = (props) => {
         <>
         <h1 className="text-white text-center">{fullName}</h1>
         <MyBookings usrBookings={sendToChild}/>
-        <MyLeases usrLeases={'hello'} />
+        <MyLeases User={user} />
         <Button className="btn btn-success float-left" onClick={() => addResidenceForRental()} style={btnStyle}>Lägg till fastighet för uthyrning</Button>      
         </>
     )

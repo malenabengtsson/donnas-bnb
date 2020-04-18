@@ -5,7 +5,7 @@ import {UserContext} from '../../contexts/UserContextProvider'
 
 const MyBooking = (props) => {
     const { user } = useContext(UserContext)
-    
+    console.log(props.usrBookings);
 
     const cardStyle = {
         textAlign: "center",
@@ -48,7 +48,7 @@ const MyBooking = (props) => {
     return (
         <div style={divStyle}>
         <h3 className="text-white" style={{margin: '15px'}}>Mina bokningar</h3>
-        {list()} 
+            {list()} 
         </div>
     )
 }
