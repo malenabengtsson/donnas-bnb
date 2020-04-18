@@ -3,9 +3,7 @@ package com.example.demo.controllers;
 import com.example.demo.entities.Image;
 import com.example.demo.services.ImageService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -31,4 +29,10 @@ public class ImageController {
     public Image getOneImage(@PathVariable int id){
         return imageService.getOneImage(id);
     }
+
+    @PostMapping("/rest/images/")
+    public Image createNewImage(@RequestBody Image image){
+        return imageService.createImage(image);
+    }
+
 }

@@ -13,6 +13,9 @@ public class Residence implements Serializable{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
+//    @Transient
+//    public int userIdId;
+
     private int max_guests;
 
 
@@ -24,9 +27,9 @@ public class Residence implements Serializable{
    @JoinColumn
     private Address address_id;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn
-    private User user_id;
+//    @OneToOne(cascade = CascadeType.ALL)
+   // @JoinColumn
+    private int user_id;
 
     private int beds;
     private String description;
@@ -96,11 +99,11 @@ public class Residence implements Serializable{
         this.beds = beds;
     }
 
-    public User getUser_id() {
+    public int getUser_id() {
         return user_id;
     }
 
-    public void setUser_id(User user_id) {
+    public void setUser_id(int user_id) {
         this.user_id = user_id;
     }
 

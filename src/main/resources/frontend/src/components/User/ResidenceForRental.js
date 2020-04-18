@@ -57,7 +57,7 @@ const ResidenceForRental = (props) => {
     
 }
 
-  const filesChange = async (fileList) => {
+  const filesChange = async fileList => {
     // handle file changes
     const formData = new FormData();
 
@@ -74,12 +74,13 @@ const ResidenceForRental = (props) => {
     }).catch(console.warn);
 
     response = await response.json();
-
     images = response;
+    console.log(response)
   };
 
   const addRental = async (e) => {
     e.preventDefault();
+
 
     if (wifi === true) setWifi(1);
     if (tv === true) setTv(1);
@@ -106,13 +107,13 @@ const ResidenceForRental = (props) => {
       air_conditioner: airConditioner
     }
 
-    let amenityResponse = await fetch('/rest/amenityProfiles/', {
-      method: 'POST',
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(amenityObj)
-    })
+    // let amenityResponse = await fetch('/rest/amenityProfiles/', {
+    //   method: 'POST',
+    //   headers: { "Content-Type": "application/json" },
+    //   body: JSON.stringify(amenityObj)
+    // })
 
-    amenityResponse = await amenityResponse.json()
+    // amenityResponse = await amenityResponse.json()
 
     const addressObj = {
       street: street,
@@ -121,19 +122,20 @@ const ResidenceForRental = (props) => {
       city: city
     }
 
-    let addressResponse = await fetch('/rest/addresses/', {
-      method: 'POST',
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(addressObj)
-    })
+    // let addressResponse = await fetch('/rest/addresses/', {
+    //   method: 'POST',
+    //   headers: { "Content-Type": "application/json" },
+    //   body: JSON.stringify(addressObj)
+    // })
 
-    addressResponse = await addressResponse.json()
+    // addressResponse = await addressResponse.json()
+   
 
     let residenceObj = {
       max_guests: nrOfGuest,
-      amenity_profile_id_id: amenityResponse.id,
-      address_id_id: addressResponse.id,
-      user_id_id: userId,
+      amenity_profile_id: amenityObj,
+      address_id: addressObj,
+      user_id: user.id,
       description: description,
       beds: nrOfBeds,
       title: title,
@@ -146,10 +148,39 @@ const ResidenceForRental = (props) => {
       body: JSON.stringify(residenceObj)
     })
 
-    residenceResponse = residenceResponse.json()
+    residenceResponse = await residenceResponse.json()
 
     console.log(residenceResponse)
 
+    let imageObj = {
+      residence_id: await residenceResponse,
+      img_path: images[0]
+    };
+
+
+    let imageResponse = await fetch("/rest/images/", {
+      method: 'POST',
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(imageObj),
+    });
+
+    imageResponse = await imageResponse.json();
+
+ const availablePeriodsObj = {
+   residence_id: await residenceResponse,
+   start_date: startDate,
+   end_date: endDate
+ };
+
+ let availablePeriodsResponse = await fetch('/rest/availablePeriods/', {
+   method: 'POST',
+   headers: { "Content-Type": "application/json" },
+   body: JSON.stringify(availablePeriodsObj),
+ })
+   
+   availablePeriodsResponse = await availablePeriodsResponse.json();
+
+  
     
 
     // TODO append residence list
@@ -258,7 +289,7 @@ const ResidenceForRental = (props) => {
           </Row>
           <Col>
             <Row>
-             <Label>Address:</Label>
+              <Label>Address:</Label>
             </Row>
             <Row>
               <Label>Väg:</Label>
@@ -266,8 +297,8 @@ const ResidenceForRental = (props) => {
                 type="text"
                 required
                 value={street}
-                onChange={e => setStreet(e.target.value)}
-                />
+                onChange={(e) => setStreet(e.target.value)}
+              />
             </Row>
             <Row>
               <Label>Väg nummer:</Label>
@@ -275,17 +306,17 @@ const ResidenceForRental = (props) => {
                 type="text"
                 required
                 value={streetNumber}
-                onChange={e => setStreetNumber(e.target.value)}
-                />
+                onChange={(e) => setStreetNumber(e.target.value)}
+              />
             </Row>
             <Row>
-              <Label>Post nummer:</Label>
+              <Label>Postnummer:</Label>
               <Input
                 type="number"
                 required
                 value={zipCode}
-                onChange={e => setZipCode(e.target.value)}
-                />
+                onChange={(e) => setZipCode(e.target.value)}
+              />
             </Row>
             <Row>
               <Label>Stad:</Label>
@@ -293,8 +324,8 @@ const ResidenceForRental = (props) => {
                 type="text"
                 required
                 value={city}
-                onChange={e => setCity(e.target.value)}
-                />
+                onChange={(e) => setCity(e.target.value)}
+              />
             </Row>
           </Col>
           <br></br>
@@ -419,8 +450,8 @@ const ResidenceForRental = (props) => {
                 type="number"
                 required
                 value={nrOfBeds}
-                onChange={e => setNrOfBeds(e.target.value)}
-                />
+                onChange={(e) => setNrOfBeds(e.target.value)}
+              />
             </Col>
           </Row>
           <br></br>
@@ -431,8 +462,8 @@ const ResidenceForRental = (props) => {
                 type="number"
                 required
                 value={nrOfGuest}
-                onChange={e => setNrOfGuests(e.target.value)}
-                />
+                onChange={(e) => setNrOfGuests(e.target.value)}
+              />
             </Col>
           </Row>
           <br></br>
@@ -442,12 +473,20 @@ const ResidenceForRental = (props) => {
               <br></br>
               <Label>Från:</Label>
               <br></br>
-              <DatePicker selected={startDate} onChange={handleStartDate} />
+              <DatePicker
+                selected={startDate}
+                onChange={handleStartDate}
+                dateFormat="yyyy/MM/dd"
+              />
               <br></br>
               <br></br>
               <Label>Till:</Label>
               <br></br>
-              <DatePicker selected={endDate} onChange={handleEndDate} />
+              <DatePicker
+                selected={endDate}
+                onChange={handleEndDate}
+                dateFormat="yyyy/MM/dd"
+              />
             </Col>
           </Row>
           <br></br>
