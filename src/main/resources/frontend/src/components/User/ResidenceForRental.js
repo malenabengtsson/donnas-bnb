@@ -150,10 +150,8 @@ const ResidenceForRental = (props) => {
 
     residenceResponse = await residenceResponse.json()
 
-    console.log(residenceResponse)
-
     let imageObj = {
-      residence_id: await residenceResponse,
+      residenceId: await residenceResponse.id,
       img_path: images[0]
     };
 
