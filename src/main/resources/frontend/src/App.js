@@ -1,3 +1,4 @@
+import BookAsGuest from './pages/BookAsGuest';
     import 'bootstrap/dist/css/bootstrap.min.css';
     import './sass/style.scss'
     import Navbar from './components/Navbar'
@@ -40,13 +41,15 @@ function App() {
             <Navbar />
             <main>
               <Route exact path="/residences/:id"> <AboutResidence /></Route>
-              <Route exact path="/my-page/residence/:id/:bookingId"> <ModifiedAboutResidence /> </Route>
+              {/* <Route exact path="/my-page/residence/:id/:bookingId"> <ModifiedAboutResidence /> </Route> */}
               <Route exact path="/residences"> <ResidenceList /></Route>
               <Route exact path="/help"> <Help/></Route> 
               <Route exact path="/"><Home/></Route>
               <Route exact path="/my-page" component={MyPage} />
               <Route exact path="/sign-in" component={SignInPage} />
               <Route exact path="/sign-up" component={SignUpPage} />
+              <Route exact path="/book-as-guest/:id" component={BookAsGuest} />
+              {/* <Route exact path="residences/book-as-guest/:id"><BookAsGuest /></Route> */}
             </main>
           </Router>
             <Footer/>

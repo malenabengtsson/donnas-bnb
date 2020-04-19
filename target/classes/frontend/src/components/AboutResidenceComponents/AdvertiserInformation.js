@@ -6,14 +6,24 @@ const AdvertiserInformation = (props) => {
 
     const [information, setInformation] = useState()
 
+
     const getData = async () => {
         let res = await fetch('rest/residences/' + props.residenceId)
         res = await res.json()
-        setInformation(res.information)    
+        // setInformation(res.information)    
     }
+
+    const getUser = async () => {
+        let res = await fetch('/rest/users/')
+        res = await res.json()
+        console.log(res)
+    }
+
+    
 
     useEffect(() => {
         getData()
+        getUser()
     }, []) 
 
     return (

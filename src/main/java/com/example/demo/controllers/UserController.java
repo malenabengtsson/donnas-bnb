@@ -30,10 +30,10 @@ public class UserController {
         return userService.getOneUser(id);
     }
 
-    @PostMapping("/auth/register")
-    public User registerUser(@RequestBody User user) {
-        return userService.registerUser(user);
-    }
+   @PostMapping("/auth/register")
+   public User registerUser(@RequestBody User user) {
+       return userService.registerUser(user); }
+       
 
     @GetMapping("/auth/whoami")
     public User whoAmI() {
