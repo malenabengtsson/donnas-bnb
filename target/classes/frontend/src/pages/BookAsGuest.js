@@ -16,6 +16,7 @@ const BookAsGuest = (props) => {
   const [email, setEmail] = useState(null)
   const [password, setPassword] = useState(null)
   const [phone_number, setPhoneNumber] = useState(null)
+  console.log(thisBooking);
 
     //let id = props.residenceId
      let {id} = useParams()
@@ -61,6 +62,7 @@ const BookAsGuest = (props) => {
 
     response = await response.json()
 
+      
     console.log(response)
     appendBooking(response)
 
@@ -103,13 +105,13 @@ const BookAsGuest = (props) => {
                        {residence.address_id.zip_code}  {residence.address_id.city}
                      </div>
                      <div>
-                     {thisBooking.startDate} - {thisBooking.endDate}
+                     {thisBooking.start_date} - {thisBooking.end_date}
                      </div>
                      <div key={residence.price_per_night}>
                       Kostnad per natt: {residence.price_per_night}kr
                       </div>
                       <div>
-                       Totalt pris: {thisBooking.totalPrice}
+                       Totalt pris: {thisBooking.total_price}
                      </div>
 
               
