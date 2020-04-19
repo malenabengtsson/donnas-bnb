@@ -14,7 +14,7 @@ public class AvailablePeriod  {
     private String start_date;
     private String end_date;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.MERGE)
     @JoinColumn
     private Residence residence_id;
 

@@ -96,10 +96,10 @@ const BookingSummary = (props) => {
         console.log(residence)
         e.preventDefault()
         setThisBooking({
-            startDate: startDate,
-            endDate: endDate,
+            start_date: startDate,
+            end_date: endDate,
             residence_id: residence,
-            user_id: { id: user.id},
+            user_id: user,
             total_price: price
         })
         console.log(price)

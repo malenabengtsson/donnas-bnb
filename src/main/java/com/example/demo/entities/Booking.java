@@ -13,12 +13,12 @@ public class Booking  {
     private String start_date;
     private String end_date;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.MERGE)
     @JoinColumn
     private Residence residence_id;
     private int total_price;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.MERGE)
     @JoinColumn
     private User user_id;
 

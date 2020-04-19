@@ -53,8 +53,8 @@ const BookAsGuest = (props) => {
       e.preventDefault()
       console.log('In add booking')
 
-      let response = await fetch('/rest/bookings', {
-        method: "POST",
+      let response = await fetch('/rest/bookings/', {
+        method: 'POST',
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(thisBooking)
     })
