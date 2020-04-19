@@ -3,7 +3,8 @@ import { Button } from 'reactstrap'
 import BookingOptionsModal from '../BookingOptionsModal'
 import { withRouter, useHistory, Route, Redirect } from 'react-router-dom'
 import BookAsGuest from '../../pages/BookAsGuest'
-import {BookingContext} from "../../contexts/BookingContextProvider"
+import { BookingContext } from "../../contexts/BookingContextProvider"
+import { UserContext } from "../../contexts/UserContextProvider"
 
 
 
@@ -11,6 +12,7 @@ const BookingSummary = (props) => {
     const [residence, setResidence] = useState('')
     const [startShortDate, setStartShortDate] = useState('')
     const [endShortDate, setEndShortDate] = useState('')
+    const { isLoggedIn, user  } = useContext(UserContext);
   
 
     const calculatePrice = () => {
@@ -83,20 +85,22 @@ const BookingSummary = (props) => {
     const [endDate, setEndDate] = useState(getEndDate())
     const [date, setDate] = useState(getDate())
     const [price, setPrice] = useState(899)// useState(props.pricePerNight)
-    const {thisBooking, setThisBooking} = useContext(BookingContext)
+    const { thisBooking, setThisBooking } = useContext(BookingContext)
+    
 
     const [isModalOpen, setIsModalOpen] = useState(false)
     const [openBaG, setOpenBaG] = useState(false)
 
     const toggle = () => setIsModalOpen(!isModalOpen)
     const toggleBaG = (e) => {
+        console.log(residence)
         e.preventDefault()
         setThisBooking({
             startDate: startDate,
             endDate: endDate,
-            residenceId:props.residenceId,
-            userId: null,
-            totalPrice: price
+            residence_id: residence,
+            user_id: { id: user.id},
+            total_price: price
         })
         console.log(price)
      setOpenBaG(!openBaG)
@@ -122,32 +126,50 @@ const BookingSummary = (props) => {
         update()
     })
 
+    const goToLoginPage = () => {
+        props.history.push("/sign-in")
+    }
+
 
     return (
-        <>
-        
-          {/* <> 
+      <>
+        {/* <> 
         
               {props.history.push('/book-as-guest/' + props.residenceId)} 
              
              </>  */}
-           
-           
-           
-           <p>{date}</p>
-            <p>Totalt pris: {price} kr</p>
-            <Button type="submit" className="btn btn-success" thisBooking={thisBooking} residenceId={props.residenceId} onClick={toggleBaG}>Reservera</Button>
-            {/* <BookingOptionsModal isOpen = {isModalOpen}  toggle={toggle} toggleBaG ={toggleBaG} startDate={props.startDate} /> */}
-            {/* {bookingDate.startDate ?
+
+        <p>{date}</p>
+        <p>Totalt pris: {price} kr</p>
+        {isLoggedIn ? (
+          <>
+            <Button
+              type="submit"
+              className="btn btn-success"
+              thisBooking={thisBooking}
+              residenceId={props.residenceId}
+              onClick={toggleBaG}
+            >
+              Reservera
+            </Button>
+          </>
+        ) : (
+          <Button
+            type="submit"
+            className="btn btn-success"
+            onClick={goToLoginPage}
+          >
+            Logga in först
+          </Button>
+        )}
+        {/* <BookingOptionsModal isOpen = {isModalOpen}  toggle={toggle} toggleBaG ={toggleBaG} startDate={props.startDate} /> */}
+        {/* {bookingDate.startDate ?
 
             (<BookAsGuest bookingDate={bookingDate} residenceId={props.residenceId} date={date} />)
             :''
             } */}
-            
-        
-        
-        </>
-    )
+      </>
+    );
 }
 
 export default withRouter(BookingSummary)
