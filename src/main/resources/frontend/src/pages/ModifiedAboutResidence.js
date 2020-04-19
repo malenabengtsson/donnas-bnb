@@ -22,10 +22,6 @@ const ModifiedAboutResidence = (props) => {
         let res = await fetch('/rest/residences/' + id)
         res = await res.json()
         setResidence(res)
-        console.log(res)
-        setTimeout(() => {
-            console.log(residence)
-        }, 50)
     }
 
     const getBooking = async () => {
@@ -85,7 +81,6 @@ const ModifiedAboutResidence = (props) => {
             </Row>
             <Row>
                 <Col className="text-center">
-                    {/* <CalendarForBooking residenceId={id} startingDate={setStartDate} endingDate={setEndDate} /> */}
                     <BookedResidence startDate={startDate} endDate={endDate} totalPrice={price}/>
                     <Button className="btn btn-success float-right" onClick={() => goBackToMyPage()}>Tillbaka</Button>
                 </Col>

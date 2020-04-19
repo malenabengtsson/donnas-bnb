@@ -1,7 +1,7 @@
 import React, { useState, useContext, useEffect } from "react";
 import { withRouter } from "react-router-dom";
 import { Card, Form, Row, Col } from "reactstrap";
-import { Button, FormGroup, Label, Input, FormText } from "reactstrap";
+import { Button, Label, Input } from "reactstrap";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import {UserContext} from '../../contexts/UserContextProvider'
@@ -19,7 +19,6 @@ const ResidenceForRental = (props) => {
   const [pool, setPool] = useState(false);
   const [freeParking, setFreeParking] = useState(false);
   const [airConditioner, setAirConditioner] = useState(false);
-  const [address, setAddress] = useState("");
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
   const [price, setPrice] = useState(0);
@@ -32,6 +31,7 @@ const ResidenceForRental = (props) => {
   const [city, setCity] = useState('')
 
   const { user } = useContext(UserContext)
+
   const [userId, setUserId] = useState(null)
 
   let images = [];
@@ -58,12 +58,10 @@ const ResidenceForRental = (props) => {
 }
 
   const filesChange = async fileList => {
-    // handle file changes
     const formData = new FormData();
 
     if (!fileList.length) return;
 
-    // append the files to FormData
     Array.from(Array(fileList.length).keys()).map((x) => {
       formData.append("files", fileList[x], fileList[x].name);
     });
@@ -79,6 +77,7 @@ const ResidenceForRental = (props) => {
   };
 
   const addRental = async (e) => {
+
     e.preventDefault();
 
 
@@ -93,7 +92,6 @@ const ResidenceForRental = (props) => {
     if (freeParking === true) setFreeParking(1);
     if (airConditioner === true) setAirConditioner(1);
 
-    // TODO address, dates and price
     const amenityObj = {
       wifi: wifi,
       tv: tv,
@@ -107,13 +105,6 @@ const ResidenceForRental = (props) => {
       air_conditioner: airConditioner
     }
 
-    // let amenityResponse = await fetch('/rest/amenityProfiles/', {
-    //   method: 'POST',
-    //   headers: { "Content-Type": "application/json" },
-    //   body: JSON.stringify(amenityObj)
-    // })
-
-    // amenityResponse = await amenityResponse.json()
 
     const addressObj = {
       street: street,
@@ -122,14 +113,6 @@ const ResidenceForRental = (props) => {
       city: city
     }
 
-    // let addressResponse = await fetch('/rest/addresses/', {
-    //   method: 'POST',
-    //   headers: { "Content-Type": "application/json" },
-    //   body: JSON.stringify(addressObj)
-    // })
-
-    // addressResponse = await addressResponse.json()
-   
 
     let residenceObj = {
       max_guests: nrOfGuest,
@@ -176,31 +159,12 @@ const ResidenceForRental = (props) => {
    body: JSON.stringify(availablePeriodsObj),
  })
    
-   availablePeriodsResponse = await availablePeriodsResponse.json();
-
-  
+    availablePeriodsResponse = await availablePeriodsResponse.json();
     
+    props.history.push("/")
 
-    // TODO append residence list
-    //  clearInputFields();
-
-    // props.history.push("/");
   };
 
-  const clearInputFields = () => {
-    setTitle("");
-    setDescription("");
-    setWifi(false);
-    setTv(false);
-    setShower(false);
-    setBathtub(false);
-    setBalcony(false);
-    setWashingMachine(false);
-    setKitchen(false);
-    setPool(false);
-    setFreeParking(false);
-    setAirConditioner(false);
-  };
 
   const handleStartDate = (date) => {
     setStartDate(date);
@@ -209,59 +173,12 @@ const ResidenceForRental = (props) => {
   const handleEndDate = (date) => {
     setEndDate(date);
   };
-
-  let monthNames = [
-    "Januari",
-    "Februari",
-    "Mars",
-    "April",
-    "Maj",
-    "Juni",
-    "Juli",
-    "Augusti",
-    "September",
-    "Oktober",
-    "November",
-    "December",
-  ];
-
-  const getDateAsText = () => {
-    let startDateText =
-      startDate.getDay() +
-      " " +
-      monthNames[startDate.getMonth()] +
-      " " +
-      startDate.getFullYear();
-
-    let endDateText =
-      endDate.getDay() +
-      " " +
-      monthNames[endDate.getMonth()] +
-      " " +
-      endDate.getFullYear();
-
-    return startDateText + " - " + endDateText;
-  };
-
+  
   return (
     <Card style={cardStyle}>
       <div style={divStyle}>
         <h1 className="text-center">Lägg till bostad</h1>
         <Form onSubmit={addRental}>
-          <Row>
-            <Col>
-              <Label>Ladda upp bilder:</Label>
-              <Input
-                required
-                type="file"
-                name="file"
-                id="upload-image-input"
-                accept=".png,.jpg,.jpeg,.gif,.bmp,.jfif"
-                multiple
-                onChange={(e) => filesChange(e.target.files)}
-              />
-            </Col>
-          </Row>
           <br></br>
           <Row>
             <Col>
@@ -271,6 +188,7 @@ const ResidenceForRental = (props) => {
                 type="text"
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
+                placeholder="Ange rubrik"
               />
             </Col>
           </Row>
@@ -287,24 +205,23 @@ const ResidenceForRental = (props) => {
           </Row>
           <Col>
             <Row>
-              <Label>Address:</Label>
-            </Row>
-            <Row>
-              <Label>Väg:</Label>
+              <Label>Adress:</Label>
               <Input
                 type="text"
                 required
                 value={street}
                 onChange={(e) => setStreet(e.target.value)}
+                placeholder="Ange boendets adress"
               />
             </Row>
             <Row>
-              <Label>Väg nummer:</Label>
+              <Label>Hus/lägenhetsnummer:</Label>
               <Input
                 type="text"
                 required
                 value={streetNumber}
                 onChange={(e) => setStreetNumber(e.target.value)}
+                placeholder="Ange hus/lägenhetsnummer"
               />
             </Row>
             <Row>
@@ -314,6 +231,7 @@ const ResidenceForRental = (props) => {
                 required
                 value={zipCode}
                 onChange={(e) => setZipCode(e.target.value)}
+                placeholder="Ange postnummer"
               />
             </Row>
             <Row>
@@ -323,6 +241,7 @@ const ResidenceForRental = (props) => {
                 required
                 value={city}
                 onChange={(e) => setCity(e.target.value)}
+                placeholder="Ange stad"
               />
             </Row>
           </Col>
@@ -332,7 +251,7 @@ const ResidenceForRental = (props) => {
             <Row>
               <Label>
                 <Input
-                  type="radio"
+                  type="checkbox"
                   name="wifi-check"
                   value={wifi}
                   onChange={(e) => setWifi(!wifi)}
@@ -343,7 +262,7 @@ const ResidenceForRental = (props) => {
             <Row>
               <Label>
                 <Input
-                  type="radio"
+                  type="checkbox"
                   name="tv-check"
                   value={tv}
                   onChange={(e) => setTv(!tv)}
@@ -354,7 +273,7 @@ const ResidenceForRental = (props) => {
             <Row>
               <Label>
                 <Input
-                  type="radio"
+                  type="checkbox"
                   name="shower-check"
                   value={shower}
                   onChange={(e) => setShower(!shower)}
@@ -365,7 +284,7 @@ const ResidenceForRental = (props) => {
             <Row>
               <Label>
                 <Input
-                  type="radio"
+                  type="checkbox"
                   name="bathtub-check"
                   value={bathtub}
                   onChange={(e) => setBathtub(!bathtub)}
@@ -376,7 +295,7 @@ const ResidenceForRental = (props) => {
             <Row>
               <Label>
                 <Input
-                  type="radio"
+                  type="checkbox"
                   name="balcony-check"
                   value={balcony}
                   onChange={(e) => setBalcony(!balcony)}
@@ -387,7 +306,7 @@ const ResidenceForRental = (props) => {
             <Row>
               <Label>
                 <Input
-                  type="radio"
+                  type="checkbox"
                   name="washing-machine-check"
                   value={washingMachine}
                   onChange={(e) => setWashingMachine(!washingMachine)}
@@ -398,7 +317,7 @@ const ResidenceForRental = (props) => {
             <Row>
               <Label>
                 <Input
-                  type="radio"
+                  type="checkbox"
                   name="kitchen-check"
                   value={kitchen}
                   onChange={(e) => setKitchen(!kitchen)}
@@ -409,7 +328,7 @@ const ResidenceForRental = (props) => {
             <Row>
               <Label>
                 <Input
-                  type="radio"
+                  type="checkbox"
                   name="pool-check"
                   value={pool}
                   onChange={(e) => setPool(!pool)}
@@ -420,7 +339,7 @@ const ResidenceForRental = (props) => {
             <Row>
               <Label>
                 <Input
-                  type="radio"
+                  type="checkbox"
                   name="free-parking-check"
                   value={freeParking}
                   onChange={(e) => setFreeParking(!freeParking)}
@@ -431,7 +350,7 @@ const ResidenceForRental = (props) => {
             <Row>
               <Label>
                 <Input
-                  type="radio"
+                  type="checkbox"
                   name="air-conditioner-check"
                   value={airConditioner}
                   onChange={(e) => setAirConditioner(!airConditioner)}
@@ -449,6 +368,7 @@ const ResidenceForRental = (props) => {
                 required
                 value={nrOfBeds}
                 onChange={(e) => setNrOfBeds(e.target.value)}
+                placeholder="Ange antal sängar"
               />
             </Col>
           </Row>
@@ -461,6 +381,7 @@ const ResidenceForRental = (props) => {
                 required
                 value={nrOfGuest}
                 onChange={(e) => setNrOfGuests(e.target.value)}
+                placeholder="Ange antal gäster"
               />
             </Col>
           </Row>
@@ -489,10 +410,6 @@ const ResidenceForRental = (props) => {
           </Row>
           <br></br>
           <Row>
-            <Col>{getDateAsText()}</Col>
-          </Row>
-          <br></br>
-          <Row>
             <Col>
               <Label>Pris per natt:</Label>
               <Input
@@ -500,6 +417,7 @@ const ResidenceForRental = (props) => {
                 type="number"
                 value={price}
                 onChange={(e) => setPrice(e.target.value)}
+                placeholder="Ange pris per natt"
               />
             </Col>
           </Row>
@@ -509,10 +427,26 @@ const ResidenceForRental = (props) => {
               <p>Pris efter avgifter: {price * 1.15}</p>
             </Col>
           </Row>
+          <Row>
+            <Col>
+              <Label>Ladda upp bilder:</Label>
+              <Input
+                required
+                type="file"
+                name="file"
+                id="upload-image-input"
+                accept=".png,.jpg,.jpeg,.gif,.bmp,.jfif"
+                multiple
+                onChange={(e) => filesChange(e.target.files)}
+              />
+            </Col>
+          </Row>
           <br></br>
           <Col>
             <Row>
-              <Button className="btn btn-success">Lägg till fastighet</Button>
+              <Button type="submit" className="btn btn-success">
+                Lägg till fastighet
+              </Button>
             </Row>
           </Col>
         </Form>

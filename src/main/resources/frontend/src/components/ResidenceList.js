@@ -21,14 +21,13 @@ let arrayToMap = [];
 function ResidenceList(props) {
   const [residence, updateResidence] = useContext(ResidenceContext);
   const [searchResult, setSearchResult] = useState([]);
-  // const residencesArray = [];
+
   const [residenceArray, setResidenceArray] = useState([]);
   const { residences, fetchResidences } = useContext(ResidenceContext);
   const [images, setImage] = useState([]);
   const [gotoChoice, setGotoChoice] = useState(false);
 
-  // Listen for updates to residence
-  // (right now made by SearchResidence...)
+
   useEffect(() => {
     getResidences();
   }, []);
@@ -42,7 +41,6 @@ function ResidenceList(props) {
     if (!searchFor) {
       return;
     }
-    console.log(searchFor.city);
 
     if (searchFor.city == "" || searchFor.city == undefined) {
     } else {
@@ -125,7 +123,6 @@ function ResidenceList(props) {
 
   return (
     <div>
-      {/* {gotoChoice && <Redirect to={"/residences/" + searchResult[0].sortedResidence.id} />} */}
       <Container>
         <Form className="row search-field" onSubmit={doSearch}>
           <FormGroup className="col-5 mx-auto">

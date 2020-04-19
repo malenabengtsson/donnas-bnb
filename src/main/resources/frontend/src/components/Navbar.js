@@ -5,8 +5,7 @@ import {
   NavbarToggler,
   NavbarBrand,
   Nav,
-  NavItem,
-  Button
+  NavItem
 } from "reactstrap";
 import { Link } from 'react-router-dom'
 import { UserContext } from '../contexts/UserContextProvider'

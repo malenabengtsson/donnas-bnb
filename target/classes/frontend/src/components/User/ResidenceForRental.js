@@ -5,6 +5,7 @@ import { Button, FormGroup, Label, Input, FormText } from "reactstrap";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import {UserContext} from '../../contexts/UserContextProvider'
+import { RentalContext } from '../../contexts/RentalContextProvider'
 
 const ResidenceForRental = (props) => {
   const [title, setTitle] = useState("");
@@ -32,6 +33,7 @@ const ResidenceForRental = (props) => {
   const [city, setCity] = useState('')
 
   const { user } = useContext(UserContext)
+
   const [userId, setUserId] = useState(null)
 
   let images = [];
@@ -178,8 +180,7 @@ const ResidenceForRental = (props) => {
    
    availablePeriodsResponse = await availablePeriodsResponse.json();
 
-  
-    
+
 
     // TODO append residence list
     //  clearInputFields();
@@ -248,20 +249,6 @@ const ResidenceForRental = (props) => {
       <div style={divStyle}>
         <h1 className="text-center">Lägg till bostad</h1>
         <Form onSubmit={addRental}>
-          <Row>
-            <Col>
-              <Label>Ladda upp bilder:</Label>
-              <Input
-                required
-                type="file"
-                name="file"
-                id="upload-image-input"
-                accept=".png,.jpg,.jpeg,.gif,.bmp,.jfif"
-                multiple
-                onChange={(e) => filesChange(e.target.files)}
-              />
-            </Col>
-          </Row>
           <br></br>
           <Row>
             <Col>
@@ -510,9 +497,26 @@ const ResidenceForRental = (props) => {
             </Col>
           </Row>
           <br></br>
+          <Row>
+            <Col>
+              <Label>Ladda upp bilder:</Label>
+              <Input
+                required
+                type="file"
+                name="file"
+                id="upload-image-input"
+                accept=".png,.jpg,.jpeg,.gif,.bmp,.jfif"
+                multiple
+                onChange={(e) => filesChange(e.target.files)}
+              />
+            </Col>
+          </Row>
+          <br></br>
           <Col>
             <Row>
-              <Button className="btn btn-success">Lägg till fastighet</Button>
+              <Button type="submit" className="btn btn-success">
+                Lägg till fastighet
+              </Button>
             </Row>
           </Col>
         </Form>

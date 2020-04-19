@@ -1,21 +1,15 @@
-import React, { useState, useContext, useEffect} from 'react';
+import React, { useState, useEffect} from 'react';
 import {
   Carousel,
   CarouselItem,
   CarouselControl,
   CarouselIndicators,
-  CarouselCaption,
-  CardImg,
-  Row,
-  Col
+  CardImg
 } from 'reactstrap';
 import { withRouter } from 'react-router-dom'
 
-import { ResidenceContext } from '../../contexts/ResidenceContextProvider'
-
 
 const HomeCarousel  = (props) => {
-  const { residences } = useContext(ResidenceContext)
   const [images, setImages] = useState([])
 
   const getImages = async () => {
@@ -26,7 +20,6 @@ const HomeCarousel  = (props) => {
         arryOfImages.push(image)
     })
     setImages(arryOfImages)
-    console.log(arryOfImages)
   }
 
   const gotoResidence = id => {

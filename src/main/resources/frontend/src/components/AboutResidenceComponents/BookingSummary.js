@@ -1,8 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react'
 import { Button } from 'reactstrap'
-import BookingOptionsModal from '../BookingOptionsModal'
-import { withRouter, useHistory, Route, Redirect } from 'react-router-dom'
-import BookAsGuest from '../../pages/BookAsGuest'
+import { withRouter} from 'react-router-dom'
 import { BookingContext } from "../../contexts/BookingContextProvider"
 import { UserContext } from "../../contexts/UserContextProvider"
 
@@ -10,8 +8,6 @@ import { UserContext } from "../../contexts/UserContextProvider"
 
 const BookingSummary = (props) => {
     const [residence, setResidence] = useState('')
-    const [startShortDate, setStartShortDate] = useState('')
-    const [endShortDate, setEndShortDate] = useState('')
     const { isLoggedIn, user  } = useContext(UserContext);
   
 
@@ -41,8 +37,7 @@ const BookingSummary = (props) => {
         let res = await fetch('/rest/residences/' + props.residenceId)
         res = await res.json()
         setResidence(res)
-        console.log(res)
-      //  return res
+       
     }
 
     useEffect(() => {
@@ -80,7 +75,7 @@ const BookingSummary = (props) => {
         return endShortDate
     }
 
-    console.log(getDate())
+    
     const [startDate, setStartDate] = useState(getStartDate())
     const [endDate, setEndDate] = useState(getEndDate())
     const [date, setDate] = useState(getDate())
@@ -93,7 +88,6 @@ const BookingSummary = (props) => {
 
     const toggle = () => setIsModalOpen(!isModalOpen)
     const toggleBaG = (e) => {
-        console.log(residence)
         e.preventDefault()
         setThisBooking({
             start_date: startDate,
@@ -102,7 +96,6 @@ const BookingSummary = (props) => {
             user_id: user,
             total_price: price
         })
-        console.log(price)
      setOpenBaG(!openBaG)
        props.history.push('/book-as-guest/' + props.residenceId)
     }
@@ -113,12 +106,11 @@ const BookingSummary = (props) => {
         
         setDate(getDate())
         setStartDate(getStartDate())
-        setEndDate(getStartDate())
+        setEndDate(getEndDate())
         setPrice(calculatePrice)
     }
 
     useEffect(() => {
-        console.log(thisBooking)
 
     },[thisBooking])
 

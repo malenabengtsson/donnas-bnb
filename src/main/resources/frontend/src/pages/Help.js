@@ -1,6 +1,5 @@
-import React, { useState } from "react";
-import { UncontrolledCollapse, Button, CardBody, Card, Row } from "reactstrap";
-import { Redirect } from "react-router-dom";
+import React from "react";
+import { UncontrolledCollapse, Button, CardBody, Card } from "reactstrap";
 import { Link } from "react-router-dom";
 
 const Help = () => {

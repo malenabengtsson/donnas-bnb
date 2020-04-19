@@ -1,5 +1,4 @@
 import React, { createContext, useState, useEffect } from 'react'
-import { useParams } from 'react-router-dom'
 
 export const UserContext = createContext()
 
@@ -21,7 +20,7 @@ const UserContextProvider = (props) => {
             setUser(res)
             setIsLoggedIn(true)
         }catch {
-            console.log('Not authenticated')
+        
         }
 
     }

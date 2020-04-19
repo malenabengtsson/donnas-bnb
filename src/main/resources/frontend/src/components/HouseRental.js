@@ -120,5 +120,3 @@ const HouseRental = () => {
 };
 
 export default HouseRental;
-
-// calendar npm = https://www.npmjs.com/package/react-calendar

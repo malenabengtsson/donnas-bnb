@@ -1,6 +1,6 @@
 import React, { useState, useContext, useEffect } from 'react'
 import {UserContext} from '../../contexts/UserContextProvider'
-import { withRouter, useParams } from 'react-router-dom'
+import { withRouter } from 'react-router-dom'
 import MyBookings from './MyBookings'
 import MyLeases from './MyLeases'
 import { Button } from 'reactstrap'
@@ -16,7 +16,6 @@ const UserPage = (props) => {
     })
 
     useEffect(() => {
-        console.log('Updated bookings')
     }, [bookings])
 
 
@@ -30,9 +29,7 @@ const UserPage = (props) => {
     }
 
     const getBookings = async () => {
-        // if(bookings && bookings.length){
-        //     return
-        // }
+
         if (user !== null){
             let arryOfUserBookings = []
             let res = await fetch('/rest/bookings')
@@ -63,12 +60,10 @@ const UserPage = (props) => {
         <>
         <h1 className="text-center">{fullName}</h1>
         <MyBookings usrBookings={sendToChild}/>
-        <MyLeases User={user} />
-        <Button className="btn btn-success float-left" onClick={() => addResidenceForRental()} style={btnStyle}>Lägg till fastighet för uthyrning</Button>      
+        <MyLeases />
+        <Button className="btn btn-success" onClick={() => addResidenceForRental()} style={btnStyle}>Lägg till fastighet för uthyrning</Button>      
         </>
     )
 }
 
 export default withRouter(UserPage)
-
-// if (bookings.length > 0)

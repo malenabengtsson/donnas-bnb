@@ -26,7 +26,6 @@ const HomeCarousel  = (props) => {
         arryOfImages.push(image)
     })
     setImages(arryOfImages)
-    console.log(arryOfImages)
   }
 
   const gotoResidence = id => {

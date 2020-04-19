@@ -4,9 +4,6 @@ import { Redirect } from "react-router-dom";
 import { UserContext } from '../../contexts/UserContextProvider' 
 import { withRouter } from 'react-router-dom'
 
-let throttle;
-
-
 const SignIn = (props) => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -41,7 +38,6 @@ const SignIn = (props) => {
     }else {
       fetchUser()
       props.history.push('/my-page')
-      // setGoToChoice(true)
     }
   }
 
@@ -60,7 +56,7 @@ const SignIn = (props) => {
               type="email"
               name="email"
               id="user-email"
-              placeholder="Skriv in din E-post"
+              placeholder="Ange e-post"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
             />
@@ -76,7 +72,7 @@ const SignIn = (props) => {
               type="password"
               name="password"
               id="user-password"
-              placeholder="Skriv in ett lösenord"
+              placeholder="Ange lösenord"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />

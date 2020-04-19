@@ -4,7 +4,6 @@ import {
   CarouselItem,
   CarouselControl,
   CarouselIndicators,
-  CarouselCaption,
   CardImg,
 } from 'reactstrap';
 
@@ -43,11 +42,6 @@ const Slideshow  = (props) => {
     setActiveIndex(newIndex);
   }
 
-  const imgStyle = {
-    margin: "10px",
-    border: "1px solid gray",
-    cursor: "pointer"
-  }
 
   const slides = images.map((image, i) => {
     return (
@@ -62,7 +56,7 @@ const Slideshow  = (props) => {
                   src={image.img_path}
                   alt="Card image cap"
                 />
-        {/* <img src={image.img_path} alt={'item.altText'} /> */}
+    
       </CarouselItem>
     );
   });
@@ -82,5 +76,3 @@ const Slideshow  = (props) => {
 }
 
 export default Slideshow ;
-
-// src={images[0]}

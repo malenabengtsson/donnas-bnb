@@ -2,7 +2,9 @@ package com.example.demo.services;
 
 import com.example.demo.entities.Address;
 import com.example.demo.entities.AvailablePeriod;
+import com.example.demo.entities.Residence;
 import com.example.demo.repositories.AvailablePeriodRepo;
+import com.example.demo.repositories.ImageRepo;
 import com.example.demo.repositories.ResidenceRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,6 +16,9 @@ public class AvailablePeriodService {
 
     @Autowired
     AvailablePeriodRepo availablePeriodRepo;
+
+    @Autowired
+    ImageRepo imageRepo;
 
     public AvailablePeriod getOnePeriod(int id) {
         return availablePeriodRepo.findById(id);

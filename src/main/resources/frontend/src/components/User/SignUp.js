@@ -47,6 +47,7 @@ const SignUp = (props) => {
         try {
             response = await response.json()
           setUser(response)
+          props.history.push("/sign-in")
         } catch {
             console.log('Bad credentials')
         }
@@ -78,7 +79,7 @@ const SignUp = (props) => {
                     type="text" 
                     name="first-name" 
                     id="user-first-name" 
-                    placeholder="Skriv in dit förnamn"
+                    placeholder="Skriv in ditt förnamn"
                     value={firstName} 
                     onChange={e => setFirstName(e.target.value)}
                     />
@@ -92,7 +93,7 @@ const SignUp = (props) => {
                     type="text" 
                     name="last-name" 
                     id="user-last-name" 
-                    placeholder="Skriv in dit efternamn" 
+                    placeholder="Skriv in ditt efternamn" 
                     value={lastName}
                     onChange={e => setLastName(e.target.value)}
                     />
@@ -106,7 +107,7 @@ const SignUp = (props) => {
                     type="number" 
                     name="phone-number" 
                     id="user-phone-number" 
-                    placeholder="Skriv in dit telefonnummer" 
+                    placeholder="Ange telefonnummer" 
                     value={phoneNumber}
                     onChange={e => setPhoneNumber(e.target.value)}
                     />
@@ -120,7 +121,7 @@ const SignUp = (props) => {
                 type="email" 
                 name="email" 
                 id="user-email" 
-                placeholder="Skriv in din E-post" 
+                placeholder="Ange e-post" 
                 value={email}
                 onChange={e => setEmail(e.target.value)}
                 />
@@ -134,7 +135,7 @@ const SignUp = (props) => {
                 type="password" 
                 name="password" 
                 id="user-password" 
-                placeholder="Skriv in ett lösenord" 
+                placeholder="Ange lösenord" 
                 value={password}
                 onChange={e => setPassword(e.target.value)}
                 />

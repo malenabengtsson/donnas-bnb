@@ -1,4 +1,4 @@
-import BookAsGuest from './pages/BookAsGuest';
+import BookAsGuest from './pages/ConfirmBooking';
     import 'bootstrap/dist/css/bootstrap.min.css';
     import './sass/style.scss'
     import Navbar from './components/Navbar'
@@ -8,18 +8,19 @@ import BookAsGuest from './pages/BookAsGuest';
       BrowserRouter as Router,
       Route
     } from 'react-router-dom'
-    import ResidenceContextProvider, { ResidenceContext } from './contexts/ResidenceContextProvider';
+    import { ResidenceContext } from './contexts/ResidenceContextProvider';
     import BookingContextProvider from './contexts/BookingContextProvider';
-    import UserContextProvider, { UserContext } from './contexts/UserContextProvider'
+    import UserContextProvider from './contexts/UserContextProvider'
     import ResidenceList from './components/ResidenceList';
-    import BookingList from './components/BookingList';
     import Home from './pages/Home'
     import SignUpPage from './pages/SignUpPage'
     import SignInPage from './pages/SignInPage'
     import MyPage from './pages/MyPage'
     import Help from './pages/Help'
     import ModifiedAboutResidence from './pages/ModifiedAboutResidence'
-    import ResidenecForRental from './components/User/ResidenceForRental'
+import ResidenceForRental from './components/User/ResidenceForRental'
+import AboutRental from './pages/AboutRental'
+    
 import React, { useState } from 'react';
 
 function App() {
@@ -35,31 +36,52 @@ function App() {
 
   return (
     <div className="App">
-    <UserContextProvider>
-      <ResidenceContext.Provider value={[val, updater]}>
-        <BookingContextProvider>
-          <Router>
-            <Navbar />
-            <main>
-              <Route exact path="/residences/:id"> <AboutResidence /></Route>
-              <Route exact path="/my-page/residence/:id/:bookingId"> <ModifiedAboutResidence /> </Route>
-              <Route exact path="/my-page/add-residence"> <ResidenecForRental /> </Route>
-              <Route exact path="/residences"> <ResidenceList /></Route>
-              <Route exact path="/help"> <Help/></Route> 
-              <Route exact path="/"><Home/></Route>
-              <Route exact path="/my-page" component={MyPage} />
-              <Route exact path="/sign-in" component={SignInPage} />
-              <Route exact path="/sign-up" component={SignUpPage} />
-              <Route exact path="/book-as-guest/:id" component={BookAsGuest} />
-              {/* <Route exact path="residences/book-as-guest/:id"><BookAsGuest /></Route> */}
-            </main>
-          </Router>
-            <Footer/>
+      <UserContextProvider>
+        <ResidenceContext.Provider value={[val, updater]}>
+          <BookingContextProvider>
+            <Router>
+              <Navbar />
+              <main>
+                <Route exact path="/residences/:id">
+                  <AboutResidence />
+                </Route>
+                <Route exact path="/my-page/residence/:id/:bookingId">
+                  <ModifiedAboutResidence />
+                </Route>
+                <Route exact path ="/my-page/rentals/:availablePeriodId/:id">
+                  <AboutRental/>
+                </Route>
+                <Route exact path="/my-page/add-residence">
+                
+                  <ResidenceForRental />
+                </Route>
+                <Route exact path="/residences">
+                  
+                  <ResidenceList />
+                </Route>
+                <Route exact path="/help">
+                  <Help />
+                </Route>
+                <Route exact path="/">
+                  <Home />
+                </Route>
+                <Route exact path="/my-page" component={MyPage} />
+                <Route exact path="/sign-in" component={SignInPage} />
+                <Route exact path="/sign-up" component={SignUpPage} />
+                <Route
+                  exact
+                  path="/book-as-guest/:id"
+                  component={BookAsGuest}
+                />
+                {/* <Route exact path="residences/book-as-guest/:id"><BookAsGuest /></Route> */}
+              </main>
+            </Router>
+            <Footer />
           </BookingContextProvider>
           </ResidenceContext.Provider>
-          </UserContextProvider>
-        </div>
-      );
+      </UserContextProvider>
+    </div>
+  );
     }
 
   export default App

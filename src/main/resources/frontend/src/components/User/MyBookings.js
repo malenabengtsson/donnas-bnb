@@ -1,11 +1,11 @@
-import React, { useContext } from 'react'
+import React, { useContext} from 'react'
 import { withRouter } from 'react-router-dom'
-import { Card, CardBody, CardTitle, CardText, Button, Col, Row } from 'reactstrap'
-import {UserContext} from '../../contexts/UserContextProvider'
+import { Card, CardBody, CardText, Button,  Row } from 'reactstrap'
+import { BookingContext } from '../../contexts/BookingContextProvider'
 
 const MyBooking = (props) => {
-    const { user } = useContext(UserContext)
-    console.log(props.usrBookings);
+    const { bookings } = useContext(BookingContext)
+    let startDate = new Date(props.usrBookings.start_date)
 
     const cardStyle = {
         textAlign: "center",
@@ -22,15 +22,12 @@ const MyBooking = (props) => {
     }
 
     const toResidencePage = (id, bookingId) => {
-      //  e.preventDefault()
-        //console.log(e)
 
         props.history.push('/my-page/residence/' + id + '/' + bookingId)
     } 
 
     const list = () => {
         return props.usrBookings('Hello').map((booking, i) => {
-            console.log(booking)
             return (
                 <Card key={i} style={cardStyle}>
                 <Row style={rowStyle}>
@@ -48,7 +45,7 @@ const MyBooking = (props) => {
 
     return (
         <div style={divStyle}>
-        <h3 className="text-white" style={{margin: '15px'}}>Mina bokningar</h3>
+        <h3 style={{margin: '15px'}}>Mina bokningar</h3>
             {list()} 
         </div>
     )

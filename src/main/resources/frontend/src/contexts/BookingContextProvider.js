@@ -4,7 +4,7 @@ export const BookingContext = createContext()
 
 export default function BookingContextProvider(props){
     const [bookings, setBookings] = useState([])
-    const [thisBooking,setThisBooking] = useState({
+    const [thisBooking, setThisBooking] = useState({
       startDate: null,
       endDate: null,
       residenceId:null,
